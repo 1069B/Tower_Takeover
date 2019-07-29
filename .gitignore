@@ -1,0 +1,14 @@
+# Ignore .vscode
+.vscode/
+
+# The hold cold versions of the code
+bin/
+
+#Compile Commands
+compile_commands.json
+
+#temp.log
+temp.log
+
+#project.pros
+#project.pros
