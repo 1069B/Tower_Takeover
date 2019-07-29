@@ -1,4 +1,4 @@
-#include "Tasks.h"
+#include "tasks.h"
 graphicalInterface gui = graphicalInterface("Home");
 Controller mainController = Controller(pros::E_CONTROLLER_MASTER);
 Controller partnerController = Controller(pros::E_CONTROLLER_PARTNER);
