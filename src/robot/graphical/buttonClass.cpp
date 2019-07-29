@@ -1,4 +1,4 @@
-#include "robot/Graphical/ButtonClass.h"
+#include "robot/graphical/buttonClass.h"
 
 Button::Button(PassInfo& info, std::string& nextScreenID):varible(*info.intPointer), nextScreenVar(nextScreenID){
   id = info.integer.at(0); // Id for the Button
