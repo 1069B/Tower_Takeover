@@ -1,15 +1,17 @@
+#include "main.h"
+
 #ifndef TIMERCLASS_H
 #define TIMERCLASS_H
 
   class Timer{
   private:
     int m_startTime;
+    int m_currentTime;
     int m_lastCheck;
-    int m_delay;
-    bool m_mode;
+    int m_nextFlag;
 
   public:
-    Timer(bool mode = false);
+    Timer(const bool mode = false);
 
     int resetTime();
 
@@ -17,6 +19,6 @@
 
     int timeElasped();//Check spelling
 
-    bool preformAction(int delay);
+    bool preformAction(const int delay);
   };
 #endif // TIMERCLASS_H
