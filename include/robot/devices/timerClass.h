@@ -17,7 +17,7 @@
 
     int getTime();
 
-    int timeElasped();//Check spelling
+    int timeElapsed();
 
     bool preformAction(const int delay);
   };

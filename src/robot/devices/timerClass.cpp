@@ -24,7 +24,7 @@ int Timer::getTime(){
   return m_currentTime;
 }
 
-int Timer::timeElasped(){
+int Timer::timeElapsed(){
   m_currentTime = pros::millis() - m_startTime;
   int tempTime = m_currentTime - m_lastCheck;
   m_lastCheck = m_currentTime;
