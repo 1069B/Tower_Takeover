@@ -1,4 +1,4 @@
-#include "robot/Graphical/GUIClass.h"
+#include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
 graphicalInterface::graphicalInterface(std::string startingScreen){

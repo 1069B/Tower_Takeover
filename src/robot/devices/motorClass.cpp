@@ -14,6 +14,7 @@ Motor::Motor(std::string theName, short input, pros::motor_gearset_e_t type, boo
 
   gui.addScreen(name);
   gui.addLabel(name, 200, 10, redText, name);
+  gui.addRectangle(name, 0, 0, 480, 40, whiteText);
 
   gui.addLabel(name, 20, 50, whiteText, "Desired Velocity: %d", &desiredVelocity);
   gui.addLabel(name, 20, 80, whiteText, "Actual Velocity: %d", (std::function<int()>)std::bind(&Motor::getVelocity, this));

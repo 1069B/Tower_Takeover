@@ -1,9 +1,9 @@
 #include "tasks.h"
-graphicalInterface gui = graphicalInterface("Home");
-Controller mainController = Controller(pros::E_CONTROLLER_MASTER);
-Controller partnerController = Controller(pros::E_CONTROLLER_PARTNER);
+graphicalInterface gui("Home");
+Controller mainController(pros::E_CONTROLLER_MASTER);
+Controller partnerController(pros::E_CONTROLLER_PARTNER);
 
-Motor motor_1 = Motor("Motor_1", 1, pros::E_MOTOR_GEARSET_18, false);
+Motor motor_1("Motor_1", 1, pros::E_MOTOR_GEARSET_18, false);
 int x =0;
 void initialize() {
   defineStyles();

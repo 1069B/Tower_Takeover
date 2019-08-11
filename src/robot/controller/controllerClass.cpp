@@ -25,6 +25,7 @@ Controller::Controller(pros::controller_id_e_t type):
   gui.addScreen(name);
   gui.addLabel(name, 75, 10, redText, name);
   gui.addLabel(name, 300, 10, redText, "Battery: %d%", (std::function<int()>) std::bind(&Controller::getBatteryCapacity, this));
+  gui.addRectangle(name, 0, 0, 480, 40, whiteText);
   // Col 1
   gui.addLabel(name, 10, 45, whiteText, "Button L1: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL1));
   gui.addLabel(name, 10, 65, whiteText, "Button L2: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL2));

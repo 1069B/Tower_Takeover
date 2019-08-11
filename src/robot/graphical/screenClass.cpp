@@ -60,6 +60,8 @@ void Screen::addRectangle(PassInfo& info){
 
 void Screen::draw(){
   lv_obj_set_style(lv_scr_act(), backGround);
+  for(int y = 0; y < rectArray.size(); y++)
+    rectArray.at(y)->draw();
   for(int y = 0; y < btnArray.size(); y++)
     btnArray.at(y)->draw(version);
 
@@ -71,9 +73,6 @@ void Screen::draw(){
 
   for(int y = 0; y < meterArray.size(); y++)
     meterArray.at(y)->draw();
-
-  for(int y = 0; y < rectArray.size(); y++)
-    rectArray.at(y)->draw();
 }
 void Screen::update(){
   for(int y = 0; y < btnArray.size(); y++)
