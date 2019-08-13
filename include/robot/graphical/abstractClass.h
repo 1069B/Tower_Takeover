@@ -28,7 +28,7 @@ protected:
   std::function<lv_style_t*()> lv_styleFunction;
 
   std::string format[6] = {"Blank", "Blank", "Blank", "Blank", "Blank", "Blank"};
-  int actionTime = 0;
+  Timer timer;
 };
 
 struct PassInfo{
