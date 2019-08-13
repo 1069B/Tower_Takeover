@@ -21,6 +21,8 @@
 
     int timeElapsed();
 
-    bool preformAction(const int delay);
+    bool preformAction();
+
+    int addActionDelay(const int delay);
   };
 #endif // TIMERCLASS_H

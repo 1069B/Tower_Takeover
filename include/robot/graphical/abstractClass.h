@@ -1,4 +1,5 @@
 #include "styles.h"
+#include "robot/devices/timerClass.h"
 
 #ifndef ABSTRACTGUI_H
 #define ABSTRACTGUI_H

@@ -35,13 +35,16 @@ int Timer::timeElapsed(){
   return tempTime;
 }
 
-bool Timer::preformAction(const int delay){
+bool Timer::preformAction(){
   m_currentTime = pros::millis() - m_startTime;
-  if(m_currentTime+1 > m_nextFlag){//Plus five for 1 millisec threshold
-    m_nextFlag = m_currentTime+delay;
+  if(m_currentTime+1 > m_nextFlag)//Plus five for 1 millisec threshold
     return true;
-  }
-  else{
+  else
     return false;
-  }
+}
+
+int Timer::addActionDelay(const int delay){
+  m_currentTime = pros::millis() - m_startTime;
+  m_nextFlag = m_currentTime + delay;
+  return 1;
 }

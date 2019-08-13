@@ -1,7 +1,7 @@
 #include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
-graphicalInterface::graphicalInterface(std::string startingScreen){
+graphicalInterface::graphicalInterface(std::string startingScreen):timer(false){
   nextScreenID = startingScreen;
   PassInfo info = PassInfo();
   info.string1 = "Blank";
@@ -184,15 +184,16 @@ void graphicalInterface::updateScreen(){
 }
 
 void graphicalInterface::task(){
-  if(actionTime < pros::millis() && nextScreenID != currentScreenID){// Makes the change of screen
+  if(timer.preformAction() && nextScreenID != currentScreenID){// Makes the change of screen
     updateScreen();
-    actionTime = pros::millis()+400;
+    timer.addActionDelay(400);
   }
 
   currentScreen->detect();
 
-  if(actionTime < pros::millis() && nextScreenID != currentScreenID)// Delay for Visual Button
-      actionTime = pros::millis()+100;
+  if(timer.preformAction() && nextScreenID != currentScreenID){// Delay for Visual Button
+    timer.addActionDelay(100);
+  }
 
   if(nextScreen->isRelation() && nextScreen->getInverse() && !nextScreen->getRelatedFunc()()){
     if(currentScreen == findScreen(currentScreenID)){
