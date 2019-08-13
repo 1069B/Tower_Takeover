@@ -17,6 +17,8 @@
 
     int getTime();
 
+    int getLastCheck();
+
     int timeElapsed();
 
     bool preformAction(const int delay);
