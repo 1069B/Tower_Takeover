@@ -1,6 +1,6 @@
 #include "robot/graphical/buttonClass.h"
 
-Button::Button(PassInfo& info, std::string& nextScreenID):varible(*info.intPointer), nextScreenVar(nextScreenID){
+Button::Button(PassInfo& info, std::string& nextScreenID):timer(false), varible(*info.intPointer), nextScreenVar(nextScreenID){
   id = info.integer.at(0); // Id for the Button
   xOrgin = info.integer.at(1); //Every thing is in realtion to the upper left coner
   yOrgin = info.integer.at(2);
@@ -42,7 +42,7 @@ void Button::remove() {
 }
 
 void Button::checkState(int btnVer){
-  if(state && timer.preformAction() < pros::millis()){
+  if(state && timer.preformAction()){
     lv_btn_state_t buttonState = lv_btn_get_state(obj1);
     if(buttonState == LV_BTN_STATE_PR){
       nextScreenVar = linkedScreenID[btnVer];
@@ -58,7 +58,7 @@ void Button::checkState(int btnVer){
 }
 
 bool Button::returnState(){
-  if(state && timer.preformAction() < pros::millis()){
+  if(state && timer.preformAction()){
     lv_btn_state_t buttonState = lv_btn_get_state(obj1);
     if(buttonState == LV_BTN_STATE_PR){
       timer.addActionDelay(500);
