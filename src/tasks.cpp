@@ -76,11 +76,14 @@ void opcontrol(){
     gui.task();
     mainController.callBackCheck();
 
-    //
-    getElapsed = timer1.timeElapsed();
-    time = timer1.getTime();
-    lastCheck = timer1.getLastCheck();
+    if(timer1.preformAction(500)){
+      getElapsed = timer1.timeElapsed();
+      time = timer1.getTime();
+      lastCheck = timer1.getLastCheck();
+    }
 
-    pros::delay(1);
+
+
+    pros::delay(100);
   }
 }

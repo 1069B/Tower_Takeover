@@ -37,7 +37,7 @@ int Timer::timeElapsed(){
 
 bool Timer::preformAction(const int delay){
   m_currentTime = pros::millis() - m_startTime;
-  if(m_currentTime > m_nextFlag){
+  if(m_currentTime+1 > m_nextFlag){//Plus five for 1 millisec threshold
     m_nextFlag = m_currentTime+delay;
     return true;
   }
