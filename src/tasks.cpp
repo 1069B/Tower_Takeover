@@ -1,18 +1,29 @@
 #include "tasks.h"
-graphicalInterface gui("Home");
+graphicalInterface gui("Timer1");
 Controller mainController(pros::E_CONTROLLER_MASTER);
 Controller partnerController(pros::E_CONTROLLER_PARTNER);
 
 Motor motor_1("Motor_1", 1, pros::E_MOTOR_GEARSET_18, false);
 int x =0;
+int a =0;
+
+Timer timer1(false);
+int time = 0;
+int getElapsed = 0;
+int lastCheck = 0;
+
 void initialize() {
   defineStyles();
   /*Create a simple base object*/
 
   gui.addScreen("Home");
   //gui.addLabel("Home", 20, 20, whiteText, "Motor_1 Connected: %b", (std::function<bool()>) std::bind(&Motor::isConnected, &motor_1));
-  gui.addButton("Home", 0, 150, 100, 150, 30);
-  gui.addButtonAction("Home", 0, "Motor 1", "Motor_1");
+  gui.addButton("Home", 0, 300, 100, 150, 30);
+  gui.addButtonAction("Home", 0, "Timer 1", "Timer1");
+
+  gui.addButton("Home", 4, 150, 100, 150, 30);
+  gui.addButtonAction("Home", 4, "Motor 1", "Motor_1");
+
   gui.addButton("Home", 1, 150, 150, 150, 30);
   gui.addButtonAction("Home", 1,"Main Controller", "Main Controller");
   gui.addButton("Home", 2, 50, 20, 150, 30, x);
@@ -28,6 +39,18 @@ void initialize() {
 
   mainController.Axis1.setMultiplier(2);
   mainController.ButtonA.setCallBack((std::function<void()>) std::bind(&Motor::resetRotation, &motor_1), 5000);
+
+
+
+  gui.addScreen("Timer1");
+  gui.addLabel("Timer1", 20, 20, whiteText, "Timer1: %d millis", &time);
+  gui.addLabel("Timer1", 20, 50, whiteText, "Timer1: %d elasped", &getElapsed);
+  gui.addLabel("Timer1", 20, 80, whiteText, "Timer1: %d lastCheck", &lastCheck);
+
+  gui.addLabel("Timer1", 20, 110, whiteText, "Calcs per sec %d", &a);
+
+  gui.addButton("Timer1", 0, 160, 200, 150, 20);
+  gui.addButtonAction("Timer1", 0,"Go Back", "Home");
 }
 
 void disabled() {
@@ -43,12 +66,21 @@ void autonomous() {
 }
 
 void opcontrol(){
+  while(pros::millis() < 1000){
+    gui.task();
+    mainController.callBackCheck();
+    a++;
+  }
+
   while(true){
     gui.task();
     mainController.callBackCheck();
 
-    //motor_1.setVoltage(mainController.Axis1.getPercent());
-    motor_1.setVelocity(mainController.Axis1.getPercent());
-    pros::delay(100);
+    //
+    getElapsed = timer1.timeElapsed();
+    time = timer1.getTime();
+    lastCheck = timer1.getLastCheck();
+
+    pros::delay(1);
   }
 }

@@ -1,6 +1,6 @@
 #include "robot/devices/timerClass.h"
 
-Timer::Timer(const bool mode){
+Timer::Timer(const bool mode){// False is system time
   if(mode){
     m_startTime = pros::millis();
     m_lastCheck = pros::millis();
