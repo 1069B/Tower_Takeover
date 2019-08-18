@@ -43,9 +43,8 @@ void initialize() {
 
 
   gui.addScreen("Timer1");
-  gui.addLabel("Timer1", 20, 20, whiteText, "Timer1: %d millis", &time);
-  gui.addLabel("Timer1", 20, 50, whiteText, "Timer1: %d elasped", &getElapsed);
-  gui.addLabel("Timer1", 20, 80, whiteText, "Timer1: %d lastCheck", &lastCheck);
+  gui.addLabel("Timer1", 20, 20, whiteText, "Timer1: %d millis", (std::function<int()>) std::bind(&Timer::getTime, &timer1));
+  gui.addLabel("Timer1", 20, 50, whiteText, "Timer1: %d lapTime", (std::function<int()>) std::bind(&Timer::lapTime, &timer1));
 
   gui.addLabel("Timer1", 20, 110, whiteText, "Calcs per sec %d", &a);
 
@@ -77,12 +76,11 @@ void opcontrol(){
     mainController.callBackCheck();
 
     if(timer1.preformAction()){
-      getElapsed = timer1.timeElapsed();
       time = timer1.getTime();
-      lastCheck = timer1.getLastCheck();
+      lastCheck = timer1.lapTime();
       timer1.addActionDelay(500);
     }
-    
+
     pros::delay(100);
   }
 }

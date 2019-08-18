@@ -7,7 +7,7 @@
   private:
     int m_startTime;
     int m_currentTime;
-    int m_lastCheck;
+    int m_previousLapTime;
     int m_nextFlag;
 
   public:
@@ -17,9 +17,7 @@
 
     int getTime();
 
-    int getLastCheck();
-
-    int timeElapsed();
+    int lapTime();
 
     bool preformAction();
 
