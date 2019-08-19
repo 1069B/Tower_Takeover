@@ -33,7 +33,7 @@ int Timer::lapTime(){
 
 bool Timer::preformAction(){
   m_currentTime = pros::millis() - m_startTime;
-  if(m_currentTime+2 >= m_nextFlag)//Plus one for 1 millisec threshold
+  if(m_currentTime+2 >= m_nextFlag)//Plus 2 for 2 millisec threshold
     return true;
   else
     return false;
