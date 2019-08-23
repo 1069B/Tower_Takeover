@@ -1,4 +1,5 @@
 #include "styles.h"
+#include "robot/devices/timerClass.h"
 
 #ifndef ABSTRACTGUI_H
 #define ABSTRACTGUI_H
@@ -27,7 +28,6 @@ protected:
   std::function<lv_style_t*()> lv_styleFunction;
 
   std::string format[6] = {"Blank", "Blank", "Blank", "Blank", "Blank", "Blank"};
-  int actionTime = 0;
 };
 
 struct PassInfo{
