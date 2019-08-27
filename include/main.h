@@ -81,4 +81,5 @@ void opcontrol(void);
 #include <iostream>
 #include <cstdarg>
 #include <functional>
+#include <fstream>
 #endif  // _PROS_MAIN_H_

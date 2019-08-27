@@ -14,6 +14,7 @@ int lastCheck = 0;
 
 void initialize() {
   defineStyles();
+  ExternalFile test = ExternalFile("Robot_Config.txt");
   /*Create a simple base object*/
 
   gui.addScreen("Home");
