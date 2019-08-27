@@ -14,7 +14,7 @@ int lastCheck = 0;
 
 void initialize() {
   defineStyles();
-  //ExternalFile test = ExternalFile("Robot.txt");
+  ExternalFile test = ExternalFile("Robot.txt");
 
   /*Create a simple base object*/
 
@@ -67,16 +67,6 @@ void autonomous() {
 }
 
 void opcontrol(){
-  std::fstream m_file;
-  m_file.open("1069B/config.csv", std::ios::out);
-  m_file << "Robot_Mode:= Debug" << std::endl;
-  m_file << "Competition_Mode:= Practice" << std::endl;
-  m_file << "Open_Last_Screen:= True" << std::endl;
-  m_file << "Last_Screen:= Home" << std::endl;
-
-  std::cout << "Default File Created" << std::endl;
-  m_file.close();
-
   while(pros::millis() < 1000){
     gui.task();
     mainController.callBackCheck();

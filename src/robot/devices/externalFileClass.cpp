@@ -1,7 +1,7 @@
 #include "externalFileClass.h"
 
 ExternalFile::ExternalFile(std::string address){
-    m_fileAddress = address;
+    m_fileAddress = "/usd/" + address;
     m_file.open(m_fileAddress, std::ios::in);
     if(m_file.is_open()){
         std::cout << "File Exists" << std::endl;
