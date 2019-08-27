@@ -1,6 +1,8 @@
 # Ignore .vscode
 .vscode/
 
+.DS_Store
+
 # The hold cold versions of the code
 bin/
 
