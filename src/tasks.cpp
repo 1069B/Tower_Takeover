@@ -68,8 +68,7 @@ void autonomous() {
 
 void opcontrol(){
   while(pros::millis() < 1000){
-    gui.task();
-    mainController.callBackCheck();
+    gui.task();// Function For Meaurement
     a++;
   }
 
