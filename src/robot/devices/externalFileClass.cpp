@@ -4,14 +4,11 @@ ExternalFile::ExternalFile(std::string address){
     m_fileAddress = "/usd/" + address;
     m_file.open(m_fileAddress, std::ios::in);
     if(m_file.is_open()){
-        std::cout << "File Exists" << std::endl;
         m_file.close();
     }
     else{
-        std::cout << "File Doesn't Exist" << std::endl;
         m_file.open(m_fileAddress, std::ios::out);
         m_file.close();
-        std::cout << "Default File Created" << std::endl;
     }
 }
 
