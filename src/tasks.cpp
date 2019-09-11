@@ -72,6 +72,16 @@ void opcontrol(){
     a++;
   }
 
+  ExternalFile file1 = ExternalFile("Robot_Info.txt");
+    
+  std::vector<std::string> vec;
+  vec.push_back("true");
+  vec.push_back("false");
+  vec.push_back("Schanker");
+  vec.push_back("Mizer");
+
+  file1.storeStringArray("Var1", vec);
+
   while(true){
     gui.task();
     mainController.callBackCheck();
