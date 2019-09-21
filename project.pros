@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "Cometition Code",
+        "project_name": "SD_Card-Class",
         "target": "v5",
         "templates": {
             "kernel": {
