@@ -53,8 +53,8 @@ void defineStyles(){
 
   //Red pressed style
   lv_style_copy(&redBtnPress, &redBtnRel);
-  redBtnPress.body.main_color = LV_COLOR_MARRON;
-  redBtnPress.body.grad_color = LV_COLOR_MARRON;
+  redBtnPress.body.main_color = LV_COLOR_MAROON;
+  redBtnPress.body.grad_color = LV_COLOR_MAROON;
 
   //Blue Rel style
   lv_style_copy(&blueBtnRel, &defaultBtnRel);
