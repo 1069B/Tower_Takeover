@@ -1,7 +1,7 @@
 #include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
-graphicalInterface::graphicalInterface(std::string startingScreen):timer(false), GUIStorage("Robot_Info.txt"){
+graphicalInterface::graphicalInterface(std::string startingScreen):timer(false), GUIStorage("GUI_Storage.txt"){
   if(GUIStorage.readBool("Open_Previous")){
     nextScreenID = GUIStorage.readString("Previous_Screen");
   }

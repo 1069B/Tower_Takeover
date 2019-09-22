@@ -83,6 +83,8 @@ int ExternalFile::storeInt(const std::string varibleName, const int varibleValue
 int ExternalFile::readInt(const std::string varibleName){
     std::string varibleTitle = varibleName + ":Int= ";
     std::string lineValue = readLine(varibleTitle);
+    if(lineValue == "Error")
+      return -1;
     return std::stoi(lineValue.substr(varibleTitle.size()));
 }
 
@@ -94,6 +96,8 @@ int ExternalFile::storeDouble(const std::string varibleName, const double varibl
 double ExternalFile::readDouble(const std::string varibleName){
     std::string varibleTitle = varibleName + ":Double= ";
     std::string lineValue = readLine(varibleTitle);
+    if(lineValue == "Error")
+      return -1.1;
     return std::stod(lineValue.substr(varibleTitle.size()));
 }
 
@@ -105,6 +109,8 @@ int ExternalFile::storeChar(const std::string varibleName, const char varibleVal
 char ExternalFile::readChar(const std::string varibleName){
     std::string varibleTitle = varibleName + ":Char= ";
     std::string lineValue = readLine(varibleTitle);
+    if(lineValue == "Error")
+      return 'E';
     return lineValue.at(varibleTitle.size());
 }
 
@@ -116,6 +122,8 @@ int ExternalFile::storeBool(const std::string varibleName, const bool varibleVal
 bool ExternalFile::readBool(const std::string varibleName){
     std::string varibleTitle = varibleName + ":Bool= ";
     std::string lineValue = readLine(varibleTitle);
+    if(lineValue == "Error")
+      return false;
     return std::stoi(lineValue.substr(varibleTitle.size()));
 }
 
@@ -127,6 +135,8 @@ int ExternalFile::storeString(const std::string varibleName, const std::string v
 std::string ExternalFile::readString(const std::string varibleName){
     std::string varibleTitle = varibleName + ":String= ";
     std::string lineValue = readLine(varibleTitle);
+    if(lineValue == "Error")
+      return "Error";
     return lineValue.substr(varibleTitle.size());
 }
 
@@ -144,6 +154,10 @@ std::vector<int> ExternalFile::readIntArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":IntArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<int> tempVec;
+    if(lineValue == "Error"){
+      tempVec.push_back(-1);
+      return tempVec;
+    }
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){
@@ -173,6 +187,10 @@ std::vector<float> ExternalFile::readDoubleArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":DoubleArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<float> tempVec;
+    if(lineValue == "Error"){
+      tempVec.push_back(-1.1);
+      return tempVec;
+    }
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){
@@ -202,6 +220,11 @@ std::vector<char> ExternalFile::readCharArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":CharArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<char> tempVec;
+    if(lineValue == "Error"){
+      tempVec.push_back('E');
+      tempVec.push_back('R');
+      return tempVec;
+    }
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){
@@ -231,6 +254,10 @@ std::vector<bool> ExternalFile::readBoolArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":BoolArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<bool> tempVec;
+    if(lineValue == "Error"){
+      tempVec.push_back(false);
+      return tempVec;
+    }
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){
@@ -260,6 +287,10 @@ std::vector<std::string> ExternalFile::readStringArray(const std::string varible
     std::string varibleTitle = varibleName + ":StringArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<std::string> tempVec;
+    if(lineValue == "Error"){
+      tempVec.push_back("Error");
+      return tempVec;
+    }
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){

@@ -65,10 +65,10 @@ void autonomous() {
 }
 
 void opcontrol(){
-  while(pros::millis() < 1000){
-    gui.task();// Function For Meaurement
-    a++;
-  }
+  // while(pros::millis() < 1000){
+  //   gui.task();// Function For Meaurement
+  //   a++;
+  // }
 
 
 
