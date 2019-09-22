@@ -23,7 +23,7 @@ USE_PACKAGE:=1
 # EXCLUDE_COLD_LIBRARIES:= $(FWDIR)/your_library.a
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
-IS_LIBRARY:=1
+IS_LIBRARY:=0
 # TODO: CHANGE THIS!
 LIBNAME:=1069lib
 VERSION:=1.0.0

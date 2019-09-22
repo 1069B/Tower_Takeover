@@ -26,6 +26,9 @@ ExternalFile::ExternalFile(std::string address){
 }
 
 bool ExternalFile::fileExist(){
+  if(!SDCardIsInserted()){
+    return false;
+  }
   m_file.open(m_fileAddress, std::ios::in);
   if(m_file.is_open()){
       m_file.close();

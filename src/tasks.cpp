@@ -26,10 +26,14 @@ void initialize() {
 
   gui.addButton("Home", 1, 150, 150, 150, 30);
   gui.addButtonAction("Home", 1,"Main Controller", "Main Controller");
+
   gui.addButton("Home", 2, 50, 20, 150, 30, x);
   gui.addButtonCounter("Home", 2, "+1", 0, 1);
+
   gui.addButton("Home", 3, 300, 20, 150, 30, x);
   gui.addButtonCounter("Home", 3, "-1", 0, -1);
+  gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
+
   gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
 
   gui.addScreen("No_Device");
