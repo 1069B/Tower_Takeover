@@ -1,14 +1,16 @@
-# Ignore .vscode
-.vscode/
+# Compiled Object files
+*.o
+*.obj
 
-# The hold cold versions of the code
+# Executables
+*.bin
+*.elf
+
+# PROS
 bin/
-
-#Compile Commands
+.vscode/
 compile_commands.json
-
-#temp.log
 temp.log
-
-#project.pros
-#project.pros
+temp.errors
+*.ini
+.d/
