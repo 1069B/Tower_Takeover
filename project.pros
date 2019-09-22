@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "SD_Card-Class",
+    "project_name": "Dev",
         "target": "v5",
         "templates": {
             "kernel": {
