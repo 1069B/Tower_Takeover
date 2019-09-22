@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "PROS_3.2.0_Updates",
+    "project_name": "Dev",
         "target": "v5",
         "templates": {
             "kernel": {

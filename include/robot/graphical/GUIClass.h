@@ -9,13 +9,13 @@ class graphicalInterface{
 private:
   std::vector<Screen*> screenArray;
   int noVersion = 0;// For screens with only one version
-  std::string previousScreenID = "Blank";
-  std::string currentScreenID = "Blank";
-  std::string nextScreenID = "Home";
+  std::string previousScreenID = "A";
+  std::string currentScreenID = "B";
+  std::string nextScreenID = "C";
   Screen* nextScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
   Screen* currentScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
   Timer timer;
-
+  ExternalFile GUIStorage;
   void updateScreen();
 
 public:

@@ -1,8 +1,13 @@
 #include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
-graphicalInterface::graphicalInterface(std::string startingScreen):timer(false){
-  nextScreenID = startingScreen;
+graphicalInterface::graphicalInterface(std::string startingScreen):timer(false), GUIStorage("GUI_Storage.txt"){
+  if(GUIStorage.fileExist() && GUIStorage.readBool("Open_Previous")){
+    nextScreenID = GUIStorage.readString("Previous_Screen");
+  }
+  else{
+    nextScreenID = startingScreen;
+  }
   PassInfo info = PassInfo();
   info.string1 = "Blank";
   info.intPointer = &noVersion;
@@ -181,6 +186,7 @@ void graphicalInterface::updateScreen(){
   currentScreen = nextScreen;
   currentScreenID = nextScreenID;
   currentScreen->draw();
+  GUIStorage.storeString("Previous_Screen", currentScreenID);
 }
 
 void graphicalInterface::task(){
