@@ -14,6 +14,8 @@ private:
     int storeVar(const std::string varibleTitle, const std::string lineValue);
     std::string readLine(const std::string varibleTitle);
 public:
+    static bool SDCardIsInserted();
+
     ExternalFile(std::string address);
 
     //Single Varibles

@@ -1,5 +1,19 @@
 #include "externalFileClass.h"
 
+bool ExternalFile::SDCardIsInserted(){
+  std::fstream m_file;
+  m_file.open("/usd/testFile.txt", std::ios::out);
+  m_file.close();
+
+  m_file.open("/usd/testFile.txt", std::ios::in);
+  if(m_file.is_open()){
+      m_file.close();
+      std::remove("/usd/testFile.txt");
+      return true;
+  }
+  return false;
+}
+
 ExternalFile::ExternalFile(std::string address){
     m_fileAddress = "/usd/" + address;
     m_file.open(m_fileAddress, std::ios::in);
