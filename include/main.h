@@ -77,7 +77,7 @@ void opcontrol(void);
  */
 //#include <iostream>
 #endif
-#include <vector>
+//#include <vector>
 #include <iostream>
 #include <cstdarg>
 #include <functional>

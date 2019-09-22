@@ -160,7 +160,7 @@ std::vector<int> ExternalFile::readIntArray(const std::string varibleName){
     return tempVec;
 }
 
-int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vector<double> varibleValue){
+int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vector<float> varibleValue){
     std::string varibleTitle = varibleName + ":DoubleArray= ";
     std::string lineValue = varibleTitle;
     for(int x = 0; x<varibleValue.size()-1; x++){
@@ -169,10 +169,10 @@ int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vec
     lineValue += std::to_string(varibleValue.at(varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<double> ExternalFile::readDoubleArray(const std::string varibleName){
+std::vector<float> ExternalFile::readDoubleArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":DoubleArray= ";
     std::string lineValue = readLine(varibleTitle);
-    std::vector<double> tempVec;
+    std::vector<float> tempVec;
     int position = (int)varibleTitle.size();
     bool x = true;
     while(x){
@@ -182,8 +182,8 @@ std::vector<double> ExternalFile::readDoubleArray(const std::string varibleName)
             x = false;
         }
         else{
-            tempVec.push_back(std::stod(tempString.substr(0,tempString.find(","))));
-            position+=tempString.find(",")+2;
+          tempVec.push_back(std::stod(tempString.substr(0,tempString.find(","))));
+          position+=tempString.find(",")+2;
         }
     }
     return tempVec;

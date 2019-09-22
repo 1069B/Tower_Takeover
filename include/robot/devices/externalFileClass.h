@@ -36,8 +36,8 @@ public:
     int storeIntArray(const std::string varibleName,const std::vector<int> varibleValue);
     std::vector<int> readIntArray(const std::string varibleName);
 
-    int storeDoubleArray(const std::string varibleName, const std::vector<double> varibleValue);
-    std::vector<double> readDoubleArray(const std::string varibleName);
+    int storeDoubleArray(const std::string varibleName, const std::vector<float> varibleValue);
+    std::vector<float> readDoubleArray(const std::string varibleName);
 
     int storeCharArray(const std::string varibleName, const std::vector<char> varibleValue);
     std::vector<char> readCharArray(const std::string varibleName);

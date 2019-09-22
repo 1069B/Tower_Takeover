@@ -14,8 +14,6 @@ int lastCheck = 0;
 
 void initialize() {
   defineStyles();
-  ExternalFile test = ExternalFile("Robot.txt");
-
   /*Create a simple base object*/
 
   gui.addScreen("Home");
@@ -73,7 +71,7 @@ void opcontrol(){
   }
 
   ExternalFile file1 = ExternalFile("Robot_Info.txt");
-    
+
   std::vector<std::string> vec;
   vec.push_back("true");
   vec.push_back("false");
@@ -81,6 +79,15 @@ void opcontrol(){
   vec.push_back("Mizer");
 
   file1.storeStringArray("Var1", vec);
+
+
+    std::vector<float> vec2;
+    vec2.push_back(3.1415);
+    vec2.push_back(345.098);
+    vec2.push_back(0.002);
+    vec2.push_back(0.240);
+
+    file1.storeDoubleArray("Var1", vec2);
 
   while(true){
     gui.task();
