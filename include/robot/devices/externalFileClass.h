@@ -18,6 +18,8 @@ public:
 
     ExternalFile(std::string address);
 
+    bool fileExist();
+
     //Single Varibles
     int storeInt(const std::string varibleName,const int varibleValue);
     int readInt(const std::string varibleName);

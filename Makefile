@@ -25,7 +25,7 @@ USE_PACKAGE:=1
 # Set this to 1 to add additional rules to compile your project as a PROS library template
 IS_LIBRARY:=1
 # TODO: CHANGE THIS!
-LIBNAME:=robotLib
+LIBNAME:=1069lib
 VERSION:=1.0.0
 # EXCLUDE_SRC_FROM_LIB= $(SRCDIR)/unpublishedfile.c
 

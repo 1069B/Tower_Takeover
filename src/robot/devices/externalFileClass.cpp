@@ -2,13 +2,12 @@
 
 bool ExternalFile::SDCardIsInserted(){
   std::fstream m_file;
-  m_file.open("/usd/testFile.txt", std::ios::out);
+  m_file.open("/usd/.PROS_SD_Detection/SD_Card.txt", std::ios::app);
   m_file.close();
 
-  m_file.open("/usd/testFile.txt", std::ios::in);
+  m_file.open("/usd/.PROS_SD_Detection/SD_Card.txt", std::ios::in);
   if(m_file.is_open()){
       m_file.close();
-      std::remove("/usd/testFile.txt");
       return true;
   }
   return false;
@@ -24,6 +23,15 @@ ExternalFile::ExternalFile(std::string address){
         m_file.open(m_fileAddress, std::ios::out);
         m_file.close();
     }
+}
+
+bool ExternalFile::fileExist(){
+  m_file.open(m_fileAddress, std::ios::in);
+  if(m_file.is_open()){
+      m_file.close();
+      return true;
+  }
+  return false;
 }
 
 bool ExternalFile::varExist(const std::string varibleTitle){
