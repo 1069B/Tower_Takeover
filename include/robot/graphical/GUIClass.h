@@ -15,7 +15,7 @@ private:
   Screen* nextScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
   Screen* currentScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
   Timer timer;
-
+  ExternalFile GUIStorage;
   void updateScreen();
 
 public:
