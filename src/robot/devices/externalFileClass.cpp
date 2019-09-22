@@ -174,7 +174,7 @@ std::vector<int> ExternalFile::readIntArray(const std::string varibleName){
     return tempVec;
 }
 
-int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vector<float> varibleValue){
+int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vector<double> varibleValue){
     std::string varibleTitle = varibleName + ":DoubleArray= ";
     std::string lineValue = varibleTitle;
     for(int x = 0; x<varibleValue.size()-1; x++){
@@ -183,10 +183,10 @@ int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vec
     lineValue += std::to_string(varibleValue.at(varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<float> ExternalFile::readDoubleArray(const std::string varibleName){
+std::vector<double> ExternalFile::readDoubleArray(const std::string varibleName){
     std::string varibleTitle = varibleName + ":DoubleArray= ";
     std::string lineValue = readLine(varibleTitle);
-    std::vector<float> tempVec;
+    std::vector<double> tempVec;
     if(lineValue == "Error"){
       tempVec.push_back(-1.1);
       return tempVec;
