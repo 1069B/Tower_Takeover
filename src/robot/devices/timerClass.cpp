@@ -8,7 +8,7 @@ Timer::Timer(const bool mode){// False is system time
   }
   else{
     m_startTime = 0;
-    m_nextFlag = pros::millis();
+    m_nextFlag = 0;
     m_previousLapTime = 0;
   }
 }
