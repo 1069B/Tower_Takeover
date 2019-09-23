@@ -36,12 +36,11 @@ void graphicalInterface::addScreen(std::string name, int& var, lv_style_t& backC
 
 void graphicalInterface::addButton(std::string screenName, int id, int xOrg, int yOrg, int len, int wid, int& var, lv_style_t& btnRel, lv_style_t& btnPress){
   PassInfo info = PassInfo();
-  info.integer.resize(5);
-  info.integer.at(0) = id;
-  info.integer.at(1) = xOrg;
-  info.integer.at(2) = yOrg;
-  info.integer.at(3) = len;
-  info.integer.at(4) = wid;
+  info.id = id;
+  info.xOrgin = xOrg;
+  info.yOrgin = yOrg;
+  info.length = len;
+  info.width = wid;
   info.intPointer = &var;
   info.style1= &btnRel;
   info.style2= &btnPress;
@@ -64,8 +63,8 @@ void graphicalInterface::addButtonCounter(std::string screenName, int id, std::s
 
 void graphicalInterface::defineLabel(PassInfo& info, std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, int mode){
   info.integer.resize(3);
-  info.integer.at(0) = xOrg;
-  info.integer.at(1) = yOrg;
+  info.xOrgin = xOrg;
+  info.yOrgin = yOrg;
   info.integer.at(2) = mode;
   info.style1 = &style;
   info.string1 = fmt;
@@ -127,8 +126,8 @@ void graphicalInterface::addLine(std::string screenName, lv_point_t* point, lv_s
 void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, std::function<int()> func, int rangeL, int rangeH, int theSize, int theAngle, int numOfDashes, lv_style_t& metStyle, lv_style_t& textStyle){
   PassInfo info = PassInfo();
   info.integer.resize(7);
-  info.integer.at(0) = xOrg;
-  info.integer.at(1) = yOrg;
+  info.xOrgin = xOrg;
+  info.yOrgin = yOrg;
   info.integer.at(2) = rangeL;
   info.integer.at(3) = rangeH;
   info.integer.at(4) = theSize;
@@ -146,10 +145,10 @@ void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, st
 void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, lv_style_t& style){
   PassInfo info = PassInfo();
   info.integer.resize(5);
-  info.integer.at(0) = xOrg;
-  info.integer.at(1) = yOrg;
-  info.integer.at(2) = len;
-  info.integer.at(3) = wid;
+  info.xOrgin = xOrg;
+  info.yOrgin = yOrg;
+  info.length = len;
+  info.width = wid;
   info.integer.at(4) = false;//mode
   info.style1 = &style;
   findScreen(screenName)->addRectangle(info);
@@ -157,10 +156,10 @@ void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg
 void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, std::function<lv_style_t*()> background){
   PassInfo info = PassInfo();
   info.integer.resize(5);
-  info.integer.at(0) = xOrg;
-  info.integer.at(1) = yOrg;
-  info.integer.at(2) = len;
-  info.integer.at(3) = wid;
+  info.xOrgin = xOrg;
+  info.yOrgin = yOrg;
+  info.length = len;
+  info.width = wid;
   info.integer.at(4) = true;//mode
   info.lv_styleFunction = background;
   findScreen(screenName)->addRectangle(info);
