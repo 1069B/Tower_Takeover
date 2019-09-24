@@ -162,7 +162,7 @@ void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg
 
 Screen *graphicalInterface::findScreen(std::string name){
   for(int x = 0; x < m_screenArray.size(); x++){
-    if(m_screenArray[x]->pageID == name){
+    if(m_screenArray[x]->m_pageID == name){
       return m_screenArray[x];
     }
   }

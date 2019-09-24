@@ -14,6 +14,7 @@ protected:
   short m_yOrgin;
   short m_length;
   short m_width;
+  int m_id;
   lv_style_t *m_style1;
   lv_style_t *m_style2;
   int m_mode;

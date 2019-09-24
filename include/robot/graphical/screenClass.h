@@ -10,20 +10,20 @@
 class Screen{
 protected:
   friend class graphicalInterface;
-  std::string& nextScreenID;
-  std::vector<Button*> btnArray;
-  std::vector<Label*> labelArray;
-  std::vector<Meter*> meterArray;
-  std::vector<Line*> lineArray;
-  std::vector<Rectangle*> rectArray;
-  lv_style_t* backGround;
-  int& version;
+  std::string& m_nextScreenID;
+  std::vector<Button*> m_btnArray;
+  std::vector<Label*> m_labelArray;
+  std::vector<Meter*> m_meterArray;
+  std::vector<Line*> m_lineArray;
+  std::vector<Rectangle*> m_rectArray;
+  lv_style_t* m_backGround;
+  int& m_version;
 
-  bool relation = false;
-  std::string relatedScreen;
-  bool inversed;
-  std::function<bool()> relatedFunc;
-  std::string pageID;
+  bool m_relation = false;
+  std::string m_relatedScreen;
+  bool m_inversed;
+  std::function<bool()> m_relatedFunc;
+  std::string m_pageID;
 
 	Screen(PassInfo& info);
 

@@ -7,13 +7,12 @@
 class Button: protected AbstractGUI{
 protected:
   friend class Screen;
-  std::string& nextScreenVar;
-  std::string linkedScreenID[6] = {"None","None","None","None","None","None"};// Corasponding screen
-  int& varible;// Reference to what varible to change
-  int value[6] = {0,0,0,0,0,0}; //Value set to above varible
-  Timer timer;
+  std::string& m_nextScreenVar;
+  std::string m_linkedScreenID[6] = {"None","None","None","None","None","None"};// Corasponding screen
+  int& m_varible;// Reference to what varible to change
+  int m_value[6] = {0,0,0,0,0,0}; //Value set to above varible
+  Timer m_timer;
 
-  int id; // Id for the Button
   Button(PassInfo& info, std::string& nextScreenID);
 
   void defineAction(PassInfo& info);
