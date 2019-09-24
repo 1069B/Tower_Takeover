@@ -1,37 +1,37 @@
 #include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
-graphicalInterface::graphicalInterface(std::string startingScreen):timer(false), GUIStorage("GUI_Storage.txt"){
-  if(GUIStorage.fileExist() && GUIStorage.readBool("Open_Previous")){
-    nextScreenID = GUIStorage.readString("Previous_Screen");
+graphicalInterface::graphicalInterface(std::string startingScreen):m_timer(false), m_GUIStorage("GUI_Storage.txt"){
+  if(m_GUIStorage.fileExist() && m_GUIStorage.readBool("Open_Previous")){
+    m_nextScreenID = m_GUIStorage.readString("Previous_Screen");
   }
   else{
-    nextScreenID = startingScreen;
+    m_nextScreenID = startingScreen;
   }
   PassInfo info = PassInfo();
-  info.string1 = "Blank";
-  info.intPointer = &noVersion;
+  info.linkedID = "Blank";
+  info.intPointer = &m_noVersion;
   info.style1 = &defaultBackground;
-  info.stringPointer = &nextScreenID;
-  nextScreen = new Screen(info);
-  currentScreen = new Screen(info);
-  screenArray.resize(0);
+  info.stringPointer = &m_nextScreenID;
+  m_nextScreen = new Screen(info);
+  m_currentScreen = new Screen(info);
+  m_screenArray.resize(0);
 }
 
 void graphicalInterface::addScreen(std::string name, int& var){
   addScreen(name, var, defaultBackground);
 }
 void graphicalInterface::addScreen(std::string name, lv_style_t& backColor){
-  addScreen(name, noVersion, backColor);
+  addScreen(name, m_noVersion, backColor);
 }
 void graphicalInterface::addScreen(std::string name, int& var, lv_style_t& backColor){
-  screenArray.resize(screenArray.size()+1);
+  m_screenArray.resize(m_screenArray.size()+1);
   PassInfo info = PassInfo();
-  info.string1 = name;
+  info.name = name;
   info.intPointer = &var;
   info.style1 = &backColor;
-  info.stringPointer = &nextScreenID;
-	screenArray.at(screenArray.size()-1) = new Screen(info);
+  info.stringPointer = &m_nextScreenID;
+	m_screenArray.at(m_screenArray.size()-1) = new Screen(info);
 }
 
 void graphicalInterface::addButton(std::string screenName, int id, int xOrg, int yOrg, int len, int wid, int& var, lv_style_t& btnRel, lv_style_t& btnPress){
@@ -48,13 +48,12 @@ void graphicalInterface::addButton(std::string screenName, int id, int xOrg, int
 }
 void graphicalInterface::addButtonAction(std::string screenName, int id, std::string theText, std::string linkedID, int btnVer, int val, int mode){
   PassInfo info = PassInfo();
-  info.integer.resize(4);
-  info.integer.at(0) = id;
-  info.integer.at(1) = btnVer;
-  info.integer.at(2) = val;
-  info.integer.at(3) = mode;
-  info.string1 = theText;
-  info.string2 = linkedID;
+  info.id = id;
+  info.version = btnVer;
+  info.passValue = val;
+  info.mode = mode;
+  info.text = theText;
+  info.linkedID = linkedID;
   findScreen(screenName)->addButtionAction(info);
 }
 void graphicalInterface::addButtonCounter(std::string screenName, int id, std::string theText, int btnVer, int btnIncrement){
@@ -62,12 +61,11 @@ void graphicalInterface::addButtonCounter(std::string screenName, int id, std::s
 }
 
 void graphicalInterface::defineLabel(PassInfo& info, std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, int mode){
-  info.integer.resize(3);
   info.xOrgin = xOrg;
   info.yOrgin = yOrg;
-  info.integer.at(2) = mode;
+  info.mode = mode;
   info.style1 = &style;
-  info.string1 = fmt;
+  info.text = fmt;
   findScreen(screenName)->addLabel(info);
 }
 void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt){// mode 0
@@ -125,14 +123,13 @@ void graphicalInterface::addLine(std::string screenName, lv_point_t* point, lv_s
 
 void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, std::function<int()> func, int rangeL, int rangeH, int theSize, int theAngle, int numOfDashes, lv_style_t& metStyle, lv_style_t& textStyle){
   PassInfo info = PassInfo();
-  info.integer.resize(7);
   info.xOrgin = xOrg;
   info.yOrgin = yOrg;
-  info.integer.at(2) = rangeL;
-  info.integer.at(3) = rangeH;
-  info.integer.at(4) = theSize;
-  info.integer.at(5) = theAngle;
-  info.integer.at(6) = numOfDashes;
+  info.rangeLow = rangeL;
+  info.rangeHigh = rangeH;
+  info.sizeFactor = theSize;
+  info.angle = theAngle;
+  info.numOfDashes = numOfDashes;
   info.intFunction = func;
   info.style1= &metStyle;
   info.style2= &textStyle;
@@ -144,31 +141,29 @@ void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, st
 
 void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, lv_style_t& style){
   PassInfo info = PassInfo();
-  info.integer.resize(5);
   info.xOrgin = xOrg;
   info.yOrgin = yOrg;
   info.length = len;
   info.width = wid;
-  info.integer.at(4) = false;//mode
+  info.mode = false;//mode
   info.style1 = &style;
   findScreen(screenName)->addRectangle(info);
 }
 void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, std::function<lv_style_t*()> background){
   PassInfo info = PassInfo();
-  info.integer.resize(5);
   info.xOrgin = xOrg;
   info.yOrgin = yOrg;
   info.length = len;
   info.width = wid;
-  info.integer.at(4) = true;//mode
+  info.mode = true;//mode
   info.lv_styleFunction = background;
   findScreen(screenName)->addRectangle(info);
 }
 
 Screen *graphicalInterface::findScreen(std::string name){
-  for(int x = 0; x < screenArray.size(); x++){
-    if(screenArray[x]->pageID == name){
-      return screenArray[x];
+  for(int x = 0; x < m_screenArray.size(); x++){
+    if(m_screenArray[x]->pageID == name){
+      return m_screenArray[x];
     }
   }
   return NULL;
@@ -179,46 +174,46 @@ void graphicalInterface::addRelationship(std::string name, std::function<bool()>
 }
 
 void graphicalInterface::updateScreen(){
-  previousScreenID = currentScreenID;
-  currentScreen->remove();
-  nextScreen = findScreen(nextScreenID);
-  currentScreen = nextScreen;
-  currentScreenID = nextScreenID;
-  currentScreen->draw();
-  GUIStorage.storeString("Previous_Screen", currentScreenID);
+  m_previousScreenID = m_currentScreenID;
+  m_currentScreen->remove();
+  m_nextScreen = findScreen(m_nextScreenID);
+  m_currentScreen = m_nextScreen;
+  m_currentScreenID = m_nextScreenID;
+  m_currentScreen->draw();
+  m_GUIStorage.storeString("Previous_Screen", m_currentScreenID);
 }
 
 void graphicalInterface::task(){
-  if(timer.preformAction() && nextScreenID != currentScreenID){// Makes the change of screen
+  if(m_timer.preformAction() && m_nextScreenID != m_currentScreenID){// Makes the change of screen
     updateScreen();
-    timer.addActionDelay(400);
+    m_timer.addActionDelay(400);
   }
 
-  currentScreen->detect();
+  m_currentScreen->detect();
 
-  if(timer.preformAction() && nextScreenID != currentScreenID){// Delay for Visual Button
-    timer.addActionDelay(100);
+  if(m_timer.preformAction() && m_nextScreenID != m_currentScreenID){// Delay for Visual Button
+    m_timer.addActionDelay(100);
   }
 
-  if(nextScreen->isRelation() && nextScreen->getInverse() && !nextScreen->getRelatedFunc()()){
-    if(currentScreen == findScreen(currentScreenID)){
-      currentScreen->remove();
-      currentScreen = findScreen(nextScreen->getRelatedScreen());
-      currentScreen->draw();
+  if(m_nextScreen->isRelation() && m_nextScreen->getInverse() && !m_nextScreen->getRelatedFunc()()){
+    if(m_currentScreen == findScreen(m_currentScreenID)){
+      m_currentScreen->remove();
+      m_currentScreen = findScreen(m_nextScreen->getRelatedScreen());
+      m_currentScreen->draw();
     }
   }
-  else if(nextScreen->isRelation() && !nextScreen->getInverse() && nextScreen->getRelatedFunc()()){
-    if(currentScreen == findScreen(currentScreenID)){
-      currentScreen->remove();
-      currentScreen = findScreen(nextScreen->getRelatedScreen());
-      currentScreen->draw();
+  else if(m_nextScreen->isRelation() && !m_nextScreen->getInverse() && m_nextScreen->getRelatedFunc()()){
+    if(m_currentScreen == findScreen(m_currentScreenID)){
+      m_currentScreen->remove();
+      m_currentScreen = findScreen(m_nextScreen->getRelatedScreen());
+      m_currentScreen->draw();
     }
   }
-  else if(nextScreen->isRelation() && currentScreen != findScreen(currentScreenID)){
-    currentScreen->remove();
-    currentScreen = findScreen(currentScreenID);
-    currentScreen->draw();
+  else if(m_nextScreen->isRelation() && m_currentScreen != findScreen(m_currentScreenID)){
+    m_currentScreen->remove();
+    m_currentScreen = findScreen(m_currentScreenID);
+    m_currentScreen->draw();
   }
 
-  currentScreen->update();
+  m_currentScreen->update();
 }

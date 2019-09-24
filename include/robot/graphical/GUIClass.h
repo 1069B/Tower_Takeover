@@ -7,15 +7,15 @@ extern int noVar;
 
 class graphicalInterface{
 private:
-  std::vector<Screen*> screenArray;
-  int noVersion = 0;// For screens with only one version
-  std::string previousScreenID = "A";
-  std::string currentScreenID = "B";
-  std::string nextScreenID = "C";
-  Screen* nextScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
-  Screen* currentScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
-  Timer timer;
-  ExternalFile GUIStorage;
+  std::vector<Screen*> m_screenArray;
+  int m_noVersion = 0;// For screens with only one version
+  std::string m_previousScreenID = "A";
+  std::string m_currentScreenID = "B";
+  std::string m_nextScreenID = "C";
+  Screen* m_nextScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
+  Screen* m_currentScreen;// = new Screen("Blank", noVersion, defaultBackground, nextScreenID);
+  Timer m_timer;
+  ExternalFile m_GUIStorage;
   void updateScreen();
 
 public:

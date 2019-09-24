@@ -32,20 +32,9 @@ protected:
 };
 
 struct PassInfo{
-  short xOrgin;
-  short yOrgin;
-  short length;
-  short width;
-  int id;
-  int mode;
-  int rangeLow;
-  int rangeHigh;
-  int sizeFactor;
-  int numOfDashes;
-
-
-  std::string string1;
-  std::string string2;
+  short xOrgin, yOrgin, length, width;
+  int id, mode, rangeLow, rangeHigh, sizeFactor, angle ,numOfDashes, version, passValue;
+  std::string text, linkedID, name;
 
   int* intPointer;
 	std::function<int()> intFunction;
