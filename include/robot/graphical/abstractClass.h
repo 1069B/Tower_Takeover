@@ -7,17 +7,11 @@
 
 class AbstractGUI{
 protected:
-  lv_obj_t* m_obj1;
-  lv_obj_t* m_obj2;
+  lv_obj_t* m_obj1, *m_obj2;
   bool m_state = false;
-  short m_xOrgin; //Every thing is in realtion to the upper left coner
-  short m_yOrgin;
-  short m_length;
-  short m_width;
-  int m_id;
-  lv_style_t *m_style1;
-  lv_style_t *m_style2;
-  int m_mode;
+  short m_xOrgin, m_yOrgin, m_length, m_width;
+  int m_id, m_mode;
+  lv_style_t *m_style1, *m_style2;
 
   int* m_intPointer;
 	std::function<int()> m_intFunction;
@@ -47,10 +41,8 @@ struct PassInfo{
 	std::function<std::string()> stringFunction;
   std::function<lv_style_t*()> lv_styleFunction;
 
-  lv_style_t *style1;
-  lv_style_t *style2;
-
-  lv_point_t* points;
+  lv_style_t *style1, *style2;
+  lv_point_t *points;
 };
 
 #endif //ABSTRACTGUI_H

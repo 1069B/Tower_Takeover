@@ -7,8 +7,8 @@
 class Line: protected AbstractGUI{
 protected:
   friend class Screen;
-  lv_point_t* points;// Attempt to use xOrg yOrg etc
-  Line(PassInfo& info);
+  lv_point_t* m_points;// Attempt to use xOrg yOrg etc
+  Line(PassInfo& p_info);
 
   void draw();
   void remove();

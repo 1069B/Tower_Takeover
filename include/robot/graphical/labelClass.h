@@ -7,7 +7,7 @@
 class Label: protected AbstractGUI{
 protected:
 	friend class Screen;
-	Label(PassInfo& info);// mode 0
+	Label(PassInfo& p_info);// mode 0
 
   void setString();
 

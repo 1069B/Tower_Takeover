@@ -13,16 +13,16 @@ protected:
   int m_value[6] = {0,0,0,0,0,0}; //Value set to above varible
   Timer m_timer;
 
-  Button(PassInfo& info, std::string& nextScreenID);
+  Button(PassInfo& p_info, std::string& p_nextScreenID);
 
-  void defineAction(PassInfo& info);
+  void defineAction(PassInfo& p_info);
 
-  void checkState(int btnVer);
+  void checkState(int p_btnVer);
 
   bool returnState();
 
-  void draw(int btnVer);
-  void update(int btnVer);
+  void draw(int p_btnVer);
+  void update(int p_btnVer);
   void remove();
 };
 

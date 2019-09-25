@@ -25,28 +25,28 @@ protected:
   std::function<bool()> m_relatedFunc;
   std::string m_pageID;
 
-	Screen(PassInfo& info);
+	Screen(PassInfo& p_info);
 
-  void addRelationship(std::function<bool()> func, bool inverse, std::string otherScreen);
+  void addRelationship(std::function<bool()> p_function, bool p_inverse, std::string p_otherScreen);
   std::string getRelatedScreen();
   std::function<bool()> getRelatedFunc();
   bool getInverse();
   bool isRelation();
 
-	void addButton(PassInfo& info);
-	void addButtionAction(PassInfo& info);
+	void addButton(PassInfo& p_info);
+	void addButtionAction(PassInfo& p_info);
 
-  void addLabel(PassInfo& info);
+  void addLabel(PassInfo& p_info);
 
-  void addLine(PassInfo& info);
+  void addLine(PassInfo& p_info);
 
-  void addMeter(PassInfo& info);
+  void addMeter(PassInfo& p_info);
 
-  void addRectangle(PassInfo& info);
+  void addRectangle(PassInfo& p_info);
 
   void draw();
 
-  void changeBackground(lv_style_t& backColor);
+  void changeBackground(lv_style_t& p_backColor);
 
   void update();
 

@@ -1,12 +1,12 @@
 #include "robot/graphical/GUIClass.h"
 int noVar = 0;
 
-graphicalInterface::graphicalInterface(std::string startingScreen):m_timer(false), m_GUIStorage("GUI_Storage.txt"){
+graphicalInterface::graphicalInterface(std::string p_startingScreen):m_timer(false), m_GUIStorage("GUI_Storage.txt"){
   if(m_GUIStorage.fileExist() && m_GUIStorage.readBool("Open_Previous")){
     m_nextScreenID = m_GUIStorage.readString("Previous_Screen");
   }
   else{
-    m_nextScreenID = startingScreen;
+    m_nextScreenID = p_startingScreen;
   }
   PassInfo info = PassInfo();
   info.linkedID = "Blank";
@@ -18,159 +18,162 @@ graphicalInterface::graphicalInterface(std::string startingScreen):m_timer(false
   m_screenArray.resize(0);
 }
 
-void graphicalInterface::addScreen(std::string name, int& var){
-  addScreen(name, var, defaultBackground);
+void graphicalInterface::addScreen(std::string p_name, int& p_var){
+  addScreen(p_name, p_var, defaultBackground);
 }
-void graphicalInterface::addScreen(std::string name, lv_style_t& backColor){
-  addScreen(name, m_noVersion, backColor);
+void graphicalInterface::addScreen(std::string p_name, lv_style_t& p_backColor){
+  addScreen(p_name, m_noVersion, p_backColor);
 }
-void graphicalInterface::addScreen(std::string name, int& var, lv_style_t& backColor){
+void graphicalInterface::addScreen(std::string p_name, int& p_var, lv_style_t& p_backColor){
   m_screenArray.resize(m_screenArray.size()+1);
   PassInfo info = PassInfo();
-  info.name = name;
-  info.intPointer = &var;
-  info.style1 = &backColor;
+  info.name = p_name;
+  info.intPointer = &p_var;
+  info.style1 = &p_backColor;
   info.stringPointer = &m_nextScreenID;
 	m_screenArray.at(m_screenArray.size()-1) = new Screen(info);
 }
 
-void graphicalInterface::addButton(std::string screenName, int id, int xOrg, int yOrg, int len, int wid, int& var, lv_style_t& btnRel, lv_style_t& btnPress){
+void graphicalInterface::addButton(std::string p_screenName, int p_id, int p_xOrgin, int p_yOrgin, int p_length, int p_width, int& p_var, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
   PassInfo info = PassInfo();
-  info.id = id;
-  info.xOrgin = xOrg;
-  info.yOrgin = yOrg;
-  info.length = len;
-  info.width = wid;
-  info.intPointer = &var;
-  info.style1= &btnRel;
-  info.style2= &btnPress;
-  findScreen(screenName)->addButton(info);
+  info.id = p_id;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.intPointer = &p_var;
+  info.style1= &p_btnRel;
+  info.style2= &p_btnPress;
+  findScreen(p_screenName)->addButton(info);
 }
-void graphicalInterface::addButtonAction(std::string screenName, int id, std::string theText, std::string linkedID, int btnVer, int val, int mode){
+void graphicalInterface::addButtonAction(std::string p_screenName, int p_id, std::string p_format, std::string p_linkedID, int p_btnVer, int p_value, int p_mode){
   PassInfo info = PassInfo();
-  info.id = id;
-  info.version = btnVer;
-  info.passValue = val;
-  info.mode = mode;
-  info.text = theText;
-  info.linkedID = linkedID;
-  findScreen(screenName)->addButtionAction(info);
+  info.id = p_id;
+  info.version = p_btnVer;
+  info.passValue = p_value;
+  info.mode = p_mode;
+  info.text = p_format;
+  info.linkedID = p_linkedID;
+  findScreen(p_screenName)->addButtionAction(info);
 }
-void graphicalInterface::addButtonCounter(std::string screenName, int id, std::string theText, int btnVer, int btnIncrement){
-  addButtonAction(screenName, id, theText, screenName, btnVer, btnIncrement, 1);// 1 signals increment mode
+void graphicalInterface::addButtonCounter(std::string p_screenName, int p_id, std::string p_format, int p_btnVer, int p_btnIncrement){
+  addButtonAction(p_screenName, p_id,p_format, p_screenName, p_btnVer, p_btnIncrement, 1);// 1 signals increment mode
 }
 
-void graphicalInterface::defineLabel(PassInfo& info, std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, int mode){
-  info.xOrgin = xOrg;
-  info.yOrgin = yOrg;
-  info.mode = mode;
-  info.style1 = &style;
-  info.text = fmt;
-  findScreen(screenName)->addLabel(info);
+void graphicalInterface::defineLabel(PassInfo& p_info, std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, int p_mode){
+  p_info.xOrgin = p_xOrgin;
+  p_info.yOrgin = p_yOrgin;
+  p_info.mode = p_mode;
+  p_info.style1 = &p_style;
+  p_info.text = p_format;
+  findScreen(p_screenName)->addLabel(p_info);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt){// mode 0
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format){// mode 0
   PassInfo info = PassInfo();
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 0);
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 0);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, int* var){// mode 1
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, int* p_function){// mode 1
   PassInfo info = PassInfo();
-  info.intPointer = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 1);
+  info.intPointer = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 1);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, std::function<int()> var){// mode 2
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, std::function<int()> p_function){// mode 2
   PassInfo info = PassInfo();
-  info.intFunction = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 2);
+  info.intFunction = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 2);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, double* var){// mode 3
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, double* p_function){// mode 3
   PassInfo info = PassInfo();
-  info.doublePointer = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 3);
+  info.doublePointer = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 3);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, std::function<double()> var){// mode 4
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, std::function<double()> p_function){// mode 4
   PassInfo info = PassInfo();
-  info.doubleFunction = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 4);
+  info.doubleFunction = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 4);
 
-  findScreen(screenName)->addLabel(info);
+  findScreen(p_screenName)->addLabel(info);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, bool* var){// mode 5
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, bool* p_function){// mode 5
   PassInfo info = PassInfo();
-  info.boolPointer = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 5);
+  info.boolPointer = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 5);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, std::function<bool()> var){// mode 6
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, std::function<bool()> p_function){// mode 6
   PassInfo info = PassInfo();
-  info.boolFunction = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 6);
+  info.boolFunction = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 6);
 
-  findScreen(screenName)->addLabel(info);
+  findScreen(p_screenName)->addLabel(info);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, std::string* var){// mode 7
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, std::string* p_function){// mode 7
   PassInfo info = PassInfo();
-  info.stringPointer = var;
-  defineLabel(info, screenName, xOrg, yOrg, style, fmt, 7);
+  info.stringPointer = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 7);
 }
-void graphicalInterface::addLabel(std::string screenName, int xOrg, int yOrg, lv_style_t& style, std::string fmt, std::function<std::string()> var){// mode 8
-}
-
-void graphicalInterface::addLine(std::string screenName, lv_point_t* point, lv_style_t& theStyle){
+void graphicalInterface::addLabel(std::string p_screenName, int p_xOrgin, int p_yOrgin, lv_style_t& p_style, std::string p_format, std::function<std::string()> p_function){// mode 8
   PassInfo info = PassInfo();
-  info.points = point;
-  info.style1 = &theStyle;
-  findScreen(screenName)->addLine(info);
+  info.stringFunction = p_function;
+  defineLabel(info, p_screenName, p_xOrgin, p_yOrgin, p_style, p_format, 8);
 }
 
-void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, std::function<int()> func, int rangeL, int rangeH, int theSize, int theAngle, int numOfDashes, lv_style_t& metStyle, lv_style_t& textStyle){
+void graphicalInterface::addLine(std::string p_screenName, lv_point_t* p_point, lv_style_t& p_style){
   PassInfo info = PassInfo();
-  info.xOrgin = xOrg;
-  info.yOrgin = yOrg;
-  info.rangeLow = rangeL;
-  info.rangeHigh = rangeH;
-  info.sizeFactor = theSize;
-  info.angle = theAngle;
-  info.numOfDashes = numOfDashes;
-  info.intFunction = func;
-  info.style1= &metStyle;
-  info.style2= &textStyle;
-  findScreen(screenName)->addMeter(info);
-}
-void graphicalInterface::addMeter(std::string screenName, int xOrg, int yOrg, std::function<int()> func, lv_style_t& metStyle, lv_style_t& textStyle){
-  addMeter(screenName, xOrg, yOrg, func, 0, 100, 125, 240, 22, metStyle, textStyle);
+  info.points = p_point;
+  info.style1 = &p_style;
+  findScreen(p_screenName)->addLine(info);
 }
 
-void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, lv_style_t& style){
+void graphicalInterface::addMeter(std::string p_screenName, int p_xOrgin, int p_yOrgin, std::function<int()> p_function, int p_rangeL, int p_rangeH, int p_size, int p_angle, int p_numOfDashes, lv_style_t& p_metStyle, lv_style_t& p_textStyle){
   PassInfo info = PassInfo();
-  info.xOrgin = xOrg;
-  info.yOrgin = yOrg;
-  info.length = len;
-  info.width = wid;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.rangeLow = p_rangeL;
+  info.rangeHigh = p_rangeH;
+  info.sizeFactor = p_size;
+  info.angle = p_angle;
+  info.numOfDashes = p_numOfDashes;
+  info.intFunction = p_function;
+  info.style1= &p_metStyle;
+  info.style2= &p_textStyle;
+  findScreen(p_screenName)->addMeter(info);
+}
+void graphicalInterface::addMeter(std::string p_screenName, int p_xOrgin, int p_yOrgin, std::function<int()> p_function, lv_style_t& p_metStyle, lv_style_t& p_textStyle){
+  addMeter(p_screenName, p_xOrgin, p_yOrgin, p_function, 0, 100, 125, 240, 22, p_metStyle, p_textStyle);
+}
+
+void graphicalInterface::addRectangle(std::string p_screenName, int p_xOrgin, int p_yOrgin, int p_length, int p_width, lv_style_t& p_style){
+  PassInfo info = PassInfo();
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
   info.mode = false;//mode
-  info.style1 = &style;
-  findScreen(screenName)->addRectangle(info);
+  info.style1 = &p_style;
+  findScreen(p_screenName)->addRectangle(info);
 }
-void graphicalInterface::addRectangle(std::string screenName, int xOrg, int yOrg, int len, int wid, std::function<lv_style_t*()> background){
+void graphicalInterface::addRectangle(std::string p_screenName, int p_xOrgin, int p_yOrgin, int p_length, int p_width, std::function<lv_style_t*()> background){
   PassInfo info = PassInfo();
-  info.xOrgin = xOrg;
-  info.yOrgin = yOrg;
-  info.length = len;
-  info.width = wid;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
   info.mode = true;//mode
   info.lv_styleFunction = background;
-  findScreen(screenName)->addRectangle(info);
+  findScreen(p_screenName)->addRectangle(info);
 }
 
-Screen *graphicalInterface::findScreen(std::string name){
+Screen *graphicalInterface::findScreen(std::string p_name){
   for(int x = 0; x < m_screenArray.size(); x++){
-    if(m_screenArray[x]->m_pageID == name){
+    if(m_screenArray[x]->m_pageID == p_name){
       return m_screenArray[x];
     }
   }
   return NULL;
 }
 
-void graphicalInterface::addRelationship(std::string name, std::function<bool()> func, std::string otherScreen, bool inverse){
-  findScreen(name)->addRelationship(func, inverse, otherScreen);
+void graphicalInterface::addRelationship(std::string p_name, std::function<bool()> p_function, std::string p_otherScreen, bool p_inverse){
+  findScreen(p_name)->addRelationship(p_function, p_inverse, p_otherScreen);
 }
 
 void graphicalInterface::updateScreen(){

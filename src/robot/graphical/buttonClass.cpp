@@ -1,23 +1,23 @@
 #include "robot/graphical/buttonClass.h"
 
-Button::Button(PassInfo& info, std::string& nextScreenID):m_timer(false), m_varible(*info.intPointer), m_nextScreenVar(nextScreenID){
-  m_id = info.id; // Id for the Button
-  m_xOrgin = info.xOrgin; //Every thing is in realtion to the upper left coner
-  m_yOrgin = info.yOrgin;
-  m_length = info.length;
-  m_width = info.width;
-  m_style1 = info.style1;
-  m_style2 = info.style2;
+Button::Button(PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_varible(*p_info.intPointer), m_nextScreenVar(p_nextScreenID){
+  m_id = p_info.id; // Id for the Button
+  m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
+  m_yOrgin = p_info.yOrgin;
+  m_length = p_info.length;
+  m_width = p_info.width;
+  m_style1 = p_info.style1;
+  m_style2 = p_info.style2;
 }
 
-void Button::defineAction(PassInfo& info){
-  m_mode = info.mode;
-  m_linkedScreenID[info.version] = info.linkedID;// Corasponding screen
-  m_value[info.version] = info.passValue; //Value set to above varible
-  m_format[info.version] = info.text;
+void Button::defineAction(PassInfo& p_info){
+  m_mode = p_info.mode;
+  m_linkedScreenID[p_info.version] = p_info.linkedID;// Corasponding screen
+  m_value[p_info.version] = p_info.passValue; //Value set to above varible
+  m_format[p_info.version] = p_info.text;
 }
 
-void Button::draw(int btnVer) {
+void Button::draw(int p_btnVer) {
   m_obj1 = lv_btn_create(lv_scr_act(), NULL);
   m_obj2 = lv_label_create(m_obj1, NULL);
   lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
@@ -25,12 +25,12 @@ void Button::draw(int btnVer) {
   lv_obj_set_size(m_obj1, m_length, m_width); //set the button size
   lv_btn_set_style(m_obj1, LV_BTN_STYLE_REL, m_style1); //set the relesed style
   lv_btn_set_style(m_obj1, LV_BTN_STYLE_PR, m_style2); //set the pressed style
-  lv_label_set_text(m_obj2, m_format[btnVer].c_str());
+  lv_label_set_text(m_obj2, m_format[p_btnVer].c_str());
   m_state = true;
 }
 
-void Button::update(int btnVer){
-  lv_label_set_text(m_obj2, m_format[btnVer].c_str());
+void Button::update(int p_btnVer){
+  lv_label_set_text(m_obj2, m_format[p_btnVer].c_str());
 }
 
 void Button::remove() {
@@ -41,15 +41,15 @@ void Button::remove() {
   }
 }
 
-void Button::checkState(int btnVer){
+void Button::checkState(int p_btnVer){
   if(m_state && m_timer.preformAction()){
     lv_btn_state_t buttonState = lv_btn_get_state(m_obj1);
     if(buttonState == LV_BTN_STATE_PR){
-      m_nextScreenVar = m_linkedScreenID[btnVer];
+      m_nextScreenVar = m_linkedScreenID[p_btnVer];
       if(m_mode == 0)
-        m_varible = m_value[btnVer];
+        m_varible = m_value[p_btnVer];
       else if(m_mode == 1)
-        m_varible += m_value[btnVer];
+        m_varible += m_value[p_btnVer];
 
       m_timer.addActionDelay(500);
       return;
