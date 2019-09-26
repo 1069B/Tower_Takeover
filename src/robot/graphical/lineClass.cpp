@@ -1,8 +1,8 @@
 #include "robot/graphical/lineClass.h"
 
-Line::Line(PassInfo& info){
-  m_points = info.points;
-  m_style1 = info.style1;
+Line::Line(PassInfo& p_info){
+  m_points = p_info.points;
+  m_style1 = p_info.style1;
 }
 
 void Line::draw(){

@@ -1,16 +1,16 @@
 #include "robot/graphical/meterClass.h"
 
-Meter::Meter(PassInfo& info){
-  m_xOrgin = info.xOrgin;
-  m_yOrgin = info.yOrgin;
-  m_rangeLow = info.rangeLow;
-  m_rangeHigh = info.rangeHigh;
-  m_size = info.sizeFactor;
-  m_angle = info.angle;
-  m_numberOfDashes = info.numOfDashes;
-  m_style1 = info.style1;// Default styles
-  m_style2 = info.style2;
-  m_intFunction = info.intFunction;
+Meter::Meter(PassInfo& p_info){
+  m_xOrgin = p_info.xOrgin;
+  m_yOrgin = p_info.yOrgin;
+  m_rangeLow = p_info.rangeLow;
+  m_rangeHigh = p_info.rangeHigh;
+  m_size = p_info.sizeFactor;
+  m_angle = p_info.angle;
+  m_numberOfDashes = p_info.numOfDashes;
+  m_style1 = p_info.style1;// Default styles
+  m_style2 = p_info.style2;
+  m_intFunction = p_info.intFunction;
 }
 
 void Meter::draw(){

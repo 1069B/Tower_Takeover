@@ -1,15 +1,15 @@
 #include "robot/graphical/rectangleClass.h"
 
-Rectangle::Rectangle(PassInfo& info){
-  m_xOrgin = info.xOrgin; //Every thing is in realtion to the upper left coner
-  m_yOrgin = info.yOrgin;
-  m_length = info.length;
-  m_width = info.width;
-  m_mode = info.mode;
+Rectangle::Rectangle(PassInfo& p_info){
+  m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
+  m_yOrgin = p_info.yOrgin;
+  m_length = p_info.length;
+  m_width = p_info.width;
+  m_mode = p_info.mode;
   if(m_mode)
-    m_lv_styleFunction = info.lv_styleFunction;
+    m_lv_styleFunction = p_info.lv_styleFunction;
   else
-    m_style1 = info.style1;
+    m_style1 = p_info.style1;
 }
 
 void Rectangle::draw(){

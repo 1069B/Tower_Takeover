@@ -1,14 +1,13 @@
 #include "robot/graphical/screenClass.h"
 
-Screen::Screen(PassInfo& info):
-m_nextScreenID(*info.stringPointer),
-m_version(*info.intPointer){
-  m_pageID = info.linkedID;
-  m_backGround = info.style1;
-  m_btnArray.resize(0); // See about makeing size changes automaticly
+Screen::Screen(PassInfo& p_info):
+m_nextScreenID(*p_info.stringPointer),
+m_version(*p_info.intPointer){
+  m_pageID = p_info.linkedID;
+  m_backGround = p_info.style1;
 }
-void Screen::changeBackground(lv_style_t& backColor){
-  m_backGround = &backColor;
+void Screen::changeBackground(lv_style_t& p_backColor){
+  m_backGround = &p_backColor;
   lv_obj_set_style(lv_scr_act(), m_backGround);
 }
 
@@ -31,31 +30,31 @@ bool Screen::isRelation(){
   return m_relation;
 }
 
-void Screen::addButton(PassInfo& info){
+void Screen::addButton(PassInfo& p_info){
   m_btnArray.resize(m_btnArray.size()+1);
-	m_btnArray.at(m_btnArray.size()-1) = new Button(info, m_nextScreenID);
+	m_btnArray.at(m_btnArray.size()-1) = new Button(p_info, m_nextScreenID);
 }
-void Screen::addButtionAction(PassInfo& info){
+void Screen::addButtionAction(PassInfo& p_info){
   for(int y = 0; y < m_btnArray.size(); y++){
-    if(m_btnArray[y]->m_id == info.id)
-      m_btnArray[y]->defineAction(info);
+    if(m_btnArray[y]->m_id == p_info.id)
+      m_btnArray[y]->defineAction(p_info);
   }
 }
-void Screen::addLabel(PassInfo& info){
+void Screen::addLabel(PassInfo& p_info){
   m_labelArray.resize(m_labelArray.size()+1);
-	m_labelArray.at(m_labelArray.size()-1) = new Label(info);
+	m_labelArray.at(m_labelArray.size()-1) = new Label(p_info);
 }
-void Screen::addLine(PassInfo& info){
+void Screen::addLine(PassInfo& p_info){
   m_lineArray.resize(m_lineArray.size()+1);
-  m_lineArray.at(m_lineArray.size()-1) = new Line(info);
+  m_lineArray.at(m_lineArray.size()-1) = new Line(p_info);
 }
-void Screen::addMeter(PassInfo& info){
+void Screen::addMeter(PassInfo& p_info){
   m_meterArray.resize(m_meterArray.size()+1);
-  m_meterArray.at(m_meterArray.size()-1) = new Meter(info);
+  m_meterArray.at(m_meterArray.size()-1) = new Meter(p_info);
 }
-void Screen::addRectangle(PassInfo& info){
+void Screen::addRectangle(PassInfo& p_info){
   m_rectArray.resize(m_rectArray.size()+1);
-  m_rectArray.at(m_rectArray.size()-1) = new Rectangle(info);
+  m_rectArray.at(m_rectArray.size()-1) = new Rectangle(p_info);
 }
 
 void Screen::draw(){
