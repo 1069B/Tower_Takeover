@@ -27,11 +27,11 @@ public:
   ControlAxis Axis3;
   ControlAxis Axis4;
 
-  Controller(pros::controller_id_e_t p_type);
+  Controller(const pros::controller_id_e_t p_type);
 
   void clear();
 
-  void clearLine(int p_line);
+  void clearLine(const int p_line);
 
   int getBatteryCapacity();
 
@@ -39,11 +39,11 @@ public:
 
   bool isConnected();
 
-  void print(int p_row, int p_col, const char* p_fmt...);
+  void print(const int p_row, const int p_col, const char* p_fmt...);
 
   void rumble(const char* p_fmt);
 
-  void setText(int p_row, int p_col, const char* p_fmt);
+  void setText(const int p_row, const int p_col, const char* p_fmt);
 
   void callBackCheck();
 };

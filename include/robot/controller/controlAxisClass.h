@@ -10,9 +10,9 @@ private:
   double m_multiplier = 1;
 
 public:
-  ControlAxis(pros::controller_id_e_t p_controller, pros::controller_analog_e_t p_type);
+  ControlAxis(const pros::controller_id_e_t p_controller, const pros::controller_analog_e_t p_type);
 
-  void setMultiplier(int p_mult);
+  void setMultiplier(const int p_mult);
 
   int getValue();
 

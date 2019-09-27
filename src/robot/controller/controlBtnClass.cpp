@@ -1,11 +1,11 @@
 #include "robot/controller/controlBtnClass.h"
 
-ControlBtn::ControlBtn(pros::controller_id_e_t p_controller, pros::controller_digital_e_t p_type){
+ControlBtn::ControlBtn(const pros::controller_id_e_t p_controller, const pros::controller_digital_e_t p_type){
   m_controllerType = p_controller;
   m_buttonType = p_type;
 }
 
-void ControlBtn::setCallBack(std::function<void()> p_function, int p_delay){
+void ControlBtn::setCallBack(const std::function<void()> p_function, const int p_delay){
   m_callBackState = true;
   m_callBack = p_function;
   m_callBackDelay = p_delay;

@@ -1,6 +1,6 @@
 #include "robot/devices/motorClass.h"
 
-Motor::Motor(std::string p_name, short p_input, pros::motor_gearset_e_t p_type, bool p_reverse){
+Motor::Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse){
   m_name = p_name;
   m_port = p_input;
   m_motorGearSet = p_type;
@@ -35,21 +35,21 @@ Motor::Motor(std::string p_name, short p_input, pros::motor_gearset_e_t p_type, 
   setStrings();
 }
 
-void Motor::setVelocity(int p_velocity){
+void Motor::setVelocity(const int p_velocity){
   pros::c::motor_move_velocity(m_port, p_velocity);
   m_desiredVelocity = p_velocity;
   m_internalPID = true;
   m_desiredVoltage = 0;
 }
 
-void Motor::setVoltage(int p_power){
+void Motor::setVoltage(const int p_power){
   pros::c::motor_move_voltage(m_port, p_power);
   m_desiredVoltage = p_power;
   m_internalPID = false;
   m_desiredVelocity = 0;
 }
 
-void Motor::setBrake(pros::motor_brake_mode_e_t p_power){
+void Motor::setBrake(const pros::motor_brake_mode_e_t p_power){
   pros::c::motor_set_brake_mode(m_port, p_power);
   m_brakeMode = p_power;
   setStrings();

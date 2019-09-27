@@ -1,11 +1,11 @@
 #include "robot/controller/controlAxisClass.h"
 
-ControlAxis::ControlAxis(pros::controller_id_e_t p_controller, pros::controller_analog_e_t p_type){
+ControlAxis::ControlAxis(const pros::controller_id_e_t p_controller, const pros::controller_analog_e_t p_type){
   m_controllerType = p_controller;
   m_axisType = p_type;
 }
 
-void ControlAxis::setMultiplier(int p_mult){
+void ControlAxis::setMultiplier(const int p_mult){
   m_multiplier = p_mult;
 }
 

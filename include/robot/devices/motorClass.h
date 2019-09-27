@@ -20,13 +20,13 @@ private:
   void setStrings();
 
 public:
-  Motor(std::string p_name, short p_input, pros::motor_gearset_e_t p_type, bool p_reverse);
+  Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse);
 
-  void setVelocity(int p_velocity);// In RPM
+  void setVelocity(const int p_velocity);// In RPM
 
-  void setVoltage(int p_power);
+  void setVoltage(const int p_power);
 
-  void setBrake(pros::motor_brake_mode_e_t p_power);
+  void setBrake(const pros::motor_brake_mode_e_t p_power);
 
   void resetRotation();
 

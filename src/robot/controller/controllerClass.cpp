@@ -1,6 +1,6 @@
 #include "robot/controller/controllerClass.h"
 
-Controller::Controller(pros::controller_id_e_t p_type):
+Controller::Controller(const pros::controller_id_e_t p_type):
   ButtonL1(ControlBtn(p_type, pros::E_CONTROLLER_DIGITAL_L1)),
   ButtonL2(ControlBtn(p_type, pros::E_CONTROLLER_DIGITAL_L2)),
   ButtonR1(ControlBtn(p_type, pros::E_CONTROLLER_DIGITAL_R1)),
@@ -59,7 +59,7 @@ void Controller::clear(){
   }
 }
 
-void Controller::clearLine(int p_line){
+void Controller::clearLine(const int p_line){
   setText(p_line, 0, "          ");
   pros::delay(50);
 }
@@ -76,7 +76,7 @@ bool Controller::isConnected(){
   return pros::c::controller_is_connected(m_controllerType);
 }
 
-void Controller::print(int p_row, int p_col, const char* p_fmt...){
+void Controller::print(const int p_row, const int p_col, const char* p_fmt...){
   std::string sum = "";
   va_list args;
   va_start(args, p_fmt);
@@ -117,7 +117,7 @@ void Controller::rumble(const char* p_fmt){
   pros::delay(50);
 }
 
-void Controller::setText(int p_row, int p_col, const char* p_fmt){
+void Controller::setText(const int p_row, const int p_col, const char* p_fmt){
   pros::c::controller_set_text(m_controllerType, p_row, p_col, p_fmt);
   pros::delay(50);
 }
