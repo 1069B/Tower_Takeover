@@ -11,7 +11,7 @@
     int m_nextFlag;
 
   public:
-    Timer(const bool mode = false);
+    Timer(const bool p_mode = false);
 
     int resetTime();
 
@@ -21,6 +21,6 @@
 
     bool preformAction();
 
-    int addActionDelay(const int delay);
+    int addActionDelay(const int p_delay);
   };
 #endif // TIMERCLASS_H

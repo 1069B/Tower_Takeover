@@ -1,7 +1,7 @@
 #include "robot/devices/timerClass.h"
 
-Timer::Timer(const bool mode){// False is system time
-  if(mode){
+Timer::Timer(const bool p_mode){// False is system time
+  if(p_mode){
     m_startTime = pros::millis();
     m_nextFlag = pros::millis();
     m_previousLapTime = pros::millis();
@@ -39,8 +39,8 @@ bool Timer::preformAction(){
     return false;
 }
 
-int Timer::addActionDelay(const int delay){
+int Timer::addActionDelay(const int p_delay){
   m_currentTime = pros::millis() - m_startTime;
-  m_nextFlag = m_currentTime + delay;
+  m_nextFlag = m_currentTime + p_delay;
   return 1;
 }

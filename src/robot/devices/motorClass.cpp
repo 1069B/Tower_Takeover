@@ -1,14 +1,14 @@
 #include "robot/devices/motorClass.h"
 
-Motor::Motor(std::string theName, short input, pros::motor_gearset_e_t type, bool reverse){
-  m_name = theName;
-  m_port = input;
-  m_motorGearSet = type;
-  m_reversed = reverse;
+Motor::Motor(std::string p_name, short p_input, pros::motor_gearset_e_t p_type, bool p_reverse){
+  m_name = p_name;
+  m_port = p_input;
+  m_motorGearSet = p_type;
+  m_reversed = p_reverse;
   m_internalPID = true;
 
   pros::c::motor_set_reversed(m_port, m_reversed);
-  pros::c::motor_set_gearing(m_port, type);
+  pros::c::motor_set_gearing(m_port, p_type);
   pros::c::motor_set_brake_mode(m_port, pros::E_MOTOR_BRAKE_COAST);
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
 
@@ -35,23 +35,23 @@ Motor::Motor(std::string theName, short input, pros::motor_gearset_e_t type, boo
   setStrings();
 }
 
-void Motor::setVelocity(int vel){
-  pros::c::motor_move_velocity(m_port, vel);
-  m_desiredVelocity = vel;
+void Motor::setVelocity(int p_velocity){
+  pros::c::motor_move_velocity(m_port, p_velocity);
+  m_desiredVelocity = p_velocity;
   m_internalPID = true;
   m_desiredVoltage = 0;
 }
 
-void Motor::setVoltage(int pow){
-  pros::c::motor_move_voltage(m_port, pow);
-  m_desiredVoltage = pow;
+void Motor::setVoltage(int p_power){
+  pros::c::motor_move_voltage(m_port, p_power);
+  m_desiredVoltage = p_power;
   m_internalPID = false;
   m_desiredVelocity = 0;
 }
 
-void Motor::setBrake(pros::motor_brake_mode_e_t brake){
-  pros::c::motor_set_brake_mode(m_port, brake);
-  m_brakeMode = brake;
+void Motor::setBrake(pros::motor_brake_mode_e_t p_power){
+  pros::c::motor_set_brake_mode(m_port, p_power);
+  m_brakeMode = p_power;
   setStrings();
 }
 
