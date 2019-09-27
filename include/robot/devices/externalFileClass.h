@@ -8,49 +8,49 @@ private:
     std::fstream m_file;
     std::string m_fileAddress;
 
-    bool varExist(const std::string varibleTitle);
-    int addLine(const std::string lineValue);
-    int updateLine(const std::string varibleTitle, const std::string lineValue);
-    int storeVar(const std::string varibleTitle, const std::string lineValue);
-    std::string readLine(const std::string varibleTitle);
+    bool varExist(const std::string p_varibleTitle);
+    int addLine(const std::string p_lineValue);
+    int updateLine(const std::string p_varibleTitle, const std::string p_lineValue);
+    int storeVar(const std::string p_varibleTitle, const std::string p_lineValue);
+    std::string readLine(const std::string p_varibleTitle);
 public:
     static bool SDCardIsInserted();
 
-    ExternalFile(std::string address);
+    ExternalFile(std::string p_address);
 
     bool fileExist();
 
     //Single Varibles
-    int storeInt(const std::string varibleName,const int varibleValue);
-    int readInt(const std::string varibleName);
+    int storeInt(const std::string p_varibleName,const int p_varibleValue);
+    int readInt(const std::string p_varibleName);
 
-    int storeDouble(const std::string varibleName, const double varibleValue);
-    double readDouble(const std::string varibleName);
+    int storeDouble(const std::string p_varibleName, const double p_varibleValue);
+    double readDouble(const std::string p_varibleName);
 
-    int storeChar(const std::string varibleName, const char varibleValue);
-    char readChar(const std::string varibleName);
+    int storeChar(const std::string p_varibleName, const char p_varibleValue);
+    char readChar(const std::string p_varibleName);
 
-    int storeBool(const std::string varibleName, const bool varibleValue);
-    bool readBool(const std::string varibleName);
+    int storeBool(const std::string p_varibleName, const bool p_varibleValue);
+    bool readBool(const std::string p_varibleName);
 
-    int storeString(const std::string varibleName, const std::string varibleValue);
-    std::string readString(const std::string varibleName);
+    int storeString(const std::string p_varibleName, const std::string p_varibleValue);
+    std::string readString(const std::string p_varibleName);
 
     // Array of Varibles
-    int storeIntArray(const std::string varibleName,const std::vector<int> varibleValue);
-    std::vector<int> readIntArray(const std::string varibleName);
+    int storeIntArray(const std::string p_varibleName,const std::vector<int> p_varibleValue);
+    std::vector<int> readIntArray(const std::string p_varibleName);
 
-    int storeDoubleArray(const std::string varibleName, const std::vector<double> varibleValue);
-    std::vector<double> readDoubleArray(const std::string varibleName);
+    int storeDoubleArray(const std::string p_varibleName, const std::vector<double> p_varibleValue);
+    std::vector<double> readDoubleArray(const std::string p_varibleName);
 
-    int storeCharArray(const std::string varibleName, const std::vector<char> varibleValue);
-    std::vector<char> readCharArray(const std::string varibleName);
+    int storeCharArray(const std::string p_varibleName, const std::vector<char> p_varibleValue);
+    std::vector<char> readCharArray(const std::string p_varibleName);
 
-    int storeBoolArray(const std::string varibleName, const std::vector<bool> varibleValue);
-    std::vector<bool> readBoolArray(const std::string varibleName);
+    int storeBoolArray(const std::string p_varibleName, const std::vector<bool> p_varibleValue);
+    std::vector<bool> readBoolArray(const std::string p_varibleName);
 
-    int storeStringArray(const std::string varibleName, const std::vector<std::string> varibleValue);
-    std::vector<std::string> readStringArray(const std::string varibleName);
+    int storeStringArray(const std::string p_varibleName, const std::vector<std::string> p_varibleValue);
+    std::vector<std::string> readStringArray(const std::string p_varibleName);
 };
 
 #endif // EXTERNALFILECLASS_H

@@ -13,8 +13,8 @@ bool ExternalFile::SDCardIsInserted(){
   return false;
 }
 
-ExternalFile::ExternalFile(std::string address){
-    m_fileAddress = "/usd/" + address;
+ExternalFile::ExternalFile(std::string p_address){
+    m_fileAddress = "/usd/" + p_address;
     m_file.open(m_fileAddress, std::ios::in);
     if(m_file.is_open()){
         m_file.close();
@@ -37,11 +37,11 @@ bool ExternalFile::fileExist(){
   return false;
 }
 
-bool ExternalFile::varExist(const std::string varibleTitle){
+bool ExternalFile::varExist(const std::string p_varibleTitle){
     m_file.open(m_fileAddress, std::ios::in);
     std::string tempString;
     while(std::getline(m_file, tempString)){
-        if(!tempString.find(varibleTitle)){
+        if(!tempString.find(p_varibleTitle)){
             m_file.close();
             return true;
         }
@@ -49,19 +49,19 @@ bool ExternalFile::varExist(const std::string varibleTitle){
     m_file.close();
     return false;
 }
-int ExternalFile::addLine(const std::string lineValue){
+int ExternalFile::addLine(const std::string p_lineValue){
     m_file.open(m_fileAddress, std::ios::app);
-    m_file << lineValue << std::endl;
+    m_file << p_lineValue << std::endl;
     m_file.close();
     return 0;
 }
-int ExternalFile::updateLine(const std::string varibleTitle, const std::string lineValue){
+int ExternalFile::updateLine(const std::string p_varibleTitle, const std::string p_lineValue){
     std::vector<std::string> stringVector;
     std::string tempString;
     m_file.open(m_fileAddress, std::ios::in);
     while(std::getline(m_file, tempString)){
-        if(!tempString.find(varibleTitle)){
-            tempString = lineValue;
+        if(!tempString.find(p_varibleTitle)){
+            tempString = p_lineValue;
             stringVector.push_back(tempString);
         }
         else{
@@ -77,11 +77,11 @@ int ExternalFile::updateLine(const std::string varibleTitle, const std::string l
     m_file.close();
     return 0;
 }
-std::string ExternalFile::readLine(const std::string varibleTitle){
+std::string ExternalFile::readLine(const std::string p_varibleTitle){
     m_file.open(m_fileAddress, std::ios::in);
     std::string tempString;
     while(std::getline(m_file, tempString)){
-        if(!tempString.find(varibleTitle)){
+        if(!tempString.find(p_varibleTitle)){
             m_file.close();
             return tempString;
         }
@@ -90,19 +90,19 @@ std::string ExternalFile::readLine(const std::string varibleTitle){
     return "Error";
 }
 
-int ExternalFile::storeVar(const std::string varibleTitle, const std::string lineValue){
-    if(varExist(varibleTitle)){
-        updateLine(varibleTitle, lineValue);
+int ExternalFile::storeVar(const std::string p_varibleTitle, const std::string p_lineValue){
+    if(varExist(p_varibleTitle)){
+        updateLine(p_varibleTitle, p_lineValue);
     }
     else{
-        addLine(lineValue);
+        addLine(p_lineValue);
     }
     return 1;
 }
 
-int ExternalFile::storeInt(const std::string varibleName, const int varibleValue){
-    std::string varibleTitle = varibleName + ":Int= ";
-    std::string lineValue = varibleTitle + std::to_string(varibleValue);
+int ExternalFile::storeInt(const std::string p_varibleName, const int p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":Int= ";
+    std::string lineValue = varibleTitle + std::to_string(p_varibleValue);
     return storeVar(varibleTitle, lineValue);
 }
 int ExternalFile::readInt(const std::string varibleName){
@@ -113,52 +113,52 @@ int ExternalFile::readInt(const std::string varibleName){
     return std::stoi(lineValue.substr(varibleTitle.size()));
 }
 
-int ExternalFile::storeDouble(const std::string varibleName, const double varibleValue){
-    std::string varibleTitle = varibleName + ":Double= ";
-    std::string lineValue = varibleTitle + std::to_string(varibleValue);
+int ExternalFile::storeDouble(const std::string p_varibleName, const double p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":Double= ";
+    std::string lineValue = varibleTitle + std::to_string(p_varibleValue);
     return storeVar(varibleTitle, lineValue);
 }
-double ExternalFile::readDouble(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":Double= ";
+double ExternalFile::readDouble(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":Double= ";
     std::string lineValue = readLine(varibleTitle);
     if(lineValue == "Error")
       return -1.1;
     return std::stod(lineValue.substr(varibleTitle.size()));
 }
 
-int ExternalFile::storeChar(const std::string varibleName, const char varibleValue){
-    std::string varibleTitle = varibleName + ":Char= ";
-    std::string lineValue = varibleTitle + varibleValue;
+int ExternalFile::storeChar(const std::string p_varibleName, const char p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":Char= ";
+    std::string lineValue = varibleTitle + p_varibleValue;
     return storeVar(varibleTitle, lineValue);
 }
-char ExternalFile::readChar(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":Char= ";
+char ExternalFile::readChar(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":Char= ";
     std::string lineValue = readLine(varibleTitle);
     if(lineValue == "Error")
       return 'E';
     return lineValue.at(varibleTitle.size());
 }
 
-int ExternalFile::storeBool(const std::string varibleName, const bool varibleValue){
-    std::string varibleTitle = varibleName + ":Bool= ";
-    std::string lineValue = varibleTitle + std::to_string(varibleValue);
+int ExternalFile::storeBool(const std::string p_varibleName, const bool p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":Bool= ";
+    std::string lineValue = varibleTitle + std::to_string(p_varibleValue);
     return storeVar(varibleTitle, lineValue);
 }
-bool ExternalFile::readBool(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":Bool= ";
+bool ExternalFile::readBool(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":Bool= ";
     std::string lineValue = readLine(varibleTitle);
     if(lineValue == "Error")
       return false;
     return std::stoi(lineValue.substr(varibleTitle.size()));
 }
 
-int ExternalFile::storeString(const std::string varibleName, const std::string varibleValue){
-    std::string varibleTitle = varibleName + ":String= ";
-    std::string lineValue = varibleTitle + varibleValue;
+int ExternalFile::storeString(const std::string p_varibleName, const std::string p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":String= ";
+    std::string lineValue = varibleTitle + p_varibleValue;
     return storeVar(varibleTitle, lineValue);
 }
-std::string ExternalFile::readString(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":String= ";
+std::string ExternalFile::readString(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":String= ";
     std::string lineValue = readLine(varibleTitle);
     if(lineValue == "Error")
       return "Error";
@@ -166,17 +166,17 @@ std::string ExternalFile::readString(const std::string varibleName){
 }
 
 // Array of Varibles
-int ExternalFile::storeIntArray(const std::string varibleName,const std::vector<int> varibleValue){
-    std::string varibleTitle = varibleName + ":IntArray= ";
+int ExternalFile::storeIntArray(const std::string p_varibleName,const std::vector<int> p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":IntArray= ";
     std::string lineValue = varibleTitle;
-    for(int x = 0; x<varibleValue.size()-1; x++){
-        lineValue += std::to_string(varibleValue.at(x))+ ", ";
+    for(int x = 0; x<p_varibleValue.size()-1; x++){
+        lineValue += std::to_string(p_varibleValue.at(x))+ ", ";
     }
-    lineValue += std::to_string(varibleValue.at(varibleValue.size()-1))+"~";
+    lineValue += std::to_string(p_varibleValue.at(p_varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<int> ExternalFile::readIntArray(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":IntArray= ";
+std::vector<int> ExternalFile::readIntArray(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":IntArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<int> tempVec;
     if(lineValue == "Error"){
@@ -199,17 +199,17 @@ std::vector<int> ExternalFile::readIntArray(const std::string varibleName){
     return tempVec;
 }
 
-int ExternalFile::storeDoubleArray(const std::string varibleName, const std::vector<double> varibleValue){
-    std::string varibleTitle = varibleName + ":DoubleArray= ";
+int ExternalFile::storeDoubleArray(const std::string p_varibleName, const std::vector<double> p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":DoubleArray= ";
     std::string lineValue = varibleTitle;
-    for(int x = 0; x<varibleValue.size()-1; x++){
-        lineValue += std::to_string(varibleValue.at(x))+ ", ";
+    for(int x = 0; x<p_varibleValue.size()-1; x++){
+        lineValue += std::to_string(p_varibleValue.at(x))+ ", ";
     }
-    lineValue += std::to_string(varibleValue.at(varibleValue.size()-1))+"~";
+    lineValue += std::to_string(p_varibleValue.at(p_varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<double> ExternalFile::readDoubleArray(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":DoubleArray= ";
+std::vector<double> ExternalFile::readDoubleArray(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":DoubleArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<double> tempVec;
     if(lineValue == "Error"){
@@ -232,17 +232,17 @@ std::vector<double> ExternalFile::readDoubleArray(const std::string varibleName)
     return tempVec;
 }
 
-int ExternalFile::storeCharArray(const std::string varibleName, const std::vector<char> varibleValue){
-    std::string varibleTitle = varibleName + ":CharArray= ";
+int ExternalFile::storeCharArray(const std::string p_varibleName, const std::vector<char> p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":CharArray= ";
     std::string lineValue = varibleTitle;
-    for(int x = 0; x<varibleValue.size()-1; x++){
-        lineValue += std::string(1, varibleValue.at(x))+ ", ";
+    for(int x = 0; x<p_varibleValue.size()-1; x++){
+        lineValue += std::string(1, p_varibleValue.at(x))+ ", ";
     }
-    lineValue += std::string(1, varibleValue.at(varibleValue.size()-1))+"~";
+    lineValue += std::string(1, p_varibleValue.at(p_varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<char> ExternalFile::readCharArray(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":CharArray= ";
+std::vector<char> ExternalFile::readCharArray(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":CharArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<char> tempVec;
     if(lineValue == "Error"){
@@ -266,17 +266,17 @@ std::vector<char> ExternalFile::readCharArray(const std::string varibleName){
     return tempVec;
 }
 
-int ExternalFile::storeBoolArray(const std::string varibleName, const std::vector<bool> varibleValue){
-    std::string varibleTitle = varibleName + ":BoolArray= ";
+int ExternalFile::storeBoolArray(const std::string p_varibleName, const std::vector<bool> p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":BoolArray= ";
     std::string lineValue = varibleTitle;
-    for(int x = 0; x<varibleValue.size()-1; x++){
-        lineValue += std::to_string(varibleValue.at(x))+ ", ";
+    for(int x = 0; x<p_varibleValue.size()-1; x++){
+        lineValue += std::to_string(p_varibleValue.at(x))+ ", ";
     }
-    lineValue += std::to_string(varibleValue.at(varibleValue.size()-1))+"~";
+    lineValue += std::to_string(p_varibleValue.at(p_varibleValue.size()-1))+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<bool> ExternalFile::readBoolArray(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":BoolArray= ";
+std::vector<bool> ExternalFile::readBoolArray(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":BoolArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<bool> tempVec;
     if(lineValue == "Error"){
@@ -299,17 +299,17 @@ std::vector<bool> ExternalFile::readBoolArray(const std::string varibleName){
     return tempVec;
 }
 
-int ExternalFile::storeStringArray(const std::string varibleName, const std::vector<std::string> varibleValue){
-    std::string varibleTitle = varibleName + ":StringArray= ";
+int ExternalFile::storeStringArray(const std::string p_varibleName, const std::vector<std::string> p_varibleValue){
+    std::string varibleTitle = p_varibleName + ":StringArray= ";
     std::string lineValue = varibleTitle;
-    for(int x = 0; x<varibleValue.size()-1; x++){
-        lineValue += varibleValue.at(x)+ ", ";
+    for(int x = 0; x<p_varibleValue.size()-1; x++){
+        lineValue += p_varibleValue.at(x)+ ", ";
     }
-    lineValue += varibleValue.at(varibleValue.size()-1)+"~";
+    lineValue += p_varibleValue.at(p_varibleValue.size()-1)+"~";
     return storeVar(varibleTitle, lineValue);
 }
-std::vector<std::string> ExternalFile::readStringArray(const std::string varibleName){
-    std::string varibleTitle = varibleName + ":StringArray= ";
+std::vector<std::string> ExternalFile::readStringArray(const std::string p_varibleName){
+    std::string varibleTitle = p_varibleName + ":StringArray= ";
     std::string lineValue = readLine(varibleTitle);
     std::vector<std::string> tempVec;
     if(lineValue == "Error"){
