@@ -1,4 +1,4 @@
-#include "robot/controller/controllerClass.h"
+#include "robot/controller/controllerClass.hpp"
 
 Controller::Controller(const pros::controller_id_e_t p_type):
   ButtonL1(ControlBtn(p_type, pros::E_CONTROLLER_DIGITAL_L1)),

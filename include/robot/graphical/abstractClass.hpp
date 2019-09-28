@@ -1,6 +1,6 @@
-#include "styles.h"
-#include "robot/devices/externalFileClass.h"
-#include "robot/devices/timerClass.h"
+#include "styles.hpp"
+#include "robot/devices/externalFileClass.hpp"
+#include "robot/devices/timerClass.hpp"
 
 #ifndef ABSTRACTGUI_H
 #define ABSTRACTGUI_H

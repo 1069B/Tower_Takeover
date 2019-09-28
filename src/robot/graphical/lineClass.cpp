@@ -1,4 +1,4 @@
-#include "robot/graphical/lineClass.h"
+#include "robot/graphical/lineClass.hpp"
 
 Line::Line(const PassInfo& p_info){
   m_points = p_info.points;

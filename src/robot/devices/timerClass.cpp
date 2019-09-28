@@ -1,4 +1,4 @@
-#include "robot/devices/timerClass.h"
+#include "robot/devices/timerClass.hpp"
 
 Timer::Timer(const bool p_mode){// False is system time
   if(p_mode){

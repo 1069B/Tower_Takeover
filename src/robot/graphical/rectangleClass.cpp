@@ -1,4 +1,4 @@
-#include "robot/graphical/rectangleClass.h"
+#include "robot/graphical/rectangleClass.hpp"
 
 Rectangle::Rectangle(const PassInfo& p_info){
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner

@@ -1,4 +1,4 @@
-#include "tasks.h"
+#include "tasks.hpp"
 graphicalInterface gui("Timer1");
 Controller mainController(pros::E_CONTROLLER_MASTER);
 Controller partnerController(pros::E_CONTROLLER_PARTNER);

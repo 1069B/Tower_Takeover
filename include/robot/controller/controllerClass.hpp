@@ -1,6 +1,6 @@
-#include "controlBtnClass.h"
-#include "controlAxisClass.h"
-#include "robot/graphical/GUIClass.h"
+#include "controlBtnClass.hpp"
+#include "controlAxisClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
 
 #ifndef CONTROLLERCLASS_H
 #define CONTROLLERCLASS_H

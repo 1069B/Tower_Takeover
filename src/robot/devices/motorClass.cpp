@@ -1,4 +1,4 @@
-#include "robot/devices/motorClass.h"
+#include "robot/devices/motorClass.hpp"
 
 Motor::Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse){
   m_name = p_name;

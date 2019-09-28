@@ -1,4 +1,4 @@
-#include "robot/graphical/buttonClass.h"
+#include "robot/graphical/buttonClass.hpp"
 
 Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_varible(*p_info.intPointer), m_nextScreenVar(p_nextScreenID){
   m_id = p_info.id; // Id for the Button

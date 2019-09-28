@@ -1,8 +1,8 @@
-#include "buttonClass.h"
-#include "labelClass.h"
-#include "meterClass.h"
-#include "lineClass.h"
-#include "rectangleClass.h"
+#include "buttonClass.hpp"
+#include "labelClass.hpp"
+#include "meterClass.hpp"
+#include "lineClass.hpp"
+#include "rectangleClass.hpp"
 
 #ifndef SCREENCLASS_H
 #define SCREENCLASS_H

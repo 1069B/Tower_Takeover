@@ -1,4 +1,4 @@
-#include "externalFileClass.h"
+#include "externalFileClass.hpp"
 
 bool ExternalFile::SDCardIsInserted(){
   std::fstream m_file;

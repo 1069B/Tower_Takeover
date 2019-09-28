@@ -1,4 +1,4 @@
-#include "robot/graphical/GUIClass.h"
+#include "robot/graphical/GUIClass.hpp"
 int noVar = 0;
 
 graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_timer(false), m_GUIStorage("GUI_Storage.txt"){

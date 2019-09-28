@@ -1,4 +1,4 @@
-#include "robot/graphical/labelClass.h"
+#include "robot/graphical/labelClass.hpp"
 
 Label::Label(const PassInfo& p_info){// mode 0
   m_xOrgin = p_info.xOrgin;

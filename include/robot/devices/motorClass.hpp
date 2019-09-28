@@ -1,5 +1,5 @@
 #include "main.h"
-#include "robot/graphical/GUIClass.h"
+#include "robot/graphical/GUIClass.hpp"
 
 #ifndef MOTORCLASS_H
 #define MOTORCLASS_H

@@ -1,5 +1,5 @@
-#include "styles.h"
-#include "abstractClass.h"
+#include "styles.hpp"
+#include "abstractClass.hpp"
 
 #ifndef METERCLASS_H
 #define METERCLASS_H

@@ -1,4 +1,4 @@
-#include "screenClass.h"
+#include "screenClass.hpp"
 
 #ifndef GUICLASS_H
 #define GUICLASS_H

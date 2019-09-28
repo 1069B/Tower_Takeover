@@ -1,4 +1,4 @@
-#include "robot/graphical/styles.h"
+#include "robot/graphical/styles.hpp"
 
 lv_style_t redBtnRel;
 lv_style_t redBtnPress;

@@ -1,4 +1,4 @@
-#include "robot/graphical/meterClass.h"
+#include "robot/graphical/meterClass.hpp"
 
 Meter::Meter(const PassInfo& p_info){
   m_xOrgin = p_info.xOrgin;
