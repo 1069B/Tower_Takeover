@@ -1,105 +1,104 @@
 #include "robot/graphical/screenClass.h"
 
-Screen::Screen(PassInfo& info):
-nextScreenID(*info.stringPointer),
-version(*info.intPointer){
-  pageID = info.string1;
-  backGround = info.style1;
-  btnArray.resize(0); // See about makeing size changes automaticly
+Screen::Screen(PassInfo& p_info):
+m_nextScreenID(*p_info.stringPointer),
+m_version(*p_info.intPointer){
+  m_pageID = p_info.linkedID;
+  m_backGround = p_info.style1;
 }
-void Screen::changeBackground(lv_style_t& backColor){
-  backGround = &backColor;
-  lv_obj_set_style(lv_scr_act(), backGround);
+void Screen::changeBackground(lv_style_t& p_backColor){
+  m_backGround = &p_backColor;
+  lv_obj_set_style(lv_scr_act(), m_backGround);
 }
 
 void Screen::addRelationship(std::function<bool()> func, bool inverse, std::string otherScreen){
-  relation = true;
-  relatedFunc = func;
-  relatedScreen = otherScreen;
-  inversed = inverse;
+  m_relation = true;
+  m_relatedFunc = func;
+  m_relatedScreen = otherScreen;
+  m_inversed = inverse;
 }
 std::string Screen::getRelatedScreen(){
-  return relatedScreen;
+  return m_relatedScreen;
 }
 std::function<bool()> Screen::getRelatedFunc(){
-  return relatedFunc;
+  return m_relatedFunc;
 }
 bool Screen::getInverse(){
-  return inversed;
+  return m_inversed;
 }
 bool Screen::isRelation(){
-  return relation;
+  return m_relation;
 }
 
-void Screen::addButton(PassInfo& info){
-  btnArray.resize(btnArray.size()+1);
-	btnArray.at(btnArray.size()-1) = new Button(info, nextScreenID);
+void Screen::addButton(PassInfo& p_info){
+  m_btnArray.resize(m_btnArray.size()+1);
+	m_btnArray.at(m_btnArray.size()-1) = new Button(p_info, m_nextScreenID);
 }
-void Screen::addButtionAction(PassInfo& info){
-  for(int y = 0; y < btnArray.size(); y++){
-    if(btnArray[y]->id == info.integer.at(0))
-      btnArray[y]->defineAction(info);
+void Screen::addButtionAction(PassInfo& p_info){
+  for(int y = 0; y < m_btnArray.size(); y++){
+    if(m_btnArray[y]->m_id == p_info.id)
+      m_btnArray[y]->defineAction(p_info);
   }
 }
-void Screen::addLabel(PassInfo& info){
-  labelArray.resize(labelArray.size()+1);
-	labelArray.at(labelArray.size()-1) = new Label(info);
+void Screen::addLabel(PassInfo& p_info){
+  m_labelArray.resize(m_labelArray.size()+1);
+	m_labelArray.at(m_labelArray.size()-1) = new Label(p_info);
 }
-void Screen::addLine(PassInfo& info){
-  lineArray.resize(lineArray.size()+1);
-  lineArray.at(lineArray.size()-1) = new Line(info);
+void Screen::addLine(PassInfo& p_info){
+  m_lineArray.resize(m_lineArray.size()+1);
+  m_lineArray.at(m_lineArray.size()-1) = new Line(p_info);
 }
-void Screen::addMeter(PassInfo& info){
-  meterArray.resize(meterArray.size()+1);
-  meterArray.at(meterArray.size()-1) = new Meter(info);
+void Screen::addMeter(PassInfo& p_info){
+  m_meterArray.resize(m_meterArray.size()+1);
+  m_meterArray.at(m_meterArray.size()-1) = new Meter(p_info);
 }
-void Screen::addRectangle(PassInfo& info){
-  rectArray.resize(rectArray.size()+1);
-  rectArray.at(rectArray.size()-1) = new Rectangle(info);
+void Screen::addRectangle(PassInfo& p_info){
+  m_rectArray.resize(m_rectArray.size()+1);
+  m_rectArray.at(m_rectArray.size()-1) = new Rectangle(p_info);
 }
 
 void Screen::draw(){
-  lv_obj_set_style(lv_scr_act(), backGround);
-  for(int y = 0; y < rectArray.size(); y++)
-    rectArray.at(y)->draw();
-  for(int y = 0; y < btnArray.size(); y++)
-    btnArray.at(y)->draw(version);
+  lv_obj_set_style(lv_scr_act(), m_backGround);
+  for(int y = 0; y < m_rectArray.size(); y++)
+    m_rectArray.at(y)->draw();
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->draw(m_version);
 
-  for(int y = 0; y <labelArray.size(); y++)
-    labelArray.at(y)->draw();
+  for(int y = 0; y <m_labelArray.size(); y++)
+    m_labelArray.at(y)->draw();
 
-  for(int y = 0; y < lineArray.size(); y++)
-    lineArray.at(y)->draw();
+  for(int y = 0; y < m_lineArray.size(); y++)
+    m_lineArray.at(y)->draw();
 
-  for(int y = 0; y < meterArray.size(); y++)
-    meterArray.at(y)->draw();
+  for(int y = 0; y < m_meterArray.size(); y++)
+    m_meterArray.at(y)->draw();
 }
 void Screen::update(){
-  for(int y = 0; y < btnArray.size(); y++)
-    btnArray.at(y)->update(version);
-  for(int y = 0; y < labelArray.size(); y++)
-    labelArray.at(y)->update();
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->update(m_version);
+  for(int y = 0; y < m_labelArray.size(); y++)
+    m_labelArray.at(y)->update();
 
-  for(int y = 0; y < meterArray.size(); y++)
-    meterArray.at(y)->update();
+  for(int y = 0; y < m_meterArray.size(); y++)
+    m_meterArray.at(y)->update();
 }
 void Screen::detect(){
-  for(int y = 0; y < btnArray.size(); y++)
-    btnArray.at(y)->checkState(version);
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->checkState(m_version);
 }
 void Screen::remove(){
-  for(int y = 0; y < btnArray.size(); y++)
-    btnArray.at(y)->remove();
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->remove();
 
-  for(int y = 0; y < labelArray.size(); y++)
-    labelArray.at(y)->remove();
+  for(int y = 0; y < m_labelArray.size(); y++)
+    m_labelArray.at(y)->remove();
 
-  for(int y = 0; y < lineArray.size(); y++)
-    lineArray.at(y)->remove();
+  for(int y = 0; y < m_lineArray.size(); y++)
+    m_lineArray.at(y)->remove();
 
-  for(int y = 0; y < meterArray.size(); y++)
-    meterArray.at(y)->remove();
+  for(int y = 0; y < m_meterArray.size(); y++)
+    m_meterArray.at(y)->remove();
 
-  for(int y = 0; y < rectArray.size(); y++)
-    rectArray.at(y)->remove();
+  for(int y = 0; y < m_rectArray.size(); y++)
+    m_rectArray.at(y)->remove();
 }

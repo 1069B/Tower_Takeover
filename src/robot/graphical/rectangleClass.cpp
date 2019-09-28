@@ -1,35 +1,35 @@
 #include "robot/graphical/rectangleClass.h"
 
-Rectangle::Rectangle(PassInfo& info){
-  xOrgin = info.integer.at(0); //Every thing is in realtion to the upper left coner
-  yOrgin = info.integer.at(1);
-  length = info.integer.at(2);
-  width = info.integer.at(3);
-  mode = info.integer.at(4);
-  if(mode)
-    lv_styleFunction = info.lv_styleFunction;
+Rectangle::Rectangle(PassInfo& p_info){
+  m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
+  m_yOrgin = p_info.yOrgin;
+  m_length = p_info.length;
+  m_width = p_info.width;
+  m_mode = p_info.mode;
+  if(m_mode)
+    m_lv_styleFunction = p_info.lv_styleFunction;
   else
-    style1 = info.style1;
+    m_style1 = p_info.style1;
 }
 
 void Rectangle::draw(){
-  obj1 = lv_obj_create(lv_scr_act(), NULL);
-  lv_obj_set_size(obj1, length, width);
-  lv_obj_set_style(obj1, style1);
-  lv_obj_align(obj1, NULL, LV_ALIGN_IN_TOP_LEFT, xOrgin, yOrgin);
-  state = true;
+  m_obj1 = lv_obj_create(lv_scr_act(), NULL);
+  lv_obj_set_size(m_obj1, m_length, m_width);
+  lv_obj_set_style(m_obj1, m_style1);
+  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  m_state = true;
 }
 
 void Rectangle::update(){
-  if(state && mode){
-    style1 = lv_styleFunction();
-    lv_obj_set_style(obj1, style1);
+  if(m_state && m_mode){
+    m_style1 = m_lv_styleFunction();
+    lv_obj_set_style(m_obj1, m_style1);
   }
 }
 
 void Rectangle::remove(){
-  if(state){
-    lv_obj_del(obj1);
-    state = false;
+  if(m_state){
+    lv_obj_del(m_obj1);
+    m_state = false;
   }
 }

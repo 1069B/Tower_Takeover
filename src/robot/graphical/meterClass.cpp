@@ -1,45 +1,45 @@
 #include "robot/graphical/meterClass.h"
 
-Meter::Meter(PassInfo& info){
-  xOrgin = info.integer.at(0);
-  yOrgin = info.integer.at(1);
-  rangeLow = info.integer.at(2);
-  rangeHigh = info.integer.at(3);
-  size = info.integer.at(4);
-  angle = info.integer.at(5);
-  numberOfDashes = info.integer.at(6);
-  style1 = info.style1;// Default styles
-  style2 = info.style2;
-  intFunction = info.intFunction;
+Meter::Meter(PassInfo& p_info){
+  m_xOrgin = p_info.xOrgin;
+  m_yOrgin = p_info.yOrgin;
+  m_rangeLow = p_info.rangeLow;
+  m_rangeHigh = p_info.rangeHigh;
+  m_size = p_info.sizeFactor;
+  m_angle = p_info.angle;
+  m_numberOfDashes = p_info.numOfDashes;
+  m_style1 = p_info.style1;// Default styles
+  m_style2 = p_info.style2;
+  m_intFunction = p_info.intFunction;
 }
 
 void Meter::draw(){
-  state = true;
-  obj1 = lv_lmeter_create(lv_scr_act(), NULL);
-  lv_obj_set_style(obj1, style1);
-  lv_lmeter_set_range(obj1, rangeLow, rangeHigh);
-  lv_obj_set_size(obj1, size, size);
-  lv_obj_align(obj1, NULL, LV_ALIGN_IN_TOP_LEFT, xOrgin, yOrgin);
-  lv_lmeter_set_scale(obj1, angle, numberOfDashes);
-  lv_lmeter_set_value(obj1, 42);
+  m_state = true;
+  m_obj1 = lv_lmeter_create(lv_scr_act(), NULL);
+  lv_obj_set_style(m_obj1, m_style1);
+  lv_lmeter_set_range(m_obj1, m_rangeLow, m_rangeHigh);
+  lv_obj_set_size(m_obj1, m_size, m_size);
+  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  lv_lmeter_set_scale(m_obj1, m_angle, m_numberOfDashes);
+  lv_lmeter_set_value(m_obj1, 42);
 
-  obj2 = lv_label_create(obj1, NULL);
-  lv_label_set_text(obj2, "42%");
-  lv_obj_set_style(obj2, style2);
-  lv_obj_align(obj2, NULL, LV_ALIGN_CENTER, 0, 0);
+  m_obj2 = lv_label_create(m_obj1, NULL);
+  lv_label_set_text(m_obj2, "42%");
+  lv_obj_set_style(m_obj2, m_style2);
+  lv_obj_align(m_obj2, NULL, LV_ALIGN_CENTER, 0, 0);
 }
 
 void Meter::update(){
-  if(state){
-    lv_lmeter_set_value(obj1, intFunction());
-    lv_label_set_text(obj2, std::to_string(intFunction()).c_str());
+  if(m_state){
+    lv_lmeter_set_value(m_obj1, m_intFunction());
+    lv_label_set_text(m_obj2, std::to_string(m_intFunction()).c_str());
   }
 }
 
 void Meter::remove(){
-  if(state){
-    lv_obj_clean(obj1);
-    lv_obj_del(obj1);
-    state = false;
+  if(m_state){
+    lv_obj_clean(m_obj1);
+    lv_obj_del(m_obj1);
+    m_state = false;
   }
 }

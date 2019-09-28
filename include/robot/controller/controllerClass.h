@@ -7,9 +7,9 @@
 
 class Controller{
 private:
-  pros::controller_id_e_t controllerType;
+  pros::controller_id_e_t m_controllerType;
 public:
-  std::string name = "Controller";
+  std::string m_name = "Controller";
   ControlBtn ButtonL1;
   ControlBtn ButtonL2;
   ControlBtn ButtonR1;
@@ -27,11 +27,11 @@ public:
   ControlAxis Axis3;
   ControlAxis Axis4;
 
-  Controller(pros::controller_id_e_t type);
+  Controller(const pros::controller_id_e_t p_type);
 
   void clear();
 
-  void clearLine(int line);
+  void clearLine(const int p_line);
 
   int getBatteryCapacity();
 
@@ -39,11 +39,11 @@ public:
 
   bool isConnected();
 
-  void print(int row, int col, const char* fmt...);
+  void print(const int p_row, const int p_col, const char* p_fmt...);
 
-  void rumble(const char* fmt);
+  void rumble(const char* p_fmt);
 
-  void setText(int row, int col, const char* fmt);
+  void setText(const int p_row, const int p_col, const char* p_fmt);
 
   void callBackCheck();
 };

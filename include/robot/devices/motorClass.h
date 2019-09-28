@@ -6,27 +6,27 @@
 
 class Motor{
 private:
-  std::string name = "Motor";
-  short port;
-  pros::motor_gearset_e_t motorGearSet;
-  std::string s_gearSet = "200 RPM";
-  pros::motor_brake_mode_e_t brakeMode;
-  std::string s_brake = "Coast";
-  int desiredVelocity;
-  int desiredVoltage;
-  bool reversed;
-  bool internalPID;
+  std::string m_name = "Motor";
+  short m_port;
+  pros::motor_gearset_e_t m_motorGearSet;
+  std::string m_gearSetString = "200 RPM";
+  pros::motor_brake_mode_e_t m_brakeMode;
+  std::string m_brakeString = "Coast";
+  int m_desiredVelocity;
+  int m_desiredVoltage;
+  bool m_reversed;
+  bool m_internalPID;
 
   void setStrings();
 
 public:
-  Motor(std::string theName, short input, pros::motor_gearset_e_t type, bool reverse);
+  Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse);
 
-  void setVelocity(int vel);// In RPM
+  void setVelocity(const int p_velocity);// In RPM
 
-  void setVoltage(int pow);
+  void setVoltage(const int p_power);
 
-  void setBrake(pros::motor_brake_mode_e_t brake);
+  void setBrake(const pros::motor_brake_mode_e_t p_power);
 
   void resetRotation();
 
