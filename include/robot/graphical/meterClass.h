@@ -13,7 +13,7 @@ protected:
   int m_angle = 240;
   int m_numberOfDashes = 22;
 
-  Meter(PassInfo& p_info);
+  Meter(const PassInfo& p_info);
 
   void draw();
   void update();

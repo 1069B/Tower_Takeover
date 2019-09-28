@@ -1,6 +1,6 @@
 #include "robot/graphical/rectangleClass.h"
 
-Rectangle::Rectangle(PassInfo& p_info){
+Rectangle::Rectangle(const PassInfo& p_info){
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
   m_yOrgin = p_info.yOrgin;
   m_length = p_info.length;

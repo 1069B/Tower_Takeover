@@ -1,6 +1,6 @@
 #include "robot/graphical/buttonClass.h"
 
-Button::Button(PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_varible(*p_info.intPointer), m_nextScreenVar(p_nextScreenID){
+Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_varible(*p_info.intPointer), m_nextScreenVar(p_nextScreenID){
   m_id = p_info.id; // Id for the Button
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
   m_yOrgin = p_info.yOrgin;
@@ -10,14 +10,14 @@ Button::Button(PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_
   m_style2 = p_info.style2;
 }
 
-void Button::defineAction(PassInfo& p_info){
+void Button::defineAction(const PassInfo& p_info){
   m_mode = p_info.mode;
   m_linkedScreenID[p_info.version] = p_info.linkedID;// Corasponding screen
   m_value[p_info.version] = p_info.passValue; //Value set to above varible
   m_format[p_info.version] = p_info.text;
 }
 
-void Button::draw(int p_btnVer) {
+void Button::draw(const int p_btnVer) {
   m_obj1 = lv_btn_create(lv_scr_act(), NULL);
   m_obj2 = lv_label_create(m_obj1, NULL);
   lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
@@ -29,7 +29,7 @@ void Button::draw(int p_btnVer) {
   m_state = true;
 }
 
-void Button::update(int p_btnVer){
+void Button::update(const int p_btnVer){
   lv_label_set_text(m_obj2, m_format[p_btnVer].c_str());
 }
 
@@ -41,7 +41,7 @@ void Button::remove() {
   }
 }
 
-void Button::checkState(int p_btnVer){
+void Button::checkState(const int p_btnVer){
   if(m_state && m_timer.preformAction()){
     lv_btn_state_t buttonState = lv_btn_get_state(m_obj1);
     if(buttonState == LV_BTN_STATE_PR){
