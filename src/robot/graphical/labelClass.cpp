@@ -1,6 +1,6 @@
 #include "robot/graphical/labelClass.h"
 
-Label::Label(PassInfo& p_info){// mode 0
+Label::Label(const PassInfo& p_info){// mode 0
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_style1 = p_info.style1;

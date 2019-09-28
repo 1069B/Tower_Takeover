@@ -7,7 +7,7 @@
 class Rectangle: protected AbstractGUI{
 protected:
   friend class Screen;
-  Rectangle(PassInfo& p_info);
+  Rectangle(const PassInfo& p_info);
 
   void draw();
   void update();

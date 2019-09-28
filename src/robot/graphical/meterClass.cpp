@@ -1,6 +1,6 @@
 #include "robot/graphical/meterClass.h"
 
-Meter::Meter(PassInfo& p_info){
+Meter::Meter(const PassInfo& p_info){
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_rangeLow = p_info.rangeLow;
