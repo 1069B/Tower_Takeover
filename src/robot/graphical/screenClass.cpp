@@ -36,8 +36,8 @@ void Screen::addButton(const PassInfo& p_info){
 }
 void Screen::addButtionAction(const PassInfo& p_info){
   for(int y = 0; y < m_btnArray.size(); y++){
-    if(m_btnArray[y]->m_id == p_info.id)
-      m_btnArray[y]->defineAction(p_info);
+    if(m_btnArray.at(y)->m_id == p_info.id)
+      m_btnArray.at(y)->defineAction(p_info);
   }
 }
 void Screen::addLabel(const PassInfo& p_info){

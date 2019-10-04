@@ -80,6 +80,7 @@ void opcontrol(){
   while(true){
     gui.task();
     mainController.callBackCheck();
+    //motor_1.setVelocity(mainController.Axis1.getPercent());
 
     if(timer1.preformAction()){
       time = timer1.getTime();

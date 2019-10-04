@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-    "project_name": "Dev",
+        "project_name": "Dev",
         "target": "v5",
         "templates": {
             "kernel": {
@@ -272,6 +272,11 @@
                 "version": "3.3.13"
             }
         },
-        "upload_options": {}
+        "upload_options": {
+            "compress_bin": true,
+            "description": "Created with PROS",
+            "remote_name": "Dev",
+            "slot": 1
+        }
     }
 }
