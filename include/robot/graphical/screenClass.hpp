@@ -36,7 +36,7 @@ protected:
 	void addButton(const PassInfo& p_info);
 	void addButtionAction(const PassInfo& p_info);
 
-  void addLabel(const PassInfo& p_info);
+  void addLabel(PassInfo& p_info);
 
   void addLine(const PassInfo& p_info);
 

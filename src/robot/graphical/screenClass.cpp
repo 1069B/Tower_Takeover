@@ -40,9 +40,9 @@ void Screen::addButtionAction(const PassInfo& p_info){
       m_btnArray.at(y)->defineAction(p_info);
   }
 }
-void Screen::addLabel(const PassInfo& p_info){
-  m_labelArray.resize(m_labelArray.size()+1);
-	m_labelArray.at(m_labelArray.size()-1) = new Label(p_info);
+void Screen::addLabel(PassInfo& p_info){
+  //m_labelArray.resize(20);
+	//m_labelArray.push_back(new Label(p_info));
 }
 void Screen::addLine(const PassInfo& p_info){
   m_lineArray.resize(m_lineArray.size()+1);

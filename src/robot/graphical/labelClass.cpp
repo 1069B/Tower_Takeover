@@ -1,22 +1,22 @@
 #include "robot/graphical/labelClass.hpp"
 
 Label::Label(const PassInfo& p_info){// mode 0
-  m_xOrgin = p_info.xOrgin;
-  m_yOrgin = p_info.yOrgin;
-  m_style1 = p_info.style1;
-  m_format[0] = p_info.text;
-  m_mode = p_info.mode;
-  switch(m_mode){
-    case 0: break;
-    case 1: m_intPointer = p_info.intPointer; break;
-    case 2: m_intFunction = p_info.intFunction; break;
-    case 3: m_doublePointer = p_info.doublePointer; break;
-    case 4: m_doubleFunction = p_info.doubleFunction; break;
-    case 5: m_boolPointer = p_info.boolPointer; break;
-    case 6: m_boolFunction = p_info.boolFunction; break;
-    case 7: m_stringPointer = p_info.stringPointer; break;
-    case 8: m_stringFunction = p_info.stringFunction; break;
-  }
+  // m_xOrgin = p_info.xOrgin;
+  // m_yOrgin = p_info.yOrgin;
+  // m_style1 = p_info.style1;
+  // m_format[0] = p_info.text;
+  // m_mode = p_info.mode;
+  // switch(m_mode){
+  //   case 0: break;
+  //   case 1: m_intPointer = p_info.intPointer; break;
+  //   case 2: m_intFunction = p_info.intFunction; break;
+  //   case 3: m_doublePointer = p_info.doublePointer; break;
+  //   case 4: m_doubleFunction = p_info.doubleFunction; break;
+  //   case 5: m_boolPointer = p_info.boolPointer; break;
+  //   case 6: m_boolFunction = p_info.boolFunction; break;
+  //   case 7: m_stringPointer = p_info.stringPointer; break;
+  //   case 8: m_stringFunction = p_info.stringFunction; break;
+  // }
 }
 
 void Label::setString(){
