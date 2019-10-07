@@ -5,8 +5,8 @@
 #define RECTANGLECLASS_H
 
 class Rectangle: protected AbstractGUI{
-protected:
-  friend class Screen;
+public:
+  //friend class Screen;
   Rectangle(const PassInfo& p_info);
 
   void draw();

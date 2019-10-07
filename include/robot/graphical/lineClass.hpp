@@ -5,8 +5,8 @@
 #define LINECLASS_H
 
 class Line: protected AbstractGUI{
-protected:
-  friend class Screen;
+public:
+  //friend class Screen;
   lv_point_t* m_points;// Attempt to use xOrg yOrg etc
   Line(const PassInfo& p_info);
 

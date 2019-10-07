@@ -8,8 +8,8 @@
 #define SCREENCLASS_H
 
 class Screen{
-protected:
-  friend class graphicalInterface;
+public:
+  //friend class graphicalInterface;
   std::string& m_nextScreenID;
   std::vector<Button*> m_btnArray;
   std::vector<Label*> m_labelArray;
