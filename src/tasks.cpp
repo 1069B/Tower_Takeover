@@ -16,6 +16,16 @@ void initialize() {
   defineStyles();
   /*Create a simple base object*/
 
+  PassInfo test1 = PassInfo();
+  test1.xOrgin = 20;
+  test1.yOrgin = 20;
+  test1.style1 = &whiteText;
+  test1.text = "Hello Corey";
+  test1.mode = 0;
+
+  Label testLabel = Label(test1);
+  testLabel.draw();
+
   gui.addScreen("Home");
   // //gui.addLabel("Home", 20, 20, whiteText, "Motor_1 Connected: %b", (std::function<bool()>) std::bind(&Motor::isConnected, &motor_1));
   //gui.addButton("Home", 0, 300, 100, 150, 30);
