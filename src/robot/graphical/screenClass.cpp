@@ -3,7 +3,7 @@
 Screen::Screen(const PassInfo& p_info):
 m_nextScreenID(*p_info.stringPointer),
 m_version(*p_info.intPointer){
-  m_pageID = p_info.linkedID;
+  m_pageID = p_info.name;
   m_backGround = p_info.style1;
 }
 void Screen::changeBackground(lv_style_t& p_backColor){
@@ -41,8 +41,8 @@ void Screen::addButtionAction(const PassInfo& p_info){
   }
 }
 void Screen::addLabel(PassInfo& p_info){
-  //m_labelArray.resize(20);
-	//m_labelArray.push_back(new Label(p_info));
+  m_labelArray.resize(m_labelArray.size()+1);
+	m_labelArray.at(m_labelArray.size()-1) = new Label(p_info);
 }
 void Screen::addLine(const PassInfo& p_info){
   m_lineArray.resize(m_lineArray.size()+1);

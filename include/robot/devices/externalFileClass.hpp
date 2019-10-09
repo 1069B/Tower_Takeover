@@ -19,6 +19,7 @@ public:
     ExternalFile(std::string p_address);
 
     bool fileExist();
+    int print(std::string p_text);
 
     //Single Varibles
     int storeInt(const std::string p_varibleName,const int p_varibleValue);
@@ -53,4 +54,5 @@ public:
     std::vector<std::string> readStringArray(const std::string p_varibleName);
 };
 
+extern std::fstream debug;
 #endif // EXTERNALFILECLASS_H

@@ -15,7 +15,6 @@ graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_tim
   info.stringPointer = &m_nextScreenID;
   m_nextScreen = new Screen(info);
   m_currentScreen = new Screen(info);
-  m_screenArray.resize(0);
 }
 
 void graphicalInterface::addScreen(const std::string p_name, int& p_var){
@@ -25,13 +24,12 @@ void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_backC
   addScreen(p_name, m_noVersion, p_backColor);
 }
 void graphicalInterface::addScreen(const std::string p_name, int& p_var,  lv_style_t&  p_backColor){
-  m_screenArray.resize(m_screenArray.size()+1);
   PassInfo info = PassInfo();
   info.name = p_name;
   info.intPointer = &p_var;
   info.style1 = &p_backColor;
   info.stringPointer = &m_nextScreenID;
-	m_screenArray.at(m_screenArray.size()-1) = new Screen(info);
+	m_screenArray.push_back(new Screen(info));
 }
 
 void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel, lv_style_t& p_btnPress){

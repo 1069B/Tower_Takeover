@@ -24,33 +24,33 @@ Controller::Controller(const pros::controller_id_e_t p_type):
 
   gui.addScreen(m_name);
   gui.addLabel(m_name, 75, 10, redText, m_name);
-  // gui.addLabel(m_name, 300, 10, redText, "Battery: %d%", (std::function<int()>) std::bind(&Controller::getBatteryCapacity, this));
-  // gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
-  // // Col 1
-  // gui.addLabel(m_name, 10, 45, whiteText, "Button L1: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL1));
-  // gui.addLabel(m_name, 10, 65, whiteText, "Button L2: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL2));
-  // gui.addLabel(m_name, 10, 85, whiteText, "Button Up: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonUp));
-  // gui.addLabel(m_name, 10, 105, whiteText, "Button Left: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonLeft));
-  // gui.addLabel(m_name, 10, 125, whiteText, "Button Right: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonRight));
-  // gui.addLabel(m_name, 10, 145, whiteText, "Button Down: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonDown));
-  // // Col 2
-  // gui.addLabel(m_name, 200, 45, whiteText, "Button R1: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonR1));
-  // gui.addLabel(m_name, 200, 65, whiteText, "Button R2: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonR2));
-  // gui.addLabel(m_name, 200, 85, whiteText, "Button X: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonX));
-  // gui.addLabel(m_name, 200, 105, whiteText, "Button Y: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonY));
-  // gui.addLabel(m_name, 200, 125, whiteText, "Button A: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonA));
-  // gui.addLabel(m_name, 200, 145, whiteText, "Button B: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonB));
-  // // Col 3
-  // gui.addLabel(m_name, 370, 45, whiteText, "Axis 1: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis1));
-  // gui.addLabel(m_name, 370, 65, whiteText, "Axis 2: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis2));
-  // gui.addLabel(m_name, 370, 85, whiteText, "Axis 3: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis3));
-  // gui.addLabel(m_name, 370, 105, whiteText, "Axis 4: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis4));
-  // //Bottem
-  // gui.addButton(m_name, 0, 160, 200, 150, 20);
-  // gui.addButtonAction(m_name, 0, "Go Back", "Home");
-  //
-  // gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Controller::isConnected, this), "No_Device", true);
-  // m_controllerType = p_type;
+  gui.addLabel(m_name, 300, 10, redText, "Battery: %d%", (std::function<int()>) std::bind(&Controller::getBatteryCapacity, this));
+  gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
+  // Col 1
+  gui.addLabel(m_name, 10, 45, whiteText, "Button L1: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL1));
+  gui.addLabel(m_name, 10, 65, whiteText, "Button L2: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonL2));
+  gui.addLabel(m_name, 10, 85, whiteText, "Button Up: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonUp));
+  gui.addLabel(m_name, 10, 105, whiteText, "Button Left: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonLeft));
+  gui.addLabel(m_name, 10, 125, whiteText, "Button Right: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonRight));
+  gui.addLabel(m_name, 10, 145, whiteText, "Button Down: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonDown));
+  // Col 2
+  gui.addLabel(m_name, 200, 45, whiteText, "Button R1: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonR1));
+  gui.addLabel(m_name, 200, 65, whiteText, "Button R2: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonR2));
+  gui.addLabel(m_name, 200, 85, whiteText, "Button X: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonX));
+  gui.addLabel(m_name, 200, 105, whiteText, "Button Y: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonY));
+  gui.addLabel(m_name, 200, 125, whiteText, "Button A: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonA));
+  gui.addLabel(m_name, 200, 145, whiteText, "Button B: %b", (std::function<bool()>) std::bind(&ControlBtn::state, &ButtonB));
+  // Col 3
+  gui.addLabel(m_name, 370, 45, whiteText, "Axis 1: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis1));
+  gui.addLabel(m_name, 370, 65, whiteText, "Axis 2: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis2));
+  gui.addLabel(m_name, 370, 85, whiteText, "Axis 3: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis3));
+  gui.addLabel(m_name, 370, 105, whiteText, "Axis 4: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis4));
+  //Bottem
+  gui.addButton(m_name, 0, 160, 200, 150, 20);
+  gui.addButtonAction(m_name, 0, "Go Back", "Home");
+
+  gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Controller::isConnected, this), "No_Device", true);
+  m_controllerType = p_type;
 }
 
 void Controller::clear(){

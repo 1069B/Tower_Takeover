@@ -97,7 +97,14 @@ int ExternalFile::storeVar(const std::string p_varibleTitle, const std::string p
     else{
         addLine(p_lineValue);
     }
-    return 1;
+    return 0;
+}
+
+int ExternalFile::print(std::string p_text){
+  m_file.open(m_fileAddress, std::ios::app);
+  m_file << p_text << std::endl;
+  m_file.close();
+  return 0;
 }
 
 int ExternalFile::storeInt(const std::string p_varibleName, const int p_varibleValue){
