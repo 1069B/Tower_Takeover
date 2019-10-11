@@ -55,6 +55,4 @@ public:
   void task();
 };
 
-extern graphicalInterface gui;
-
 #endif // GUICLASS_H
