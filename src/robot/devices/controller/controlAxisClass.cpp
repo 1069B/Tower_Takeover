@@ -1,4 +1,4 @@
-#include "robot/controller/controlAxisClass.hpp"
+#include "robot/devices/controller/controlAxisClass.hpp"
 
 ControlAxis::ControlAxis(const pros::controller_id_e_t p_controller, const pros::controller_analog_e_t p_type){
   m_controllerType = p_controller;

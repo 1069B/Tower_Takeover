@@ -13,7 +13,7 @@ bool ExternalFile::SDCardIsInserted(){
   return false;
 }
 
-ExternalFile::ExternalFile(std::string p_address){
+ExternalFile::ExternalFile(const std::string p_address){
     m_fileAddress = "/usd/" + p_address;
     m_file.open(m_fileAddress, std::ios::in);
     if(m_file.is_open()){
@@ -98,13 +98,6 @@ int ExternalFile::storeVar(const std::string p_varibleTitle, const std::string p
         addLine(p_lineValue);
     }
     return 0;
-}
-
-int ExternalFile::print(std::string p_text){
-  m_file.open(m_fileAddress, std::ios::app);
-  m_file << p_text << std::endl;
-  m_file.close();
-  return 0;
 }
 
 int ExternalFile::storeInt(const std::string p_varibleName, const int p_varibleValue){

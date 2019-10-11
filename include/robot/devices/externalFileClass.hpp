@@ -16,10 +16,9 @@ private:
 public:
     static bool SDCardIsInserted();
 
-    ExternalFile(std::string p_address);
+    ExternalFile(const std::string p_address);
 
     bool fileExist();
-    int print(std::string p_text);
 
     //Single Varibles
     int storeInt(const std::string p_varibleName,const int p_varibleValue);

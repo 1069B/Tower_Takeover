@@ -1,4 +1,4 @@
-#include "robot/controller/controlBtnClass.hpp"
+#include "robot/devices/controller/controlBtnClass.hpp"
 
 ControlBtn::ControlBtn(const pros::controller_id_e_t p_controller, const pros::controller_digital_e_t p_type){
   m_controllerType = p_controller;
