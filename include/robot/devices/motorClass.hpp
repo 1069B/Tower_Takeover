@@ -39,5 +39,7 @@ public:
   int getRotation();
 
   int getTempature();
+
+  int defineGUI(graphicalInterface& gui);
 };
 #endif // MOTORCLASS_H

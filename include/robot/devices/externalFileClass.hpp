@@ -51,7 +51,9 @@ public:
 
     int storeStringArray(const std::string p_varibleName, const std::vector<std::string> p_varibleValue);
     std::vector<std::string> readStringArray(const std::string p_varibleName);
+
+    int defineGUI(const graphicalInterface& gui);
 };
 
-extern std::fstream debug;
+//extern std::fstream debug;
 #endif // EXTERNALFILECLASS_H

@@ -22,5 +22,7 @@
     bool preformAction();
 
     int addActionDelay(const int p_delay);
+
+    int defineGUI(graphicalInterface& gui);
   };
 #endif // TIMERCLASS_H

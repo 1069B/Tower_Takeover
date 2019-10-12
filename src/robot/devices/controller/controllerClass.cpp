@@ -21,7 +21,10 @@ Controller::Controller(const pros::controller_id_e_t p_type):
     m_name = "Main Controller";
   else
     m_name = "Partner Controller";
+  m_controllerType = p_type;
+}
 
+int Controller::defineGUI(graphicalInterface& gui){
   gui.addScreen(m_name);
   gui.addLabel(m_name, 75, 10, redText, m_name);
   gui.addLabel(m_name, 300, 10, redText, "Battery: %d%", (std::function<int()>) std::bind(&Controller::getBatteryCapacity, this));
@@ -50,7 +53,7 @@ Controller::Controller(const pros::controller_id_e_t p_type):
   gui.addButtonAction(m_name, 0, "Go Back", "Home");
 
   gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Controller::isConnected, this), "No_Device", true);
-  m_controllerType = p_type;
+  return 0;
 }
 
 void Controller::clear(){

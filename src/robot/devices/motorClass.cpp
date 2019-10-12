@@ -11,7 +11,10 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   pros::c::motor_set_gearing(m_port, p_type);
   pros::c::motor_set_brake_mode(m_port, pros::E_MOTOR_BRAKE_COAST);
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
+}
 
+int Motor::defineGUI(graphicalInterface& gui){
+  setStrings();
   gui.addScreen(m_name);
   gui.addLabel(m_name, 200, 10, redText, m_name);
   gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
@@ -32,7 +35,7 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   gui.addButtonAction(m_name, 0, "Go Back", "Home");
 
   gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Motor::isConnected, this), "No_Device", true);
-  setStrings();
+  return 0;
 }
 
 void Motor::setVelocity(const int p_velocity){

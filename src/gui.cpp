@@ -5,6 +5,8 @@ int a =0;
 
 int Robot::defineGUI(){
   defineStyles();
+  m_mainController.defineGUI(m_gui);
+  m_partnerController.defineGUI(m_gui);
 
   m_gui.addScreen("Home");
   // //m_gui.addLabel("Home", 20, 20, whiteText, "Motor_1 Connected: %b", (std::function<bool()>) std::bind(&Motor::isConnected, &motor_1));
