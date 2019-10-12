@@ -13,28 +13,28 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
 }
 
-int Motor::defineGUI(graphicalInterface& gui){
+int Motor::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
   setStrings();
-  gui.addScreen(m_name);
-  gui.addLabel(m_name, 200, 10, redText, m_name);
-  gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
+  p_gui.addScreen(m_name);
+  p_gui.addLabel(m_name, 200, 10, redText, m_name);
+  p_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
-  gui.addLabel(m_name, 20, 50, whiteText, "Desired Velocity: %d", &m_desiredVelocity);
-  gui.addLabel(m_name, 20, 80, whiteText, "Actual Velocity: %d", (std::function<int()>)std::bind(&Motor::getVelocity, this));
-  gui.addLabel(m_name, 20, 110, whiteText, "Position: %d Deg", (std::function<int()>)std::bind(&Motor::getRotation, this));
-  gui.addLabel(m_name, 20, 140, whiteText, "Reversed: %b", &m_reversed);
-  gui.addLabel(m_name, 20, 170, whiteText, "Motor Gearset: %s", &m_gearSetString);
+  p_gui.addLabel(m_name, 20, 50, whiteText, "Desired Velocity: %d", &m_desiredVelocity);
+  p_gui.addLabel(m_name, 20, 80, whiteText, "Actual Velocity: %d", (std::function<int()>)std::bind(&Motor::getVelocity, this));
+  p_gui.addLabel(m_name, 20, 110, whiteText, "Position: %d Deg", (std::function<int()>)std::bind(&Motor::getRotation, this));
+  p_gui.addLabel(m_name, 20, 140, whiteText, "Reversed: %b", &m_reversed);
+  p_gui.addLabel(m_name, 20, 170, whiteText, "Motor Gearset: %s", &m_gearSetString);
 
-  gui.addLabel(m_name, 260, 50, whiteText, "Desired Voltage: %d", &m_desiredVoltage);
-  gui.addLabel(m_name, 260, 80, whiteText, "Actual Voltage: %d", (std::function<int()>)std::bind(&Motor::getVoltage, this));
-  gui.addLabel(m_name, 260, 110, whiteText, "Tempature: %d C", (std::function<int()>)std::bind(&Motor::getTempature, this));
-  gui.addLabel(m_name, 260, 140, whiteText, "Internal PID: %b", &m_internalPID);
-  gui.addLabel(m_name, 260, 170, whiteText, "Brake Mode: %s", &m_brakeString);
+  p_gui.addLabel(m_name, 260, 50, whiteText, "Desired Voltage: %d", &m_desiredVoltage);
+  p_gui.addLabel(m_name, 260, 80, whiteText, "Actual Voltage: %d", (std::function<int()>)std::bind(&Motor::getVoltage, this));
+  p_gui.addLabel(m_name, 260, 110, whiteText, "Tempature: %d C", (std::function<int()>)std::bind(&Motor::getTempature, this));
+  p_gui.addLabel(m_name, 260, 140, whiteText, "Internal PID: %b", &m_internalPID);
+  p_gui.addLabel(m_name, 260, 170, whiteText, "Brake Mode: %s", &m_brakeString);
 
-  gui.addButton(m_name, 0, 160, 200, 150, 20);
-  gui.addButtonAction(m_name, 0, "Go Back", "Home");
+  p_gui.addButton(m_name, 0, 160, 200, 150, 20);
+  p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
 
-  gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Motor::isConnected, this), "No_Device", true);
+  p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Motor::isConnected, this), "No_Device", true);
   return 0;
 }
 

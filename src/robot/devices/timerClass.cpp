@@ -45,7 +45,7 @@ int Timer::addActionDelay(const int p_delay){
   return 1;
 }
 
-int Timer::defineGUI(graphicalInterface& gui){
-  
+int Timer::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
+
   return 0;
 }

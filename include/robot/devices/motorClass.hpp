@@ -40,6 +40,6 @@ public:
 
   int getTempature();
 
-  int defineGUI(graphicalInterface& gui);
+  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
 };
 #endif // MOTORCLASS_H

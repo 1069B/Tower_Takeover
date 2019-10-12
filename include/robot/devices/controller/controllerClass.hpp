@@ -47,6 +47,6 @@ public:
 
   void callBackCheck();
 
-  int defineGUI(graphicalInterface& gui);
+  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
 };
 #endif // CONTROLLERCLASS_H
