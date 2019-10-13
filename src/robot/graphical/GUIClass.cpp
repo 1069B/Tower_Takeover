@@ -1,5 +1,4 @@
 #include "robot/graphical/GUIClass.hpp"
-int noVar = 0;
 
 graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_timer(false), m_GUIStorage("GUI_Storage.txt"){
   if(m_GUIStorage.fileExist() && m_GUIStorage.readBool("Open_Previous")){
@@ -23,7 +22,7 @@ void graphicalInterface::addScreen(const std::string p_name, int& p_var){
 void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_backColor){
   addScreen(p_name, m_noVersion, p_backColor);
 }
-void graphicalInterface::addScreen(const std::string p_name, int& p_var,  lv_style_t&  p_backColor){
+void graphicalInterface::addScreen(const std::string p_name, int& p_var, lv_style_t&  p_backColor){
   PassInfo info = PassInfo();
   info.name = p_name;
   info.intPointer = &p_var;
@@ -42,6 +41,19 @@ void graphicalInterface::addButton(const std::string p_screenName, const int p_i
   info.intPointer = &p_var;
   info.style1= &p_btnRel;
   info.style2= &p_btnPress;
+  info.mode = true;//Has chaging var
+  findScreen(p_screenName)->addButton(info);
+}
+void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
+  PassInfo info = PassInfo();
+  info.id = p_id;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.style1= &p_btnRel;
+  info.style2= &p_btnPress;
+  info.mode = false;//Has no chaging var
   findScreen(p_screenName)->addButton(info);
 }
 void graphicalInterface::addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer, const int p_value, const int p_mode){

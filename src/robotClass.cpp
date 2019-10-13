@@ -10,9 +10,12 @@ Robot::Robot():
       m_compMode = m_config.readString("Comp_Mode");
       m_baseType = m_config.readString("Base_Type");
     }
+    defineGUI();
 }
 
 int Robot::task(){
   m_gui.task();
+  m_mainController.callBackCheck();
+  m_partnerController.callBackCheck();
   return 0;
 }
