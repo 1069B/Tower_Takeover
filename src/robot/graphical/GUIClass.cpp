@@ -197,7 +197,7 @@ void graphicalInterface::updateScreen(){
 }
 
 void graphicalInterface::task(){
-  if(m_timer.preformAction() && m_nextScreenID != m_currentScreenID){// Makes the change of screen
+  if(m_timer.preformAction() && m_nextScreenID != m_currentScreenID && pros::millis() > 10){// Makes the change of screen
     updateScreen();
     m_timer.addActionDelay(400);
   }
