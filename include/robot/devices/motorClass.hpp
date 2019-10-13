@@ -39,5 +39,7 @@ public:
   int getRotation();
 
   int getTempature();
+
+  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
 };
 #endif // MOTORCLASS_H

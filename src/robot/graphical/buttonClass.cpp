@@ -1,6 +1,6 @@
 #include "robot/graphical/buttonClass.hpp"
 
-Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_varible(*p_info.intPointer), m_nextScreenVar(p_nextScreenID){
+Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_nextScreenVar(p_nextScreenID){
   m_id = p_info.id; // Id for the Button
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
   m_yOrgin = p_info.yOrgin;
@@ -8,6 +8,10 @@ Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(fals
   m_width = p_info.width;
   m_style1 = p_info.style1;
   m_style2 = p_info.style2;
+  changeVar = p_info.mode;
+  if(changeVar == true){
+    m_intPointer = p_info.intPointer;
+  }
 }
 
 void Button::defineAction(const PassInfo& p_info){
@@ -46,11 +50,12 @@ void Button::checkState(const int p_btnVer){
     lv_btn_state_t buttonState = lv_btn_get_state(m_obj1);
     if(buttonState == LV_BTN_STATE_PR){
       m_nextScreenVar = m_linkedScreenID[p_btnVer];
-      if(m_mode == 0)
-        m_varible = m_value[p_btnVer];
-      else if(m_mode == 1)
-        m_varible += m_value[p_btnVer];
-
+      if(changeVar == true){
+        if(m_mode == 0)
+          *m_intPointer = m_value[p_btnVer];
+        else if(m_mode == 1)
+          *m_intPointer += m_value[p_btnVer];
+      }
       m_timer.addActionDelay(500);
       return;
     }

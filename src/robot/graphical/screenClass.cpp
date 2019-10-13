@@ -5,6 +5,7 @@ m_nextScreenID(*p_info.stringPointer),
 m_version(*p_info.intPointer){
   m_pageID = p_info.name;
   m_backGround = p_info.style1;
+  m_version = 0;
 }
 void Screen::changeBackground(lv_style_t& p_backColor){
   m_backGround = &p_backColor;
