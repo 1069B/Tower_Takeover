@@ -46,5 +46,7 @@ public:
   void setText(const int p_row, const int p_col, const char* p_fmt);
 
   void callBackCheck();
+
+  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
 };
 #endif // CONTROLLERCLASS_H

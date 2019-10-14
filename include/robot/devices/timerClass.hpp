@@ -22,5 +22,7 @@
     bool preformAction();
 
     int addActionDelay(const int p_delay);
+
+    int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
   };
 #endif // TIMERCLASS_H

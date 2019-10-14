@@ -83,3 +83,5 @@ void opcontrol(void);
 #include <functional>
 #include <fstream>
 #endif  // _PROS_MAIN_H_
+
+class graphicalInterface;

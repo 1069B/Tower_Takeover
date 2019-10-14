@@ -3,8 +3,6 @@
 #ifndef GUICLASS_H
 #define GUICLASS_H
 
-extern int noVar;
-
 class graphicalInterface{
 private:
   std::vector<Screen*> m_screenArray;
@@ -29,7 +27,8 @@ public:
 
   Screen *findScreen(const std::string p_name);
 
-  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var=noVar, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
+  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
+  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
 	void addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer=0, const int p_value=0, const int p_mode=0);
   void addButtonCounter(const std::string p_screenName, const int p_id, const std::string p_format, const int p_btnVer=0, const int p_btnIncrement=1);
 
@@ -54,7 +53,5 @@ public:
 
   void task();
 };
-
-extern graphicalInterface gui;
 
 #endif // GUICLASS_H
