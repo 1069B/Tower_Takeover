@@ -11,7 +11,8 @@ enum BaseType {
 	HOLONOMIC = 0,
 	HBASE = 1,
 	MECANUM = 2,
-	TANK = 3
+	TANK2 = 3,
+	TANK4 = 4
 };
 
 class Base{
@@ -33,7 +34,7 @@ protected:
 
   bool m_trackingSystem = true;
   BaseType m_baseType;
-  
+
   Base();
 
 

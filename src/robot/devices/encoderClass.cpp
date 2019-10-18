@@ -3,7 +3,6 @@
 Encoder::Encoder(const std::string p_name ,const int p_port){
   m_name = p_name;
   m_port = p_port;
-  m_zeroPosition = 0;
 }
 
 bool Encoder::isConnected(){
@@ -33,6 +32,11 @@ int Encoder::getVelocity(){
   return m_velocity;
 }
 
-int defineGUI(){
+int Encoder::defineGUI(){
+  return 0;
+}
+
+int Encoder::changePort(const short p_port){
+  m_port = p_port;
   return 0;
 }
