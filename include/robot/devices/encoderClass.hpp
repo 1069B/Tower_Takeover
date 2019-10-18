@@ -9,11 +9,11 @@ private:
   short m_port;// 1,3,5,7
   Timer m_timer;
 
-  int m_zeroPosition;
+  int m_zeroPosition = 0;
   int m_previousTime = 0;
   int m_previousPosition = 0;
-  int m_rotation;
-  int m_velocity;
+  int m_rotation = 0;
+  int m_velocity = 0;
 
 public:
   Encoder(const std::string p_name ,const int p_port);
@@ -27,6 +27,8 @@ public:
   int getVelocity();
 
   int defineGUI();
+
+  int changePort(const short p_port);
 };
 
 #endif // ENCODERCLASS_H
