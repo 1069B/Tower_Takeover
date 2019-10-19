@@ -1,4 +1,4 @@
-#include "robot/subsystems/baseSubsystems/baseClass.hpp"
+#include "robot/subsystems/baseClass.hpp"
 
 Base::Base(){
 

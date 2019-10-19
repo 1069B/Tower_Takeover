@@ -15,27 +15,50 @@ enum BaseType {
 	TANK4 = 4
 };
 
+enum BaseMode {
+	NO_CORECTIONS = 0,
+	ACTIVE_CORRECTIONS = 1,
+};
+
 class Base{
-protected:
-  Motor* m_frontLeftMotor;
-  Motor* m_frontRightMotor;
-  Motor* m_backLeftMotor;
-  Motor* m_backRightMotor;
-  Motor* m_centerMotor;
+private:
+  Motor* m_frontLeftMotor = NULL;
+  Motor* m_frontRightMotor = NULL;
+  Motor* m_backLeftMotor = NULL;
+  Motor* m_backRightMotor = NULL;
+  Motor* m_centerMotor = NULL;
 
-  Encoder* m_leftEncoder;
-  Encoder* m_centerEncoder;
-  Encoder* m_rightEncoder;
+  Encoder* m_leftEncoder = NULL;
+  Encoder* m_centerEncoder = NULL;
+  Encoder* m_rightEncoder = NULL;
 
-  Controller* m_driveController;
-  Controller* m_partnerController;
+  Controller* m_driveController = NULL;
+  Controller* m_partnerController = NULL;
 
   ExternalFile* m_config;
 
   bool m_trackingSystem = true;
   BaseType m_baseType;
+	BaseMode m_baseMode;
 
+	int setVector();
+
+	int setTarget();
+
+public:
   Base();
+
+	BaseType getType();
+
+	int defineHolonomic();
+	int defineHBase();
+	int defineMecanum();
+
+	int initialize();
+
+	int autonomous();
+
+	int driverControl();
 
 
 };
