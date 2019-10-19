@@ -46,13 +46,19 @@ private:
 	int setTarget();
 
 public:
-  Base();
+  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
 
 	BaseType getType();
 
-	int defineHolonomic();
-	int defineHBase();
-	int defineMecanum();
+	int defineHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+
+	int defineHBase(std::string p_backLeftMotor, std::string p_backRightMotor, std::string p_centerMotor);
+
+	int defineMecanum(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+
+	int defineTank2(std::string p_backLeftMotor, std::string p_backRightMotor);
+
+	int defineTank4(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 
 	int initialize();
 
