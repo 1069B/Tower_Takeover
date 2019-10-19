@@ -1,5 +1,6 @@
 #include "main.h"
 #include "robot/graphical/GUIClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 
 #ifndef MOTORCLASS_H
 #define MOTORCLASS_H
@@ -18,6 +19,9 @@ private:
   bool m_internalPID;
 
   void setStrings();
+
+  static ExternalFile s_config;
+  static std::vector<Motor*> s_motorArray;
 
 public:
   Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse);
@@ -41,5 +45,7 @@ public:
   int getTempature();
 
   int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
+
+  static Motor* findMotor(std::string p_name);
 };
 #endif // MOTORCLASS_H

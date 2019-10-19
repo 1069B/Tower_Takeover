@@ -1,5 +1,8 @@
 #include "robot/devices/motorClass.hpp"
 
+ExternalFile Motor::s_config("Motor_Config.txt");
+std::vector<Motor*> Motor::s_motorArray;
+
 Motor::Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse){
   m_name = p_name;
   m_port = p_input;
@@ -11,6 +14,8 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   pros::c::motor_set_gearing(m_port, p_type);
   pros::c::motor_set_brake_mode(m_port, pros::E_MOTOR_BRAKE_COAST);
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
+
+  s_motorArray.push_back(this);
 }
 
 int Motor::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
@@ -96,4 +101,11 @@ void Motor::setStrings(){
     m_brakeString = "Brake";
   else
     m_brakeString = "Hold";
+}
+
+Motor* Motor::findMotor(std::string p_name){
+  for(int x = 0; x < s_motorArray.size(); x++)
+    if(s_motorArray.at(x)->m_name == p_name)
+      return s_motorArray.at(x);
+  return NULL;
 }
