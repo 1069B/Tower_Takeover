@@ -1,4 +1,5 @@
 #include "robot/devices/timerClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
 
 #ifndef ENCODERCLASS_H
 #define ENCODERCLASS_H
@@ -11,7 +12,7 @@ private:
 
   int m_zeroPosition = 0;
   int m_previousTime = 0;
-  int m_previousPosition = 0;
+  int m_previousRotation = 0;
   int m_rotation = 0;
   int m_velocity = 0;
 
@@ -29,6 +30,8 @@ public:
   int defineGUI();
 
   int changePort(const short p_port);
+
+  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
 };
 
 #endif // ENCODERCLASS_H

@@ -4,6 +4,7 @@
 #include "robot/devices/motorClass.hpp"
 #include "robot/devices/timerClass.hpp"
 #include "robot/devices/externalFileClass.hpp"
+#include "robot/devices/encoderClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
@@ -18,6 +19,7 @@ private:
 
   std::string m_compMode;
   std::string m_baseType;
+  Encoder Enc1;
 
   int defineGUI();
 public:
