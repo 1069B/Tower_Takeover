@@ -32,9 +32,11 @@ public:
 
   int changePort(const short p_port);
 
-  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
+  int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
 
-  static Encoder* findEncoder(std::string p_name);
+  static Encoder* findEncoder(const std::string p_name);
+
+  static Encoder* findEncoder(const short p_port);
 };
 
 #endif // ENCODERCLASS_H
