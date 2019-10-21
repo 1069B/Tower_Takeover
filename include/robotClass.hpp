@@ -19,7 +19,7 @@ private:
 
   std::string m_compMode;
   std::string m_baseType;
-  RedEncoder Enc1;
+  Encoder Enc1;
 
   int defineGUI();
 public:
