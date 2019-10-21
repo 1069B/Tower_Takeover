@@ -43,7 +43,7 @@ int Encoder::changePort(const short p_port){
   return 0;
 }
 
-int Encoder::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
+int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 200, 10, redText, m_name);
   p_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
@@ -61,9 +61,16 @@ int Encoder::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
   return 0;
 }
 
-Encoder* Encoder::findEncoder(std::string p_name){
+Encoder* Encoder::findEncoder(const std::string p_name){
   for(int x = 0; x < s_encoderArray.size(); x++)
     if(s_encoderArray.at(x)->m_name == p_name)
+      return s_encoderArray.at(x);
+  return NULL;
+}
+
+Encoder* Encoder::findEncoder(const short p_port){
+  for(int x = 0; x < s_encoderArray.size(); x++)
+    if(s_encoderArray.at(x)->m_port == p_port)
       return s_encoderArray.at(x);
   return NULL;
 }
