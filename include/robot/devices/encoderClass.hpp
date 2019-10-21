@@ -4,7 +4,7 @@
 #ifndef ENCODERCLASS_H
 #define ENCODERCLASS_H
 
-class Encoder{
+class RedEncoder{
 private:
   std::string m_name = "Encoder";
   short m_port;// 1,3,5,7
@@ -17,7 +17,7 @@ private:
   int m_velocity = 0;
 
 public:
-  Encoder(const std::string p_name ,const int p_port);
+  RedEncoder(const std::string p_name ,const int p_port);
 
   bool isConnected();
 
