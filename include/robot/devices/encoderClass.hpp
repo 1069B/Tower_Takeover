@@ -15,12 +15,13 @@ private:
   int m_previousRotation = 0;
   int m_rotation = 0;
   int m_velocity = 0;
+  bool m_reversed = false;
 
   static ExternalFile s_config;
   static std::vector<Encoder*> s_encoderArray;
 
 public:
-  Encoder(const std::string p_name ,const int p_port);
+  Encoder(const std::string p_name, const int p_port, const bool p_reverse);
 
   bool isConnected();// Still need a methoud for detecting connection
 
@@ -30,7 +31,9 @@ public:
 
   int getVelocity();
 
-  int changePort(const short p_port);
+  int setPort(const int p_port);
+
+  int setReverse(const bool p_reverse);
 
   int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
 
