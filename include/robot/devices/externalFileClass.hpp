@@ -8,7 +8,7 @@ private:
     std::fstream m_file;
     std::string m_fileAddress;
 
-    bool varExist(const std::string p_varibleTitle);
+
     int addLine(const std::string p_lineValue);
     int updateLine(const std::string p_varibleTitle, const std::string p_lineValue);
     int storeVar(const std::string p_varibleTitle, const std::string p_lineValue);
@@ -19,6 +19,7 @@ public:
     ExternalFile(const std::string p_address);
 
     bool fileExist();
+    bool varExist(const std::string p_varibleTitle);
 
     //Single Varibles
     int storeInt(const std::string p_varibleName,const int p_varibleValue);

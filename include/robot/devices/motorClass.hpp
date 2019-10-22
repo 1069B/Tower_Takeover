@@ -44,8 +44,10 @@ public:
 
   int getTempature();
 
-  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
+  int changePort(const int p_port);
 
-  static Motor* findMotor(std::string p_name);
+  int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
+
+  static Motor* findMotor(const std::string p_name);
 };
 #endif // MOTORCLASS_H
