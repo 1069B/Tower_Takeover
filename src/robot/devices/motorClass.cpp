@@ -5,9 +5,30 @@ std::vector<Motor*> Motor::s_motorArray;
 
 Motor::Motor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse){
   m_name = p_name;
-  m_port = p_input;
-  m_motorGearSet = p_type;
-  m_reversed = p_reverse;
+  if(s_config.varExist(m_name+"_port")){
+    m_port = s_config.readInt(m_name+"_port");
+  }
+  else{
+    m_port = p_input;
+    s_config.storeInt(m_name+"_port", m_port);
+  }
+
+  if(s_config.varExist(m_name+"_gearset")){
+    m_motorGearSet = (pros::motor_gearset_e_t)s_config.readInt(m_name+"_gearset");
+  }
+  else{
+    m_motorGearSet = p_type;
+    s_config.storeInt(m_name+ "_gearset", m_motorGearSet);
+  }
+
+  if(s_config.varExist(m_name+"m_reversed")){
+    m_reversed = s_config.readBool(m_name+"m_reversed");
+  }
+  else{
+    m_reversed = p_reverse;
+    s_config.storeBool(m_name+"m_reversed", m_reversed);
+  }
+
   m_internalPID = true;
 
   pros::c::motor_set_reversed(m_port, m_reversed);
@@ -16,9 +37,11 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
 
   s_motorArray.push_back(this);
+
+
 }
 
-int Motor::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
+int Motor::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
   setStrings();
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 200, 10, redText, m_name);
@@ -85,6 +108,12 @@ int Motor::getRotation(){
 
 int Motor::getTempature(){
   return pros::c::motor_get_temperature(m_port);
+}
+
+int Motor::changePort(const int p_port){
+  m_port = p_port;
+  s_config.storeInt(m_name+"_port", m_port);
+  return 0;
 }
 
 void Motor::setStrings(){
