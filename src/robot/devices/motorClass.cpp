@@ -21,24 +21,22 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
     s_config.storeInt(m_name+ "_gearset", m_motorGearSet);
   }
 
-  if(s_config.varExist(m_name+"m_reversed")){
-    m_reversed = s_config.readBool(m_name+"m_reversed");
+  if(s_config.varExist(m_name+"_reversed")){
+    m_reversed = s_config.readBool(m_name+"_reversed");
   }
   else{
     m_reversed = p_reverse;
-    s_config.storeBool(m_name+"m_reversed", m_reversed);
+    s_config.storeBool(m_name+"_reversed", m_reversed);
   }
 
   m_internalPID = true;
 
   pros::c::motor_set_reversed(m_port, m_reversed);
-  pros::c::motor_set_gearing(m_port, p_type);
+  pros::c::motor_set_gearing(m_port, m_motorGearSet);
   pros::c::motor_set_brake_mode(m_port, pros::E_MOTOR_BRAKE_COAST);
   pros::c::motor_set_encoder_units(m_port, pros::E_MOTOR_ENCODER_DEGREES);
 
   s_motorArray.push_back(this);
-
-
 }
 
 int Motor::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
@@ -110,9 +108,23 @@ int Motor::getTempature(){
   return pros::c::motor_get_temperature(m_port);
 }
 
-int Motor::changePort(const int p_port){
+int Motor::setPort(const int p_port){
   m_port = p_port;
   s_config.storeInt(m_name+"_port", m_port);
+  return 0;
+}
+
+int Motor::setReverse(const bool p_reverse){
+  m_reversed = p_reverse;
+  pros::c::motor_set_reversed(m_port, m_reversed);
+  s_config.storeInt(m_name+"_reversed", p_reverse);
+  return 0;
+}
+
+int Motor::setGearing(const pros::motor_gearset_e_t p_type){
+  m_motorGearSet = p_type;
+  s_config.storeInt(m_name+ "_gearset", m_motorGearSet);
+  pros::c::motor_set_gearing(m_port, m_motorGearSet);
   return 0;
 }
 
