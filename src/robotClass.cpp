@@ -6,7 +6,7 @@ Robot::Robot():
   m_partnerController(pros::E_CONTROLLER_PARTNER),
   m_timer(),
   m_config("Robot_Config.txt"),
-  Enc1("Enc1", 1)
+  Enc1("Enc1", 1, false)
   {
     if(m_config.fileExist()){
       m_compMode = m_config.readString("Comp_Mode");
