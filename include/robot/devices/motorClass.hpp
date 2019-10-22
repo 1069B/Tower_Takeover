@@ -44,7 +44,11 @@ public:
 
   int getTempature();
 
-  int changePort(const int p_port);
+  int setPort(const int p_port);
+
+  int setReverse(const bool p_reverse);
+
+  int setGearing(const pros::motor_gearset_e_t p_type);
 
   int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
 
