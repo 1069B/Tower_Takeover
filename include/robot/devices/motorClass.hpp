@@ -48,7 +48,7 @@ public:
 
   int setReverse(const bool p_reverse);
 
-  int setGearing(const pros::motor_gearset_e_t p_type);
+  int setGearing(const int p_type);
 
   int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
 

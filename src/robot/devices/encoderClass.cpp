@@ -1,12 +1,26 @@
 #include "robot/devices/encoderClass.hpp"
 
-ExternalFile Encoder::s_config("Motor_Config.txt");
+ExternalFile Encoder::s_config("Encoder_Config.txt");
 std::vector<Encoder*> Encoder::s_encoderArray;
 
-Encoder::Encoder(const std::string p_name ,const int p_port){
+Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_reverse){
   m_name = p_name;
-  m_port = p_port;
-  pros::c::adi_encoder_init(m_port, m_port+1, false);
+  if(s_config.varExist(m_name+"_port")){
+    m_port = s_config.readInt(m_name+"_port");
+  }
+  else{
+    m_port = p_port;
+    s_config.storeInt(m_name+"_port", m_port);
+  }
+
+  if(s_config.varExist(m_name+"_reversed")){
+    m_reversed = s_config.readBool(m_name+"_reversed");
+  }
+  else{
+    m_reversed = p_reverse;
+    s_config.storeBool(m_name+"_reversed", m_reversed);
+  }
+  pros::c::adi_encoder_init(m_port, m_port+1, m_reversed);
   s_encoderArray.push_back(this);
 }
 
@@ -37,9 +51,17 @@ int Encoder::getVelocity(){
   return m_velocity;
 }
 
-int Encoder::changePort(const short p_port){
+int Encoder::setPort(const int p_port){
   m_port = p_port;
-  pros::c::adi_encoder_init(m_port, m_port+1, false);
+  s_config.storeInt(m_name+"_port", m_port);
+  pros::c::adi_encoder_init(m_port, m_port+1, m_reversed);
+  return 0;
+}
+
+int Encoder::setReverse(const bool p_reverse){
+  m_reversed = p_reverse;
+  pros::c::adi_encoder_init(m_port, m_port+1, m_reversed);
+  s_config.storeInt(m_name+"_reversed", p_reverse);
   return 0;
 }
 

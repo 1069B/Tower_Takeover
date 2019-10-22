@@ -121,10 +121,11 @@ int Motor::setReverse(const bool p_reverse){
   return 0;
 }
 
-int Motor::setGearing(const pros::motor_gearset_e_t p_type){
-  m_motorGearSet = p_type;
+int Motor::setGearing(const int p_type){
+  m_motorGearSet = (pros::motor_gearset_e_t)p_type;
   s_config.storeInt(m_name+ "_gearset", m_motorGearSet);
   pros::c::motor_set_gearing(m_port, m_motorGearSet);
+  setStrings();
   return 0;
 }
 
