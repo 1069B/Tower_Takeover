@@ -32,7 +32,7 @@ private:
   Encoder* m_centerEncoder = NULL;
   Encoder* m_rightEncoder = NULL;
 
-  Controller* m_driveController = NULL;
+  Controller* m_mainController = NULL;
   Controller* m_partnerController = NULL;
 
   ExternalFile* m_config;
@@ -46,7 +46,7 @@ private:
 	int setTarget();
 
 public:
-  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
+  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Controller& p_mainController, Controller& p_partnerController);
 
 	BaseType getType();
 
@@ -65,8 +65,6 @@ public:
 	int autonomous();
 
 	int driverControl();
-
-
 };
 
 #endif // BASECLASS_H

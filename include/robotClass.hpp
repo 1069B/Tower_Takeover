@@ -5,6 +5,7 @@
 #include "robot/devices/timerClass.hpp"
 #include "robot/devices/externalFileClass.hpp"
 #include "robot/devices/encoderClass.hpp"
+#include "robot/subsystems/baseClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
@@ -16,6 +17,7 @@ private:
   Controller m_partnerController;
   Timer m_timer;
   ExternalFile m_config;
+  Base m_base;
 
   std::string m_compMode;
   std::string m_baseType;

@@ -24,10 +24,10 @@ Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_revers
   s_encoderArray.push_back(this);
 }
 
-bool Encoder::isConnected(){
-  if(getRotation() == 2147483647)// Needs to change detection methoud
-    return true;
-  return false;
+int Encoder::isConnected(){
+  // if(getRotation() == 2147483647)// Needs to change detection methoud
+  //   return true;
+  return pros::c::adi_port_get_value(m_port);
 }
 
 int Encoder::getRotation(){
@@ -75,11 +75,13 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addLabel(m_name, 20, 110, whiteText, "Previous Rotation: %d Deg", &m_previousRotation);
   p_gui.addLabel(m_name, 20, 140, whiteText, "Rotation: %d Deg", (std::function<int()>)std::bind(&Encoder::getRotation, this));
   p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, this));
+  p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
+
 
   p_gui.addButton(m_name, 0, 160, 200, 150, 20);
   p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
 
-  p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Encoder::isConnected, this), "No_Device", false);
+  //p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Encoder::isConnected, this), "No_Device", false);
   return 0;
 }
 
