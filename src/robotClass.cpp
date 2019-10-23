@@ -32,11 +32,6 @@ Robot::Robot():
     else if(m_baseType == TANK4)
       m_base.defineTank4("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
 
-    m_mainController.Axis1.setMultiplier(2);
-    m_mainController.Axis2.setMultiplier(2);
-    m_mainController.Axis3.setMultiplier(2);
-    m_mainController.Axis4.setMultiplier(2);
-
     m_partnerController.Axis2.setMultiplier(1);
 }
 
