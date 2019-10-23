@@ -23,7 +23,7 @@ private:
 public:
   Encoder(const std::string p_name, const int p_port, const bool p_reverse);
 
-  bool isConnected();// Still need a methoud for detecting connection
+  int isConnected();// Still need a methoud for detecting connection
 
   int getRotation();
 
