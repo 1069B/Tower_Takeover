@@ -20,7 +20,7 @@ private:
   Base m_base;
 
   std::string m_compMode;
-  std::string m_baseType;
+  BaseType m_baseType;
   Encoder Enc1;
 
   int defineGUI();

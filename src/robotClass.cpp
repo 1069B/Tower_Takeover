@@ -9,13 +9,28 @@ Robot::Robot():
   Enc1("Enc1", 1, false),
   m_base(HOLONOMIC, ACTIVE_CORRECTIONS, true, m_mainController, m_partnerController)
   {
-    if(m_config.fileExist()){
+    if(m_config.varExist("Comp_Mode"))
       m_compMode = m_config.readString("Comp_Mode");
-      m_baseType = m_config.readString("Base_Type");
-    }
+    else
+      m_compMode = "DriverControl";
+
+    if(m_config.varExist("Base_Type"))
+      m_baseType = (BaseType)m_config.readInt("Base_Type");
+    else
+      m_baseType = HOLONOMIC;
+
     defineGUI();
 
-    m_base.defineHolonomic("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+    if(m_baseType == HOLONOMIC)
+      m_base.defineHolonomic("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+    else if(m_baseType == HBASE)
+      m_base.defineHBase("BaseBackLeft", "BaseBackRight", "BaseCenter");
+    else if(m_baseType == MECANUM)
+      m_base.defineMecanum("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+    else if(m_baseType == TANK2)
+      m_base.defineTank2("BaseBackLeft", "BaseBackRight");
+    else if(m_baseType == TANK4)
+      m_base.defineTank4("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
 
     m_mainController.Axis1.setMultiplier(2);
     m_mainController.Axis2.setMultiplier(2);
