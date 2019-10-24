@@ -12,7 +12,7 @@ Base::Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Cont
   m_mainController->Axis4.setMultiplier(2);
 }
 
-BaseType Base::getType(){
+BaseType Base::getBaseType(){
   return m_baseType;
 }
 
@@ -88,5 +88,23 @@ int Base::driverControl(){
       driverTank4();
       break;
   }
+  return 0;
+}
+
+int Base::initializeTrackingSystem(std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder){
+  if(Encoder::findEncoder(p_leftEncoder) == NULL)
+    m_leftEncoder = new Encoder(p_leftEncoder, 1, false);
+  else
+    m_leftEncoder = Encoder::findEncoder(p_leftEncoder);
+
+  if(Encoder::findEncoder(p_rightEncoder) == NULL)
+    m_rightEncoder = new Encoder(p_rightEncoder, 3, false);
+  else
+    m_rightEncoder = Encoder::findEncoder(p_rightEncoder);
+
+  if(Encoder::findEncoder(p_centerEncoder) == NULL)
+    m_centerEncoder = new Encoder(p_centerEncoder, 5, false);
+  else
+    m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
   return 0;
 }

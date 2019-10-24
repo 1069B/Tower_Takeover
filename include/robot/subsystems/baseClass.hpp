@@ -37,7 +37,7 @@ private:
 
   ExternalFile* m_config;
 
-  bool m_trackingSystem = true;
+  bool m_trackingSystem = false;
   BaseType m_baseType;
 	BaseMode m_baseMode;
 
@@ -48,7 +48,8 @@ private:
 public:
   Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Controller& p_mainController, Controller& p_partnerController);
 
-	BaseType getType();
+	BaseType getBaseType();
+	BaseMode getBaseMode();
 
 	int initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverHolonomic();
@@ -69,6 +70,8 @@ public:
 	int initializeTank4(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverTank4();
 	int autonomousTank4();
+
+	int initializeTrackingSystem(std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder);
 
 	int initialize();
 	int autonomous();

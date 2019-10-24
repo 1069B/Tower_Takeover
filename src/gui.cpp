@@ -29,8 +29,8 @@ int Robot::defineGUI(){
 
   m_gui.addScreen("No_Device");
   m_gui.addLabel("No_Device", 150, 100, whiteText, "Device Not Connected");
-  //m_gui.addButton("No_Device", 0, 160, 200, 150, 20);
-  //m_gui.addButtonAction("No_Device", 0,"Go Back", "Home");
+  m_gui.addButton("No_Device", 0, 160, 200, 150, 20);
+  m_gui.addButtonAction("No_Device", 0,"Go Back", "Home");
 
   m_gui.addScreen("Timer1");
   m_gui.addLabel("Timer1", 20, 20, whiteText, "Timer1: %d millis", (std::function<int()>) std::bind(&Timer::getTime, &m_timer));
