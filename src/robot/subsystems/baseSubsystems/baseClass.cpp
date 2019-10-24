@@ -17,25 +17,76 @@ BaseType Base::getType(){
 }
 
 int Base::initialize(){
+  switch((int)m_baseType) {
+    case HOLONOMIC:
+      initializeHolonomic("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+      break;
+
+    case HBASE:
+      initializeHBase("BaseBackLeft", "BaseBackRight", "BaseCenter");
+      break;
+
+    case MECANUM:
+      initializeMecanum("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+      break;
+
+    case TANK2:
+      initializeTank2("BaseBackLeft", "BaseBackRight");
+      break;
+
+    case TANK4:
+      initializeTank4("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+      break;
+  }
   return 0;
 }
 
 int Base::autonomous(){
+  switch((int)m_baseType) {
+    case HOLONOMIC:
+      autonomousHolonomic();
+      break;
+
+    case HBASE:
+      autonomousHBase();
+      break;
+
+    case MECANUM:
+      autonomousMecanum();
+      break;
+
+    case TANK2:
+      autonomousTank2();
+      break;
+
+    case TANK4:
+      autonomousTank4();
+      break;
+  }
   return 0;
 }
 
 int Base::driverControl(){
-  if((m_mainController->Axis1.getValue()) > 10 || (m_mainController->Axis1.getValue()) < -10){
-    m_frontRightMotor->setVelocity(-m_mainController->Axis1.getValue());
-    m_frontLeftMotor->setVelocity(m_mainController->Axis1.getValue());
-    m_backRightMotor->setVelocity(-m_mainController->Axis1.getValue());
-    m_backLeftMotor->setVelocity(m_mainController->Axis1.getValue());
-  }
-  else {
-    m_frontRightMotor->setVelocity(m_mainController->Axis3.getValue()-m_mainController->Axis4.getValue());
-    m_frontLeftMotor->setVelocity(m_mainController->Axis3.getValue()+m_mainController->Axis4.getValue());
-    m_backRightMotor->setVelocity(m_mainController->Axis3.getValue()+m_mainController->Axis4.getValue());
-    m_backLeftMotor->setVelocity(m_mainController->Axis3.getValue()-m_mainController->Axis4.getValue());
+  switch((int)m_baseType) {
+    case HOLONOMIC:
+      driverHolonomic();
+      break;
+
+    case HBASE:
+      driverHBase();
+      break;
+
+    case MECANUM:
+      driverMecanum();
+      break;
+
+    case TANK2:
+      driverTank2();
+      break;
+
+    case TANK4:
+      driverTank4();
+      break;
   }
   return 0;
 }

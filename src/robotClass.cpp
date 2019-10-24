@@ -20,17 +20,7 @@ Robot::Robot():
       m_baseType = HOLONOMIC;
 
     defineGUI();
-
-    if(m_baseType == HOLONOMIC)
-      m_base.defineHolonomic("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
-    else if(m_baseType == HBASE)
-      m_base.defineHBase("BaseBackLeft", "BaseBackRight", "BaseCenter");
-    else if(m_baseType == MECANUM)
-      m_base.defineMecanum("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
-    else if(m_baseType == TANK2)
-      m_base.defineTank2("BaseBackLeft", "BaseBackRight");
-    else if(m_baseType == TANK4)
-      m_base.defineTank4("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
+    m_base.initialize();
 
     m_partnerController.Axis2.setMultiplier(1);
 }

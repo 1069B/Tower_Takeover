@@ -50,20 +50,28 @@ public:
 
 	BaseType getType();
 
-	int defineHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int driverHolonomic();
+	int autonomousHolonomic();
 
-	int defineHBase(std::string p_backLeftMotor, std::string p_backRightMotor, std::string p_centerMotor);
+	int initializeHBase(std::string p_backLeftMotor, std::string p_backRightMotor, std::string p_centerMotor);
+	int driverHBase();
+	int autonomousHBase();
 
-	int defineMecanum(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int initializeMecanum(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int driverMecanum();
+	int autonomousMecanum();
 
-	int defineTank2(std::string p_backLeftMotor, std::string p_backRightMotor);
+	int initializeTank2(std::string p_backLeftMotor, std::string p_backRightMotor);
+	int driverTank2();
+	int autonomousTank2();
 
-	int defineTank4(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int initializeTank4(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
+	int driverTank4();
+	int autonomousTank4();
 
 	int initialize();
-
 	int autonomous();
-
 	int driverControl();
 };
 
