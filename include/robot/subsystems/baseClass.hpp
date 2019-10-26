@@ -45,12 +45,6 @@ private:
 
 	int setTarget();
 
-public:
-  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Controller& p_mainController, Controller& p_partnerController);
-
-	BaseType getBaseType();
-	BaseMode getBaseMode();
-
 	int initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverHolonomic();
 	int autonomousHolonomic();
@@ -73,9 +67,20 @@ public:
 
 	int initializeTrackingSystem(std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder);
 
+public:
+  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Controller& p_mainController, Controller& p_partnerController);
+
+	BaseType getBaseType();
+	BaseMode getBaseMode();
+
+	int setBaseType();
+	int setBaseMode();
+
 	int initialize();
 	int autonomous();
 	int driverControl();
+
+	int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
 };
 
 #endif // BASECLASS_H
