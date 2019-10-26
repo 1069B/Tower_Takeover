@@ -38,6 +38,10 @@ int Base::initialize(){
       initializeTank4("BaseFrontLeft", "BaseFrontRight" , "BaseBackLeft", "BaseBackRight");
       break;
   }
+
+  if(m_trackingSystem)
+    initializeTrackingSystem("BaseLeft", "BaseRight", "BaseCenter");
+
   return 0;
 }
 
