@@ -27,6 +27,11 @@ Robot::Robot():
 
 Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
 
+Motor Left_Intake_Motor ("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, false);
+
+Motor Right_Intake_Motor ("Right_Intake",7, pros::E_MOTOR_GEARSET_36, false);
+
+Motor Justin_Trudeau("Justin_Trudeau", 8, pros::E_MOTOR_GEARSET_36, false);
 
 int Robot::task(){
   m_gui.task();
@@ -34,6 +39,9 @@ int Robot::task(){
   m_partnerController.callBackCheck();
 
   Tray_Motor.setVelocity(m_partnerController.Axis2.getValue());
+  Left_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
+  Right_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
+  Justin_Trudeau.setVelocity(m_partnerController.Axis4.getValue());
 
   m_base.driverControl();
 
