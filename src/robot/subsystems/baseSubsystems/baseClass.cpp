@@ -45,7 +45,7 @@ int Base::initialize(){
   }
 
   if(m_trackingSystem)
-    m_trackingWheels = new Odometry("BaseLeft", "BaseRight", "BaseCenter");
+    m_trackingWheels = new Odometry(m_robot, "BaseLeft", "BaseRight", "BaseCenter");
 
   return 0;
 }

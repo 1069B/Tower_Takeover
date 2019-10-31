@@ -27,6 +27,8 @@ public:
 
   int getRotation();
 
+  std::string getName();
+
   int resetRotation();
 
   int getVelocity();

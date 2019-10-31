@@ -24,6 +24,7 @@ private:
 
   int defineGUI();
   friend class Base;
+  friend class Odometry;
 public:
   Robot();
 

@@ -40,6 +40,8 @@ private:
 	BaseType m_baseType;
 	BaseMode m_baseMode;
 
+	friend class Robot;
+
 	int setVector();
 
 	int setTarget();
@@ -78,7 +80,7 @@ public:
 	int autonomous();
 	int driverControl();
 
-	int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
+	int defineGUI(const std::string p_returnScreen);
 };
 
 #endif // BASECLASS_H

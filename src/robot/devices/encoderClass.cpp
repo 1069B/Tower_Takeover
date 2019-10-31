@@ -65,6 +65,10 @@ int Encoder::setReverse(const bool p_reverse){
   return 0;
 }
 
+std::string Encoder::getName(){
+  return m_name;
+}
+
 int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 200, 10, redText, m_name);
