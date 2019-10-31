@@ -1,4 +1,5 @@
 #include "robot/subsystems/baseClass.hpp"
+#include "robotClass.hpp"
 
 int Base::initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor){
   if(Motor::findMotor(p_frontLeftMotor) == NULL)
@@ -28,17 +29,17 @@ int Base::autonomousHolonomic(){
 }
 
 int Base::driverHolonomic(){
-  if((m_mainController->Axis1.getValue()) > 10 || (m_mainController->Axis1.getValue()) < -10){
-    m_frontRightMotor->setVelocity(-m_mainController->Axis1.getValue());
-    m_frontLeftMotor->setVelocity(m_mainController->Axis1.getValue());
-    m_backRightMotor->setVelocity(-m_mainController->Axis1.getValue());
-    m_backLeftMotor->setVelocity(m_mainController->Axis1.getValue());
+  if((m_robot.m_mainController.Axis1.getValue()) > 10 || (m_robot.m_mainController.Axis1.getValue()) < -10){
+    m_frontRightMotor->setVelocity(-m_robot.m_mainController.Axis1.getValue());
+    m_frontLeftMotor->setVelocity(m_robot.m_mainController.Axis1.getValue());
+    m_backRightMotor->setVelocity(-m_robot.m_mainController.Axis1.getValue());
+    m_backLeftMotor->setVelocity(m_robot.m_mainController.Axis1.getValue());
   }
   else {
-    m_frontRightMotor->setVelocity(m_mainController->Axis3.getValue()-m_mainController->Axis4.getValue());
-    m_frontLeftMotor->setVelocity(m_mainController->Axis3.getValue()+m_mainController->Axis4.getValue());
-    m_backRightMotor->setVelocity(m_mainController->Axis3.getValue()+m_mainController->Axis4.getValue());
-    m_backLeftMotor->setVelocity(m_mainController->Axis3.getValue()-m_mainController->Axis4.getValue());
+    m_frontRightMotor->setVelocity(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
+    m_frontLeftMotor->setVelocity(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
+    m_backRightMotor->setVelocity(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
+    m_backLeftMotor->setVelocity(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
   }
   return 0;
 }

@@ -6,7 +6,6 @@ Robot::Robot():
   m_partnerController(pros::E_CONTROLLER_PARTNER),
   m_timer(),
   m_config("Robot_Config.txt"),
-  Enc1("Enc1", 1, false),
   m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true)
   {
     if(m_config.varExist("Comp_Mode"))
@@ -38,7 +37,7 @@ int Robot::task(){
   Right_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
   Justin_Trudeau.setVelocity(m_partnerController.Axis4.getValue());
 
-  // m_base.driverControl();// ISSUE HERE!!!
+  m_base.driverControl();
 
   return 0;
 }
