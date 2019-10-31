@@ -7,10 +7,9 @@ int Robot::defineGUI(){
   defineStyles();
   m_mainController.defineGUI(m_gui, "Home");
   m_partnerController.defineGUI(m_gui, "Home");
-  //m_base.m_trackingWheels->defineGUI("Home");
+  //m_base.m_trackingWheels->defineGUI("Home"); Issue Here!!!
 
   m_gui.addScreen("Home");
-  //m_gui.addLabel("Home", 20, 20, whiteText, "Motor_1 Connected: %b", (std::function<bool()>) std::bind(&Motor::isConnected, &motor_1));
   m_gui.addButton("Home", 0, 300, 100, 150, 30);
   m_gui.addButtonAction("Home", 0, "Timer 1", "Timer1");
   m_gui.addButton("Home", 4, 150, 100, 150, 30);

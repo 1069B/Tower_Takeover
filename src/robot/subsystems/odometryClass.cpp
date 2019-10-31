@@ -34,12 +34,12 @@ int Odometry::defineGUI(std::string p_returnScreen){
 
   l_gui.addButton(m_name, 0, 20, 150, 150, 20);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());
-  l_gui.addButton(m_name, 0, 200, 150, 150, 20);
-  l_gui.addButtonAction(m_name, 0, m_centerEncoder->getName(), m_centerEncoder->getName());
-  l_gui.addButton(m_name, 0, 380, 150, 150, 20);
-  l_gui.addButtonAction(m_name, 0, m_centerEncoder->getName(), m_centerEncoder->getName());
+  l_gui.addButton(m_name, 1, 200, 150, 150, 20);
+  l_gui.addButtonAction(m_name, 1, m_centerEncoder->getName(), m_centerEncoder->getName());
+  l_gui.addButton(m_name, 2, 380, 150, 150, 20);
+  l_gui.addButtonAction(m_name, 2, m_centerEncoder->getName(), m_centerEncoder->getName());
 
-  l_gui.addButton(m_name, 0, 160, 200, 150, 20);
-  l_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
+  l_gui.addButton(m_name, 3, 160, 200, 150, 20);
+  l_gui.addButtonAction(m_name, 3, "Go Back", p_returnScreen);
   return 0;
 }
