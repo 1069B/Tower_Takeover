@@ -20,10 +20,10 @@ private:
   Base m_base;
 
   std::string m_compMode;
-  BaseType m_baseType;
   Encoder Enc1;
 
   int defineGUI();
+  friend class Base;
 public:
   Robot();
 

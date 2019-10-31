@@ -1,11 +1,13 @@
 #include "main.h"
 #include "robot/devices/motorClass.hpp"
-#include "robot/devices/encoderClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
 #include "robot/graphical/GUIClass.hpp"
+#include "robot/subsystems/odometryClass.hpp"
 
 #ifndef BASECLASS_H
 #define BASECLASS_H
+
+class Robot;
 
 enum BaseType {
 	HOLONOMIC = 0,
@@ -22,23 +24,20 @@ enum BaseMode {
 
 class Base{
 private:
+	Robot& m_robot;
+
   Motor* m_frontLeftMotor = NULL;
   Motor* m_frontRightMotor = NULL;
   Motor* m_backLeftMotor = NULL;
   Motor* m_backRightMotor = NULL;
   Motor* m_centerMotor = NULL;
 
-  Encoder* m_leftEncoder = NULL;
-  Encoder* m_centerEncoder = NULL;
-  Encoder* m_rightEncoder = NULL;
+	Odometry* m_trackingWheels= NULL;
 
-  Controller* m_mainController = NULL;
-  Controller* m_partnerController = NULL;
-
-  ExternalFile* m_config;
+  ExternalFile m_config;
 
   bool m_trackingSystem = false;
-  BaseType m_baseType;
+	BaseType m_baseType;
 	BaseMode m_baseMode;
 
 	int setVector();
@@ -65,10 +64,9 @@ private:
 	int driverTank4();
 	int autonomousTank4();
 
-	int initializeTrackingSystem(std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder);
 
 public:
-  Base(BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem, Controller& p_mainController, Controller& p_partnerController);
+  Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
 
 	BaseType getBaseType();
 	BaseMode getBaseMode();
