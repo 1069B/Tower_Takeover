@@ -14,12 +14,10 @@ Robot::Robot():
     else
       m_compMode = "DriverControl";
 
-
-
-    defineGUI();
     m_base.initialize();
 
     m_partnerController.Axis2.setMultiplier(1);
+    defineGUI();
 }
 
 Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
@@ -40,7 +38,7 @@ int Robot::task(){
   Right_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
   Justin_Trudeau.setVelocity(m_partnerController.Axis4.getValue());
 
-  m_base.driverControl();
+  // m_base.driverControl();// ISSUE HERE!!!
 
   return 0;
 }
