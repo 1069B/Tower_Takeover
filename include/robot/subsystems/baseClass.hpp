@@ -73,8 +73,8 @@ public:
 	BaseType getBaseType();
 	BaseMode getBaseMode();
 
-	int setBaseType();
-	int setBaseMode();
+	int setBaseType(BaseType p_baseType);
+	int setBaseMode(BaseMode p_baseMode);
 
 	int initialize();
 	int autonomous();
