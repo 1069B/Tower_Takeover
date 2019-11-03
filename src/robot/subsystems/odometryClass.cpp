@@ -21,25 +21,29 @@ m_robot(p_robot){
 
 int Odometry::defineGUI(std::string p_returnScreen){
   graphicalInterface& l_gui = m_robot.m_gui;
+  m_leftEncoder->defineGUI(l_gui, "Odometry");
+  m_centerEncoder->defineGUI(l_gui, "Odometry");
+  m_rightEncoder->defineGUI(l_gui, "Odometry");
+
   l_gui.addScreen(m_name);
   l_gui.addLabel(m_name, 200, 10, redText, m_name);
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
   l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %d Deg", &m_orientation);
-  l_gui.addLabel(m_name, 20, 80, whiteText, "Current XPosition: %d", &m_currentX);
-  l_gui.addLabel(m_name, 20, 80, whiteText, "Current YPosition: %d", &m_currentY);
-  l_gui.addLabel(m_name, 20, 80, whiteText, "Target XPosition: %d", &m_targetX);
-  l_gui.addLabel(m_name, 20, 80, whiteText, "Target YPosition: %d", &m_targetY);
-  l_gui.addLabel(m_name, 20, 140, whiteText, "Current Action: %d ", &m_actionName);
+  l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: ");
+  l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_currentX);
+  l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: ");
+  l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %d", &m_currentY);
+  l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: ");
 
-  l_gui.addButton(m_name, 0, 20, 150, 150, 20);
+  l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());
-  l_gui.addButton(m_name, 1, 200, 150, 150, 20);
+  l_gui.addButton(m_name, 1, 300, 100, 140, 30);
   l_gui.addButtonAction(m_name, 1, m_centerEncoder->getName(), m_centerEncoder->getName());
-  l_gui.addButton(m_name, 2, 380, 150, 150, 20);
-  l_gui.addButtonAction(m_name, 2, m_centerEncoder->getName(), m_centerEncoder->getName());
+  l_gui.addButton(m_name, 2, 300, 140, 140, 30);
+  l_gui.addButtonAction(m_name, 2, m_rightEncoder->getName(), m_rightEncoder->getName());
 
-  l_gui.addButton(m_name, 3, 160, 200, 150, 20);
+  l_gui.addButton(m_name, 3, 160, 200, 150, 25);
   l_gui.addButtonAction(m_name, 3, "Go Back", p_returnScreen);
   return 0;
 }
