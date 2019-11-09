@@ -19,6 +19,45 @@ m_robot(p_robot){
     m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
 }
 
+int Odometry::getOrientation(){
+  return 0;
+}
+
+int Odometry::getOrientationVelocity(){
+  return 0;
+}
+
+int Odometry::setOrientation(int p_orientation){
+  m_orientation = p_orientation;
+  return 0;
+}
+
+int Odometry::getXposition(){
+  return 0;
+}
+
+int Odometry::getXVelocity(){
+  return 0;
+}
+
+int Odometry::setXposition(int p_xPosition){
+  m_xPosition = p_xPosition;
+  return 0;
+}
+
+int Odometry::getYposistion(){
+  return 0;
+}
+
+int Odometry::getYVelocity(){
+  return 0;
+}
+
+int Odometry::setYposition(int p_yPosition){
+  m_yPosition = p_yPosition;
+  return 0;
+}
+
 int Odometry::defineGUI(std::string p_returnScreen){
   graphicalInterface& l_gui = m_robot.m_gui;
   m_leftEncoder->defineGUI(l_gui, "Odometry");
@@ -30,11 +69,11 @@ int Odometry::defineGUI(std::string p_returnScreen){
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
   l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %d Deg", &m_orientation);
-  l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: ");
-  l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_currentX);
-  l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: ");
-  l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %d", &m_currentY);
-  l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: ");
+  l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
+  l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_xPosition);
+  l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", (std::function<int()>)std::bind(&Odometry::getXVelocity, this));
+  l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %d", &m_yPosition);
+  l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %d", (std::function<int()>)std::bind(&Odometry::getYVelocity, this));
 
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());

@@ -28,6 +28,8 @@ public:
   Robot();
 
   int task();
+
+  int autonmous();
 };
 
 #endif // ROBOTCLASS_H
