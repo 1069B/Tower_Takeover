@@ -18,27 +18,30 @@ private:
   int m_orientation = 0;
   int m_xPosition = 0;
   int m_yPosition = 0;
+
+  double getRadius();
+  
 public:
-  Odometry(Robot& p_robot, std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder);
+  Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
 
   int getOrientation();
 
   int getOrientationVelocity();
 
-  int setOrientation(int p_orientation);
+  int setOrientation(const int p_orientation);
 
   int getXposition();
 
   int getXVelocity();
 
-  int setXposition(int p_xPosition);
+  int setXposition(const int p_xPosition);
 
   int getYposistion();
 
   int getYVelocity();
 
-  int setYposition(int p_yPosition);
+  int setYposition(const int p_yPosition);
 
-  int defineGUI(std::string p_returnScreen);
+  int defineGUI(const std::string p_returnScreen);
 };
 #endif // ODOMETRYCLASS_H
