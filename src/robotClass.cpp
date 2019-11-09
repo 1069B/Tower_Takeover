@@ -41,3 +41,8 @@ int Robot::task(){
 
   return 0;
 }
+
+int Robot::autonmous(){
+  m_base.autonomous();
+  return 0;
+}
