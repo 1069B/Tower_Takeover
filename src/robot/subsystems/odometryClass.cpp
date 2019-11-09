@@ -1,7 +1,7 @@
 #include "robot/subsystems/odometryClass.hpp"
 #include "robotClass.hpp"
 
-Odometry::Odometry(Robot& p_robot, std::string p_leftEncoder, std::string p_rightEncoder, std::string p_centerEncoder):
+Odometry::Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder):
 m_robot(p_robot){
   if(Encoder::findEncoder(p_leftEncoder) == NULL)
     m_leftEncoder = new Encoder(p_leftEncoder, 1, false);
@@ -27,7 +27,7 @@ int Odometry::getOrientationVelocity(){
   return 0;
 }
 
-int Odometry::setOrientation(int p_orientation){
+int Odometry::setOrientation(const int p_orientation){
   m_orientation = p_orientation;
   return 0;
 }
@@ -40,7 +40,7 @@ int Odometry::getXVelocity(){
   return 0;
 }
 
-int Odometry::setXposition(int p_xPosition){
+int Odometry::setXposition(const int p_xPosition){
   m_xPosition = p_xPosition;
   return 0;
 }
@@ -53,12 +53,12 @@ int Odometry::getYVelocity(){
   return 0;
 }
 
-int Odometry::setYposition(int p_yPosition){
+int Odometry::setYposition(const int p_yPosition){
   m_yPosition = p_yPosition;
   return 0;
 }
 
-int Odometry::defineGUI(std::string p_returnScreen){
+int Odometry::defineGUI(const std::string p_returnScreen){
   graphicalInterface& l_gui = m_robot.m_gui;
   m_leftEncoder->defineGUI(l_gui, "Odometry");
   m_centerEncoder->defineGUI(l_gui, "Odometry");
