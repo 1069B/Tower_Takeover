@@ -15,6 +15,7 @@ private:
   int m_previousRotation = 0;
   int m_rotation = 0;
   int m_velocity = 0;
+  int m_direction = 0;
   bool m_reversed = false;
 
   static ExternalFile s_config;
@@ -32,6 +33,8 @@ public:
   int resetRotation();
 
   int getVelocity();
+
+  int getDirection();
 
   int setPort(const int p_port);
 
