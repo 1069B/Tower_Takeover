@@ -19,6 +19,30 @@ m_robot(p_robot){
     m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
 }
 
+double Odometry::getRadius(){
+  if((m_leftEncoder->getDirection() == 1 && m_rightEncoder->getDirection() >= 0 )||// Arc Turning Detection
+     (m_leftEncoder->getDirection() >= 0 && m_rightEncoder->getDirection() == 1)){
+    return getArcTuringRadius();
+  }
+
+  else if((m_leftEncoder->getDirection() == 1 && m_rightEncoder->getDirection() == -1 )||// Opposed Turning Detection
+          (m_leftEncoder->getDirection() == -1 && m_rightEncoder->getDirection() == 1)){
+    return getOpposedTurningRadius();
+  }
+
+  return 0;
+}
+
+double Odometry::getArcTuringRadius(){
+  int radiusLeft = -m_trakingWheelDistance/((double)m_rightEncoder->getVelocity()/(double)m_leftEncoder->getVelocity()-1);
+  int radiusRight = m_trakingWheelDistance/((double)m_leftEncoder->getVelocity()/(double)m_rightEncoder->getVelocity()-1);
+  return (radiusLeft + radiusRight)/2;
+}
+
+double Odometry::getOpposedTurningRadius(){
+  return m_trakingWheelDistance;
+}
+
 int Odometry::getOrientation(){
   return 0;
 }

@@ -51,6 +51,10 @@ int Encoder::getVelocity(){
   return m_velocity;
 }
 
+int Encoder::getDirection(){
+  return getVelocity()/abs(getVelocity());
+}
+
 int Encoder::setPort(const int p_port){
   m_port = p_port;
   s_config.storeInt(m_name+"_port", m_port);

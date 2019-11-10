@@ -19,14 +19,20 @@ private:
   int m_xPosition = 0;
   int m_yPosition = 0;
 
-  double getRadius();
-  
+  double m_trakingWheelDistance = 5.4;//Units in cm
+
+  double getArcTuringRadius();
+
+  double getOpposedTurningRadius();
+
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
 
   int getOrientation();
 
   int getOrientationVelocity();
+
+  double getRadius();
 
   int setOrientation(const int p_orientation);
 
