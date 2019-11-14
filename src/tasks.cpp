@@ -14,7 +14,7 @@ void competition_initialize() {
 }
 
 void autonomous() {
-
+  robot.autonmous();
 }
 
 void opcontrol(){

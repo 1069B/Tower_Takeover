@@ -30,6 +30,8 @@ public:
 
   int getOrientation();
 
+  int getOrientationChange();
+
   int getOrientationVelocity();
 
   double getRadius();
