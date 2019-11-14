@@ -47,6 +47,12 @@ int Odometry::getOrientation(){
   return 0;
 }
 
+int Odometry::getOrientationChange(){
+  // int top = 360 * (m_rightEncoder->getVelocity() + m_leftEncoder->getVelocity());
+  // int bottom = ;
+  return 0;//top / bottom;
+}
+
 int Odometry::getOrientationVelocity(){
   return 0;
 }

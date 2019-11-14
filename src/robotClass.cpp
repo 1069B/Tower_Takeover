@@ -1,5 +1,13 @@
 #include "robotClass.hpp"
 
+Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
+
+Motor Left_Intake_Motor("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, false);
+
+Motor Right_Intake_Motor("Right_Intake", 7, pros::E_MOTOR_GEARSET_36, false);
+
+Motor Justin_Trudeau("ArmMotor", 8, pros::E_MOTOR_GEARSET_36, false);
+
 Robot::Robot():
   m_gui("Home"),
   m_mainController(pros::E_CONTROLLER_MASTER),
@@ -16,16 +24,11 @@ Robot::Robot():
     m_base.initialize();
 
     m_partnerController.Axis2.setMultiplier(1);
+    Justin_Trudeau.setBrake(pros::E_MOTOR_BRAKE_HOLD);
     defineGUI();
 }
 
-Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
 
-Motor Left_Intake_Motor("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, false);
-
-Motor Right_Intake_Motor("Right_Intake", 7, pros::E_MOTOR_GEARSET_36, false);
-
-Motor Justin_Trudeau("Justin_Trudeau", 8, pros::E_MOTOR_GEARSET_36, false);
 
 int Robot::task(){
   m_gui.task();
