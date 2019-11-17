@@ -140,7 +140,7 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 200, 10, redText, m_name);
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
-  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %d Deg", &m_orientation);
+  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %d Deg", (std::function<int()>)std::bind(&Odometry::getOrientation, this));
   l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
   l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_xPosition);
   l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", (std::function<int()>)std::bind(&Odometry::getXVelocity, this));
