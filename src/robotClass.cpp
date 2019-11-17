@@ -24,6 +24,7 @@ Robot::Robot():
     m_base.initialize();
 
     m_partnerController.Axis2.setMultiplier(1);
+    m_partnerController.Axis3.setMultiplier(2);
     Justin_Trudeau.setBrake(pros::E_MOTOR_BRAKE_HOLD);
     defineGUI();
 }

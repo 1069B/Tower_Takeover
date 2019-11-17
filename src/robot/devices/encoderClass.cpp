@@ -22,6 +22,8 @@ Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_revers
   }
   pros::c::adi_encoder_init(m_port, m_port+1, m_reversed);
   s_encoderArray.push_back(this);
+
+  m_avgVelocity.resize(4);
 }
 
 int Encoder::isConnected(){
@@ -41,13 +43,31 @@ int Encoder::resetRotation(){
 }
 
 int Encoder::getVelocity(){
-  double l_distanceChange = getRotation() - m_previousRotation;
-  double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
+  if(m_timer.preformAction()){
+    double l_distanceChange = getRotation() - m_previousRotation;
+    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
 
-  m_velocity = l_distanceChange / l_timeChange;
+    double l_velocity = l_distanceChange / l_timeChange;
 
-  m_previousTime = m_timer.getTime();
-  m_previousRotation = getRotation();
+    m_previousTime = m_timer.getTime();
+    m_previousRotation = getRotation();
+
+    std::vector<int> l_tempVelocity;
+    l_tempVelocity.resize(4);
+    for(int x = 0; x < 3; x++){
+      l_tempVelocity.at(x) = m_avgVelocity.at(x+1);
+    }
+    l_tempVelocity.at(3) = l_velocity;
+    m_avgVelocity = l_tempVelocity;
+    m_timer.addActionDelay(10);
+
+    double l_avg = 0;
+    for(int x = 0; x < 4; x++){
+      l_avg += m_avgVelocity.at(x);
+    }
+    m_velocity = l_avg/4;
+  }
+
   return m_velocity;
 }
 

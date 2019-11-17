@@ -19,42 +19,84 @@ m_robot(p_robot){
     m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
 }
 
-double Odometry::getRadius(){
-  if((m_leftEncoder->getDirection() == 1 && m_rightEncoder->getDirection() >= 0 )||// Arc Turning Detection
-     (m_leftEncoder->getDirection() >= 0 && m_rightEncoder->getDirection() == 1)){
-    return getArcTuringRadius();
+double Odometry::getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity){
+  if(p_leftVelocity == p_rightVelocity){
+    m_turnType = NOTURN;
+    return 0;
   }
-
-  else if((m_leftEncoder->getDirection() == 1 && m_rightEncoder->getDirection() == -1 )||// Opposed Turning Detection
-          (m_leftEncoder->getDirection() == -1 && m_rightEncoder->getDirection() == 1)){
-    return getOpposedTurningRadius();
+  else if(m_leftEncoder->getDirection() != m_rightEncoder->getDirection()){
+    m_turnType = OPPOSED;
+    return -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
   }
-
-  return 0;
+  else{
+    m_turnType = ARC;
+    return -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
+  }
+  return 404;
 }
 
-double Odometry::getArcTuringRadius(){
-  int radiusLeft = -m_trakingWheelDistance/((double)m_rightEncoder->getVelocity()/(double)m_leftEncoder->getVelocity()-1);
-  int radiusRight = m_trakingWheelDistance/((double)m_leftEncoder->getVelocity()/(double)m_rightEncoder->getVelocity()-1);
-  return (radiusLeft + radiusRight)/2;
-}
-
-double Odometry::getOpposedTurningRadius(){
-  return m_trakingWheelDistance;
+double Odometry::getRadiusRight(const double p_leftVelocity, const double p_rightVelocity){
+  if(p_leftVelocity == p_rightVelocity){
+    m_turnType = NOTURN;
+    return 0;
+  }
+  else if(m_leftEncoder->getDirection() != m_rightEncoder->getDirection()){
+    m_turnType = OPPOSED;
+    return m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+  }
+  else{
+    m_turnType = ARC;
+    return m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+  }
+  return 404;
 }
 
 int Odometry::getOrientation(){
-  return 0;
+  m_orientation += getOrientationChange();
+  return m_orientation;
 }
 
 int Odometry::getOrientationChange(){
-  // int top = 360 * (m_rightEncoder->getVelocity() + m_leftEncoder->getVelocity());
-  // int bottom = ;
-  return 0;//top / bottom;
+  int l_orientationChange = 0;
+  if(m_timer.preformAction()){
+    double l_velocityRight = m_rightEncoder->getVelocity();
+    double l_velocityLeft = m_leftEncoder->getVelocity();
+    double l_radiusLeft = getRadiusLeft(l_velocityLeft, l_velocityRight);
+    double l_radiusRight = getRadiusRight(l_velocityLeft, l_velocityRight);
+    double l_radiusAverage = (l_radiusLeft + l_radiusRight)/2;
+
+    m_currentOrientationTime = m_timer.getTime();
+    int l_timeChange = m_currentOrientationTime - m_previousOrientationTime;
+
+
+    if(m_turnType == NOTURN){
+      l_orientationChange = 0;
+    }
+    else{
+      if((fabs(l_radiusLeft) + fabs(l_radiusRight))/2 != fabs(m_trakingDistanceLeft - m_trakingDistanceRight)){
+        l_orientationChange =  ((l_velocityLeft+l_velocityRight)*(l_timeChange)*180)/(M_PI*(l_radiusLeft + l_radiusRight));
+      }
+      else if((fabs(l_radiusLeft) + fabs(l_radiusRight))/2 == fabs(m_trakingDistanceLeft - m_trakingDistanceRight)){
+        l_orientationChange =  (180 * (fabs(l_velocityRight)+ fabs(l_velocityRight))*(m_leftEncoder->getDirection())*(l_timeChange))/((M_PI)*(fabs(l_radiusLeft)+ fabs(l_radiusRight)));
+      }
+      else{
+        l_orientationChange = 404;
+      }
+    }
+
+    m_previousOrientationTime = m_currentOrientationTime;
+    m_timer.addActionDelay(10);
+  }
+  return l_orientationChange;
 }
 
 int Odometry::getOrientationVelocity(){
-  return 0;
+  m_currentOrientationVelocityTime = m_timer.getTime();
+  m_currentOrientation = getOrientation();
+  int l_timeChange = m_currentOrientationVelocityTime - m_previousOrientationVelocityTime;
+
+  int l_angularVelocity = (m_currentOrientation - m_previousOrientation)/l_timeChange;
+  return l_angularVelocity;
 }
 
 int Odometry::setOrientation(const int p_orientation){

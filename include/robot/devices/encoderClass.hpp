@@ -18,6 +18,8 @@ private:
   int m_direction = 0;
   bool m_reversed = false;
 
+  std::vector<int> m_avgVelocity;
+
   static ExternalFile s_config;
   static std::vector<Encoder*> s_encoderArray;
 
