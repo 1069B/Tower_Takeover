@@ -2,9 +2,9 @@
 
 Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
 
-Motor Left_Intake_Motor("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, false);
+Motor Left_Intake_Motor("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, true);
 
-Motor Right_Intake_Motor("Right_Intake", 7, pros::E_MOTOR_GEARSET_36, false);
+Motor Right_Intake_Motor("Right_Intake", 7, pros::E_MOTOR_GEARSET_36, true);
 
 Motor Justin_Trudeau("ArmMotor", 8, pros::E_MOTOR_GEARSET_36, false);
 
@@ -39,8 +39,13 @@ int Robot::task(){
   Tray_Motor.setVelocity(m_partnerController.Axis2.getValue());
   Left_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
   Right_Intake_Motor.setVelocity(m_partnerController.Axis3.getValue());
-  Justin_Trudeau.setVelocity(m_partnerController.Axis4.getValue());
 
+  if(m_partnerController.ButtonUp.state() == true)
+    Justin_Trudeau.setVelocity(-200);
+  else if(m_partnerController.ButtonDown.state() == true)
+    Justin_Trudeau.setVelocity(200);
+  else
+    Justin_Trudeau.setVelocity(0);
   m_base.driverControl();
 
   return 0;

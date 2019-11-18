@@ -22,15 +22,18 @@ m_robot(p_robot){
 double Odometry::getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity){
   if(p_leftVelocity == p_rightVelocity){
     m_turnType = NOTURN;
-    return 0;
+    m_leftRadius = 0;
+    return m_leftRadius;
   }
   else if(m_leftEncoder->getDirection() != m_rightEncoder->getDirection()){
     m_turnType = OPPOSED;
-    return -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
+    m_leftRadius = -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
+    return m_leftRadius;
   }
   else{
     m_turnType = ARC;
-    return -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
+    m_leftRadius = -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1) * m_rightEncoder->getDirection();
+    return m_leftRadius;
   }
   return 404;
 }
@@ -38,15 +41,18 @@ double Odometry::getRadiusLeft(const double p_leftVelocity, const double p_right
 double Odometry::getRadiusRight(const double p_leftVelocity, const double p_rightVelocity){
   if(p_leftVelocity == p_rightVelocity){
     m_turnType = NOTURN;
-    return 0;
+    m_rightRadius = 0;
+    return m_rightRadius;
   }
   else if(m_leftEncoder->getDirection() != m_rightEncoder->getDirection()){
     m_turnType = OPPOSED;
-    return m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+    m_rightRadius = m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+    return m_rightRadius;
   }
   else{
     m_turnType = ARC;
-    return m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+    m_rightRadius = m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1) * m_rightEncoder->getDirection();
+    return m_rightRadius;
   }
   return 404;
 }
@@ -146,6 +152,10 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", (std::function<int()>)std::bind(&Odometry::getXVelocity, this));
   l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %d", &m_yPosition);
   l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %d", (std::function<int()>)std::bind(&Odometry::getYVelocity, this));
+
+  l_gui.addLabel(m_name, 240, 150, whiteText, "Left Radius: %d", &m_leftRadius);
+  l_gui.addLabel(m_name, 240, 175, whiteText, "Right Radius: %d", &m_rightRadius);
+  l_gui.addLabel(m_name, 240, 175, whiteText, "Average Radius: %d", &m_averageRadius);
 
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());

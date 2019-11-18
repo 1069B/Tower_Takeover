@@ -45,7 +45,7 @@ int Encoder::resetRotation(){
 int Encoder::getVelocity(){
   if(m_timer.preformAction()){
     double l_distanceChange = getRotation() - m_previousRotation;
-    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
+    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0 / 360 * 6.985;
 
     double l_velocity = l_distanceChange / l_timeChange;
 
@@ -102,7 +102,7 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addLabel(m_name, 20, 80, whiteText, "Previous Time: %d", &m_previousTime);
   p_gui.addLabel(m_name, 20, 110, whiteText, "Previous Rotation: %d Deg", &m_previousRotation);
   p_gui.addLabel(m_name, 20, 140, whiteText, "Rotation: %d Deg", (std::function<int()>)std::bind(&Encoder::getRotation, this));
-  p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, this));
+  p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %d cm/s", (std::function<int()>)std::bind(&Encoder::getVelocity, this));
   p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
 
 
