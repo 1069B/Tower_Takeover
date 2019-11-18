@@ -22,9 +22,13 @@ private:
   Encoder* m_centerEncoder = NULL;
   Encoder* m_rightEncoder = NULL;
 
-  int m_orientation = 0;
-  int m_xPosition = 0;
-  int m_yPosition = 0;
+  double m_orientation = 0;
+  double m_xPosition = 0;
+  double m_yPosition = 0;
+
+	double m_leftRadius = 0;
+	double m_rightRadius = 0;
+	double m_averageRadius = 0;
 
 	Timer m_timer;
 	int m_currentOrientationTime;
