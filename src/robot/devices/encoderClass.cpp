@@ -45,9 +45,13 @@ int Encoder::resetRotation(){
 int Encoder::getVelocity(){
   if(m_timer.preformAction()){
     double l_distanceChange = getRotation() - m_previousRotation;
-    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0 / 360 * 6.985;
+    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
 
     double l_velocity = l_distanceChange / l_timeChange;
+    if(m_reversed)
+      l_velocity = l_velocity / 360.0 * 21.991;
+    else
+      l_velocity = l_velocity / 360.0 * 21.991;
 
     m_previousTime = m_timer.getTime();
     m_previousRotation = getRotation();
