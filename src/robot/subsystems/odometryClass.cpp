@@ -92,14 +92,14 @@ double Odometry::getOrientationChange(){
     double l_radiusAverage = (l_radiusLeft + l_radiusRight)/2;
 
     m_currentOrientationTime = m_timer.getTime() / 1000;
-    int l_timeChange = m_currentOrientationTime - m_previousOrientationTime;
+    double l_timeChange = m_currentOrientationTime - m_previousOrientationTime;
 
 
     if(m_turnType == NOTURN){
       l_orientationChange = 0;
     }
     else{
-      if((fabs(l_radiusLeft-m_trakingDistanceLeft)+ fabs(l_radiusRight-m_trakingDistanceRight))/2 == 0)// Point
+      if((fabs(l_radiusLeft)-m_trakingDistanceLeft/2+fabs(l_radiusRight)-m_trakingDistanceRight/2)/2 == 0)// Point
         l_orientationChange = ((180)*(fabs(l_radiusLeft)+fabs(l_radiusRight))*(l_velocityLeft/fabs(l_velocityLeft))*(l_timeChange))/((M_PI)*(fabs(l_radiusLeft)+fabs(l_radiusRight)));
 
       else if((fabs(l_radiusLeft-m_trakingDistanceLeft)+ fabs(l_radiusRight-m_trakingDistanceRight))/2 != 0)// Non-Point
