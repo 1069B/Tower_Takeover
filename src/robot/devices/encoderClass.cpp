@@ -49,9 +49,9 @@ int Encoder::getVelocity(){
 
     double l_velocity = l_distanceChange / l_timeChange;
     if(m_reversed)
-      l_velocity = l_velocity / 360.0 * 21.991;
+      l_velocity = l_velocity / 360.0 * 22.15;
     else
-      l_velocity = l_velocity / 360.0 * 21.991;
+      l_velocity = l_velocity / 360.0 * 22.15;
 
     m_previousTime = m_timer.getTime();
     m_previousRotation = getRotation();
