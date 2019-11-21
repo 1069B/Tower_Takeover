@@ -31,10 +31,10 @@ private:
 	double m_averageRadius = 0;
 
 	Timer m_timer;
-	int m_currentOrientationTime;
-	int m_previousOrientationTime;
-	int m_currentOrientationVelocityTime;
-	int m_previousOrientationVelocityTime;
+	double m_currentOrientationTime;
+	double m_previousOrientationTime;
+	double m_currentOrientationVelocityTime;
+	double m_previousOrientationVelocityTime;
 	double m_currentOrientation;
 	double m_previousOrientation;
 
@@ -45,29 +45,29 @@ private:
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
 
-  int getOrientation();
+  double getOrientation();
 
-  int getOrientationChange();
+  double getOrientationChange();
 
-  int getOrientationVelocity();
+  double getOrientationVelocity();
 
   double getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity);
 
   double getRadiusRight(const double p_leftVelocity, const double p_rightVelocity);
 
-  int setOrientation(const int p_orientation);
+  double setOrientation(const double p_orientation);
 
-  int getXposition();
+  double getXposition();
 
-  int getXVelocity();
+  double getXVelocity();
 
-  int setXposition(const int p_xPosition);
+  double setXposition(const double p_xPosition);
 
-  int getYposistion();
+  double getYposistion();
 
-  int getYVelocity();
+  double getYVelocity();
 
-  int setYposition(const int p_yPosition);
+  double setYposition(const double p_yPosition);
 
   int defineGUI(const std::string p_returnScreen);
 };

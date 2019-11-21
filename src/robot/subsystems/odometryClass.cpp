@@ -77,13 +77,13 @@ double Odometry::getRadiusRight(const double p_leftVelocity, const double p_righ
   return 404;
 }
 
-int Odometry::getOrientation(){
+double Odometry::getOrientation(){
   m_orientation += getOrientationChange();
   return m_orientation;
 }
 
-int Odometry::getOrientationChange(){
-  int l_orientationChange = 0;
+double Odometry::getOrientationChange(){
+  double l_orientationChange = 0;
   if(m_timer.preformAction()){
     double l_velocityRight = m_rightEncoder->getVelocity();
     double l_velocityLeft = m_leftEncoder->getVelocity();
@@ -91,7 +91,7 @@ int Odometry::getOrientationChange(){
     double l_radiusRight = getRadiusRight(l_velocityLeft, l_velocityRight);
     double l_radiusAverage = (l_radiusLeft + l_radiusRight)/2;
 
-    m_currentOrientationTime = m_timer.getTime();
+    m_currentOrientationTime = m_timer.getTime() / 1000;
     int l_timeChange = m_currentOrientationTime - m_previousOrientationTime;
 
 
@@ -99,15 +99,14 @@ int Odometry::getOrientationChange(){
       l_orientationChange = 0;
     }
     else{
-      if((fabs(l_radiusLeft) + fabs(l_radiusRight))/2 != fabs(m_trakingDistanceLeft - m_trakingDistanceRight)){// Not Correct!!!
+      if((fabs(l_radiusLeft-m_trakingDistanceLeft)+ fabs(l_radiusRight-m_trakingDistanceRight))/2 == 0)// Point
+        l_orientationChange = ((180)*(fabs(l_radiusLeft)+fabs(l_radiusRight))*(l_velocityLeft/fabs(l_velocityLeft))*(l_timeChange))/((M_PI)*(fabs(l_radiusLeft)+fabs(l_radiusRight)));
+
+      else if((fabs(l_radiusLeft-m_trakingDistanceLeft)+ fabs(l_radiusRight-m_trakingDistanceRight))/2 != 0)// Non-Point
         l_orientationChange =  ((l_velocityLeft+l_velocityRight)*(l_timeChange)*180)/(M_PI*(l_radiusLeft + l_radiusRight));
-      }
-      else if((fabs(l_radiusLeft) + fabs(l_radiusRight))/2 == fabs(m_trakingDistanceLeft - m_trakingDistanceRight)){
-        l_orientationChange =  (180 * (fabs(l_velocityRight)+ fabs(l_velocityRight))*(m_leftEncoder->getDirection())*(l_timeChange))/((M_PI)*(fabs(l_radiusLeft)+ fabs(l_radiusRight)));
-      }
-      else{
+
+      else
         l_orientationChange = 404;
-      }
     }
 
     m_previousOrientationTime = m_currentOrientationTime;
@@ -116,42 +115,42 @@ int Odometry::getOrientationChange(){
   return l_orientationChange;
 }
 
-int Odometry::getOrientationVelocity(){
+double Odometry::getOrientationVelocity(){
   m_currentOrientationVelocityTime = m_timer.getTime();
   m_currentOrientation = getOrientation();
-  int l_timeChange = m_currentOrientationVelocityTime - m_previousOrientationVelocityTime;
+  double l_timeChange = m_currentOrientationVelocityTime - m_previousOrientationVelocityTime;
 
-  int l_angularVelocity = (m_currentOrientation - m_previousOrientation)/l_timeChange;
+  double l_angularVelocity = (m_currentOrientation - m_previousOrientation)/l_timeChange;
   return l_angularVelocity;
 }
 
-int Odometry::setOrientation(const int p_orientation){
+double Odometry::setOrientation(const double p_orientation){
   m_orientation = p_orientation;
   return 0;
 }
 
-int Odometry::getXposition(){
+double Odometry::getXposition(){
   return 0;
 }
 
-int Odometry::getXVelocity(){
+double Odometry::getXVelocity(){
   return 0;
 }
 
-int Odometry::setXposition(const int p_xPosition){
+double Odometry::setXposition(const double p_xPosition){
   m_xPosition = p_xPosition;
   return 0;
 }
 
-int Odometry::getYposistion(){
+double Odometry::getYposistion(){
   return 0;
 }
 
-int Odometry::getYVelocity(){
+double Odometry::getYVelocity(){
   return 0;
 }
 
-int Odometry::setYposition(const int p_yPosition){
+double Odometry::setYposition(const double p_yPosition){
   m_yPosition = p_yPosition;
   return 0;
 }
@@ -166,7 +165,7 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 200, 10, redText, m_name);
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
-  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %d Deg", (std::function<int()>)std::bind(&Odometry::getOrientation, this));
+  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", (std::function<double()>)std::bind(&Odometry::getOrientation, this));
   //l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
   // l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_xPosition);
   // l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", (std::function<int()>)std::bind(&Odometry::getXVelocity, this));
