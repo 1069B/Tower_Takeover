@@ -20,6 +20,6 @@ void autonomous() {
 void opcontrol(){
   while(true){
     robot.task();
-    pros::delay(100);
+    pros::delay(5);
   }
 }
