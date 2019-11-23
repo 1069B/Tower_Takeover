@@ -6,7 +6,7 @@
 
 class Button: protected AbstractGUI{
 public:
-  //friend class Screen;
+  friend class Screen;
   std::string& m_nextScreenVar;
   std::string m_linkedScreenID[6] = {"None","None","None","None","None","None"};// Corasponding screen
   bool changeVar;
