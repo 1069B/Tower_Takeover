@@ -55,6 +55,8 @@ public:
 
   double getRadiusRight(const double p_leftVelocity, const double p_rightVelocity);
 
+	int getDirection(const double p_leftVelocity, const double p_rightVelocity);
+
   double setOrientation(const double p_orientation);
 
   double getXposition();
