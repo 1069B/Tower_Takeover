@@ -34,7 +34,7 @@ private:
 
 	Odometry* m_trackingWheels= NULL;
 
-  ExternalFile m_config;
+  static ExternalFile m_config;
 
   bool m_trackingSystem = false;
 	BaseType m_baseType;
