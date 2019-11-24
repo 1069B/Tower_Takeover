@@ -5,22 +5,26 @@
 
 class Robot;
 
-#ifndef INTAKECLASS_H
-#define INTAKECLASS_H
+#ifndef ARMCLASS_H
+#define ARMCLASS_H
 
-class Intake{
+class Arm {
 private:
   Robot& m_robot;
-  Motor* m_intakeMotor = NULL;
+  Motor* m_armMotor;
+
   static ExternalFile m_config;
   Timer m_timer;
-  manipulatorState m_intakeState = VELOCITY_DEPENDENT;
+  manipulatorState m_armState = VELOCITY_DEPENDENT;
   int m_velocity;
   int m_targetPosition;
   bool m_reversed;
 
+  int m_limitLow = 0;
+  int m_limitHigh = 0;
+
 public:
-  Intake(Robot& p_robot);
+  Arm(Robot& p_robot);
 
   int setVelocity(const int p_velocity = 0);
 
@@ -30,13 +34,11 @@ public:
 
   int resetEncoder();
 
-  int initialize(const std::string p_intakeMotor, const int p_port, const bool p_reversed = false);
+  int initialize(const std::string p_armMotor, const int p_port, const int p_limitLow, const int p_limitHigh, const bool p_reversed = false);
 
-	int autonomous();
+  int autonomous();
 
-	int driverControl();
-
-
+  int driverControl();
 };
 
-#endif // INTAKECLASS_H
+#endif // LIFTCLASS_H

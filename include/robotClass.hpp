@@ -1,11 +1,9 @@
 #include "main.h"
 #include "robot/graphical/GUIClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
-#include "robot/devices/motorClass.hpp"
-#include "robot/devices/timerClass.hpp"
-#include "robot/devices/externalFileClass.hpp"
-#include "robot/devices/encoderClass.hpp"
 #include "robot/subsystems/baseClass.hpp"
+#include "robot/subsystems/armClass.hpp"
+#include "robot/subsystems/intakeClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
@@ -18,6 +16,12 @@ private:
   Timer m_timer;
   ExternalFile m_config;
   Base m_base;
+
+  Arm m_tray;
+  Arm m_intakeArm;
+
+  Intake m_leftIntake;
+  Intake m_rightIntake;
 
   std::string m_compMode;
 

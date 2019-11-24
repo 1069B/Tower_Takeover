@@ -15,7 +15,7 @@ private:
 public:
   ControlBtn(const pros::controller_id_e_t p_controller, const pros::controller_digital_e_t p_type);
 
-  void setCallBack(const std::function<void()> p_function, const int p_delay);
+  void setCallBack(const std::function<int()> p_function, const int p_delay);
 
   void checkCallBack();
 
