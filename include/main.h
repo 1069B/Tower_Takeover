@@ -37,6 +37,7 @@
 #include "api.h"
 
 
+
 /**
  * You should add more #includes here
  */
@@ -82,6 +83,7 @@ void opcontrol(void);
 #include <functional>
 #include <fstream>
 #include <iostream>
+#include<bits/stdc++.h> 
 #endif
 
 

@@ -19,89 +19,34 @@ m_robot(p_robot){
     m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
 }
 
-int Odometry::getDirection(const double p_leftVelocity, const double p_rightVelocity){
-    if(p_leftVelocity == p_rightVelocity)
-        return 0;
-    else if(p_leftVelocity == 0)
-        return (p_rightVelocity/fabs(p_rightVelocity));
-    else if(p_rightVelocity == 0)
-        return (p_leftVelocity/fabs(p_leftVelocity));
-    else
-        return (p_leftVelocity/fabs(p_leftVelocity));
-}
-
 double Odometry::getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity){
-  if(p_leftVelocity == p_rightVelocity){//No Turn
-    m_turnType = NOTURN;
-    m_leftRadius = 0;
-    return m_leftRadius;
-  }
-  else if(p_leftVelocity == 0){// Arc Turn
-    m_turnType = ARC;
-    m_leftRadius = 0;
-    return m_leftRadius;
-  }
-  else if(p_rightVelocity == 0){//Arc Turn
-    m_turnType = ARC;
-    m_leftRadius = m_trakingDistanceLeft/(-1) * -getDirection(p_leftVelocity, p_rightVelocity);
-    return m_leftRadius;
-  }
-  else if(p_leftVelocity/fabs(p_leftVelocity) != p_rightVelocity/fabs(p_rightVelocity)){//Opposed Turn
-    m_turnType = OPPOSED;
-    m_leftRadius = -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1);
-      if(m_leftRadius/fabs(m_leftRadius) == -1)
-          m_leftRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-      else
-          m_leftRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-    return m_leftRadius;
-  }
-  else{//Arc Turn
-    m_turnType = ARC;
-    m_leftRadius = -m_trakingDistanceLeft/(p_rightVelocity/p_leftVelocity-1);
-      if(m_leftRadius/fabs(m_leftRadius) == -1)
-          m_leftRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-      else
-          m_leftRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-    return m_leftRadius;
-  }
-  return 404;
+  if(p_leftVelocity == p_rightVelocity)//No Turn
+    return 0;
+  else if(p_leftVelocity == 0)// Arc Turn
+    return 0;
+  else if(p_rightVelocity == 0)//Arc Turn
+    return -m_trakingDistanceTotal/(-1);
+  else if(p_leftVelocity/fabs(p_leftVelocity) != p_rightVelocity/fabs(p_rightVelocity))//Opposed Turn
+    return -m_trakingDistanceTotal/(p_rightVelocity/p_leftVelocity-1);
+  else//Arc Turn
+    return -m_trakingDistanceTotal/(p_rightVelocity/p_leftVelocity-1);
+
+  return INT_MAX;
 }
 
 double Odometry::getRadiusRight(const double p_leftVelocity, const double p_rightVelocity){
-  if(p_leftVelocity == p_rightVelocity){//No Turn
-    m_turnType = NOTURN;
-    m_rightRadius = 0;
-    return m_rightRadius;
-  }
-  else if(p_leftVelocity == 0){//Arc Turn
-    m_turnType = ARC;
-    m_rightRadius = m_trakingDistanceRight/(-1) * getDirection(p_leftVelocity, p_rightVelocity);
-    return m_rightRadius;
-  }
-  else if(p_rightVelocity == 0){//Arc Turn
-    m_turnType = ARC;
-    m_rightRadius = 0;
-    return m_rightRadius;
-  }
-  else if(p_leftVelocity/fabs(p_leftVelocity) != p_rightVelocity/fabs(p_rightVelocity)){//Opposed Turning
-    m_turnType = OPPOSED;
-    m_rightRadius = m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1);
-    if(m_rightRadius/fabs(m_rightRadius) == -1)
-        m_rightRadius *= -getDirection(p_leftVelocity, p_rightVelocity);
-    else
-        m_rightRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-    return m_rightRadius;
-  }
-  else{//Arc
-    m_turnType = ARC;
-      m_rightRadius = m_trakingDistanceRight/(p_leftVelocity/p_rightVelocity-1);
-    if(m_rightRadius/fabs(m_rightRadius) == -1)
-        m_rightRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-    else
-        m_rightRadius *= getDirection(p_leftVelocity, p_rightVelocity);
-    return m_rightRadius;
-  }
-  return 404;
+  if(p_leftVelocity == p_rightVelocity)//No Turn
+    return 0;
+  else if(p_leftVelocity == 0)//Arc Turn
+    return m_trakingDistanceTotal/(-1);
+  else if(p_rightVelocity == 0)//Arc Turn
+    return 0;
+  else if(p_leftVelocity/fabs(p_leftVelocity) != p_rightVelocity/fabs(p_rightVelocity))//Opposed Turning
+    return m_trakingDistanceTotal/(p_leftVelocity/p_rightVelocity-1);
+  else//Arc
+    return m_trakingDistanceTotal/(p_leftVelocity/p_rightVelocity-1);
+
+  return INT_MAX;
 }
 
 double Odometry::getOrientation(){
@@ -110,40 +55,49 @@ double Odometry::getOrientation(){
 }
 
 double Odometry::getOrientationChange(){
-  double l_orientationChange = 0;
   if(m_timer.preformAction()){
-    double l_orientationChange = 0;
-    double l_velocityLeft = 0;
-    double l_velocityRight = 50;
-    double l_radiusLeft = getRadiusLeft(l_velocityLeft, l_velocityRight);
-    double l_radiusRight = getRadiusRight(l_velocityLeft, l_velocityRight);
-    double l_direction = getDirection(l_velocityLeft, l_velocityRight);
+    m_velocityLeft = m_leftEncoder->getVelocity();
+    m_velocityRight = m_rightEncoder->getVelocity();
+    m_radiusAvg = ((getRadiusLeft(m_velocityLeft,m_velocityRight)+m_trackingDistanceLeft)+ (getRadiusRight(m_velocityLeft,m_velocityRight)-m_trackingDistanceRight))/2;
+    m_radiusLeft = m_radiusAvg - m_trackingDistanceLeft;
+    m_radiusRight = m_radiusAvg + m_trackingDistanceRight;
+    m_velocityAvg = (m_velocityLeft+m_velocityRight)/2;
 
     m_currentOrientationTime = m_timer.getTime() / 1000;
     double l_timeChange = m_currentOrientationTime - m_previousOrientationTime;
 
-    // std::cout << "Radius Left: " << l_radiusLeft << std::endl;
-    // std::cout << "Radius Right: " << l_radiusRight << std::endl;
-    if(m_turnType == NOTURN){
-      l_orientationChange = 0;
+    if(fabs(m_radiusLeft) < 0.0001)
+        m_radiusLeft = 0;
+    if(fabs(m_radiusRight) < 0.0001)
+        m_radiusRight = 0;
+
+    if(m_velocityLeft == m_velocityRight){
+      m_orientationChange = 0;
+      m_turnType = "Not Turning";
+    }
+    if(m_radiusAvg == 0 || m_velocityAvg == 0){// Point and Extreme Opposed
+      m_orientationChange = ((180)*(fabs(m_velocityLeft)+fabs(m_velocityRight))*(l_timeChange))/((M_PI)*(fabs(m_radiusLeft)+fabs(m_radiusRight)));
+      m_orientationChange *= (m_velocityLeft/fabs(m_velocityLeft));
+      m_turnType = "Extreme Opposed";
+    }
+    else if(m_velocityLeft == 0 || m_velocityRight == 0){//Extreme Arc Turn Right
+      m_orientationChange = (m_velocityAvg*l_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Extreme Arc";
+    }
+    else if(m_velocityLeft/fabs(m_velocityLeft) == m_velocityRight/fabs(m_velocityRight)){// Arc
+      m_orientationChange = (m_velocityAvg*l_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Arc";
+    }
+    else if(m_velocityLeft/fabs(m_velocityLeft) != m_velocityRight/fabs(m_velocityRight)){// Opposed
+      m_orientationChange = (m_velocityAvg*l_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Opposed";
     }
     else{
-      if((fabs(l_radiusLeft)-m_trakingDistanceLeft/2+fabs(l_radiusRight)-m_trakingDistanceRight/2)/2 == 0){// Point
-          l_orientationChange = ((180)*(fabs(l_radiusLeft)+fabs(l_radiusRight))*l_direction*(l_timeChange))/((M_PI)*(fabs(l_radiusLeft)+fabs(l_radiusRight)));
-          // std::cout << "Point" << std::endl;
-      }
-      else if((fabs(l_radiusLeft-m_trakingDistanceLeft)+ fabs(l_radiusRight-m_trakingDistanceRight))/2 != 0){// Non-Point
-          l_orientationChange = ((l_velocityLeft+l_velocityRight)*(l_timeChange)*180)*l_direction/(M_PI*(l_radiusLeft + l_radiusRight));
-          // std::cout << "Non-Point" << std::endl;
-      }
-    else
-      l_orientationChange = 404;
+        m_orientationChange = INT_MAX;
+        m_turnType = "Error";
     }
-
-    m_previousOrientationTime = m_currentOrientationTime;
-    m_timer.addActionDelay(10);
   }
-  return l_orientationChange;
+  return m_orientationChange;
 }
 
 double Odometry::getOrientationVelocity(){
@@ -205,9 +159,9 @@ int Odometry::defineGUI(const std::string p_returnScreen){
 
   l_gui.addLabel(m_name, 20, 75, whiteText, "Left Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_leftEncoder));
   l_gui.addLabel(m_name, 20, 100, whiteText, "Right Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_rightEncoder));
-  l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_leftRadius);
-  l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_rightRadius);
-  l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_averageRadius);
+  l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_radiusLeft);
+  l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_radiusRight);
+  l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_radiusAvg);
 
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());

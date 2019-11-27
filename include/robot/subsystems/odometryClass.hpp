@@ -6,13 +6,6 @@
 
 class Robot;
 
-enum TurnType {
-	ARC = 0,
-	POINT = 1,
-	OPPOSED = 2,
-  NOTURN = 3
-};
-
 class Odometry{
 private:
   std::string m_name = "Odometry";
@@ -26,11 +19,15 @@ private:
   double m_xPosition = 0;
   double m_yPosition = 0;
 
-	double m_leftRadius = 0;
-	double m_rightRadius = 0;
-	double m_averageRadius = 0;
+	double m_radiusLeft = 0;
+	double m_radiusRight = 0;
+	double m_radiusAvg = 0;
 
-	Timer m_timer;
+	double m_orientationChange = 0;
+	double m_velocityLeft = 0;
+	double m_velocityRight = 0;
+	double m_velocityAvg = 0;
+
 	double m_currentOrientationTime;
 	double m_previousOrientationTime;
 	double m_currentOrientationVelocityTime;
@@ -38,9 +35,12 @@ private:
 	double m_currentOrientation;
 	double m_previousOrientation;
 
-  TurnType m_turnType;
-  double m_trakingDistanceLeft = 13.496;//Units in cm
-  double m_trakingDistanceRight = 12.859;//Units in cm
+	Timer m_timer;
+
+  std::string m_turnType;
+	double m_trakingDistanceTotal = 26.355;//Units in cm
+	double m_trackingDistanceLeft = 13.496;//Units in cm
+	double m_trackingDistanceRight = 12.859;//Units in cm
 
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
@@ -54,8 +54,6 @@ public:
   double getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity);
 
   double getRadiusRight(const double p_leftVelocity, const double p_rightVelocity);
-
-	int getDirection(const double p_leftVelocity, const double p_rightVelocity);
 
   double setOrientation(const double p_orientation);
 
