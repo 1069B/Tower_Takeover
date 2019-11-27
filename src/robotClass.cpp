@@ -24,7 +24,7 @@ Robot::Robot():
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
 
-    m_partnerController.Axis2.setMultiplier(1);
+    m_partnerController.Axis2.setMultiplier(2);
     m_partnerController.Axis3.setMultiplier(2);
 
     defineGUI();
@@ -35,14 +35,20 @@ int Robot::task(){
   m_mainController.callBackCheck();
   m_partnerController.callBackCheck();
 
-  m_tray.setVelocity(m_partnerController.Axis2.getValue());
-  m_leftIntake.setVelocity(m_partnerController.Axis3.getValue());
+  m_leftIntake.setVelocity(m_partnerController.Axis2.getValue());
   m_rightIntake.setVelocity(m_partnerController.Axis3.getValue());
 
-  if(m_partnerController.ButtonUp.state() == true)
-    m_intakeArm.setVelocity(-200);
-  else if(m_partnerController.ButtonDown.state() == true)
-    m_intakeArm.setVelocity(200);
+  if(m_partnerController.ButtonL1.state() == true)
+    m_tray.setVelocity(-100);
+  else if(m_partnerController.ButtonL2.state() == true)
+    m_tray.setVelocity(100);
+  else
+    m_tray.setVelocity(0);
+
+  if(m_partnerController.ButtonR1.state() == true)
+    m_intakeArm.setVelocity(-100);
+  else if(m_partnerController.ButtonR2.state() == true)
+    m_intakeArm.setVelocity(100);
   else
     m_intakeArm.setVelocity(0);
 
