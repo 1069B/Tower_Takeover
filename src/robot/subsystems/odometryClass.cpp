@@ -91,9 +91,9 @@ double Odometry::getOrientationChange(){
     m_radiusRight = m_radiusAvg + m_trackingDistanceRight;
     m_velocityAvg = (m_velocityLeft+m_velocityRight)/2;
 
-    m_currentOrientationTime = m_timer.getTime() / 1000;
-    m_timeChange = m_currentOrientationTime - m_previousOrientationTime;
-    m_previousOrientationTime = m_currentOrientationTime;
+    m_currentOrientationTime = m_timer.getTime();// Problem Line
+    // m_timeChange = m_currentOrientationTime - m_previousOrientationTime;
+    // m_previousOrientationTime = m_currentOrientationTime;
 
     if(fabs(m_radiusLeft) < 0.0001)
         m_radiusLeft = 0;
@@ -133,12 +133,12 @@ double Odometry::getOrientationChange(){
 }
 
 double Odometry::getOrientationVelocity(){
-  m_currentOrientationVelocityTime = m_timer.getTime();
-  m_currentOrientation = getOrientation();
-  double l_timeChange = m_currentOrientationVelocityTime - m_previousOrientationVelocityTime;
-
-  double l_angularVelocity = (m_currentOrientation - m_previousOrientation)/l_timeChange;
-  return l_angularVelocity;
+  // m_currentOrientationVelocityTime = m_timer.getTime();
+  // m_currentOrientation = getOrientation();
+  // double l_timeChange = m_currentOrientationVelocityTime - m_previousOrientationVelocityTime;
+  //
+  // double l_angularVelocity = (m_currentOrientation - m_previousOrientation)/l_timeChange;
+  return 0;
 }
 
 double Odometry::setOrientation(const double p_orientation){
@@ -194,7 +194,9 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_radiusLeft);
   l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_radiusRight);
   l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_radiusAvg);
-  l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::lapTime, m_timer));
+  l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
+  //l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_currentOrientationTime);
+
 
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());
