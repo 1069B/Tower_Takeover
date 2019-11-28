@@ -28,6 +28,8 @@ private:
 	double m_velocityRight = 0;
 	double m_velocityAvg = 0;
 
+  double m_timeChange = 0;
+
 	double m_currentOrientationTime;
 	double m_previousOrientationTime;
 	double m_currentOrientationVelocityTime;

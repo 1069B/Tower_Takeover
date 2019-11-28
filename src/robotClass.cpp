@@ -14,7 +14,7 @@ Robot::Robot():
   m_partnerController(pros::E_CONTROLLER_PARTNER),
   m_timer(),
   m_config("Robot_Config.txt"),
-  m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, false)
+  m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true)
   {
     if(m_config.varExist("Comp_Mode"))
       m_compMode = m_config.readString("Comp_Mode");
