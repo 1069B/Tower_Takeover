@@ -19,8 +19,8 @@ Robot::Robot():
 
     m_base.initialize();
 
-    m_tray.initialize("Tray", 5, 0, 500, false);
-    m_intakeArm.initialize("ArmMotor", 8, 0, 500, false);
+    m_tray.initialize("Tray", 5, 0, 245, false);
+    m_intakeArm.initialize("ArmMotor", 8, 0, 700, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
 
@@ -39,20 +39,24 @@ int Robot::task(){
   m_rightIntake.setVelocity(m_partnerController.Axis3.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(-100);
-  else if(m_partnerController.ButtonL2.state() == true)
     m_tray.setVelocity(100);
+  else if(m_partnerController.ButtonL2.state() == true)
+    m_tray.setVelocity(-100);
   else
     m_tray.setVelocity(0);
 
   if(m_partnerController.ButtonR1.state() == true)
-    m_intakeArm.setVelocity(-100);
-  else if(m_partnerController.ButtonR2.state() == true)
     m_intakeArm.setVelocity(100);
+  else if(m_partnerController.ButtonR2.state() == true)
+    m_intakeArm.setVelocity(-100);
   else
     m_intakeArm.setVelocity(0);
 
   m_base.driverControl();
+  m_leftIntake.driverControl();
+  m_rightIntake.driverControl();
+  m_tray.driverControl();
+  m_intakeArm.driverControl();
 
   return 0;
 }

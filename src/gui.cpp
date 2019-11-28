@@ -7,7 +7,7 @@ int Robot::defineGUI(){
   defineStyles();
   m_mainController.defineGUI(m_gui, "Home");
   m_partnerController.defineGUI(m_gui, "Home");
-  m_base.m_trackingWheels->defineGUI("Home"); //Issue Here!!!
+  //m_base.m_trackingWheels->defineGUI("Home"); //Issue Here!!!
 
   m_gui.addScreen("Home");
   m_gui.addButton("Home", 0, 300, 100, 150, 30);
