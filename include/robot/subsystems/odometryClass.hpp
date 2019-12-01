@@ -32,8 +32,10 @@ private:
 
 	double m_currentOrientationTime;
 	double m_previousOrientationTime;
+
 	double m_currentOrientationVelocityTime;
 	double m_previousOrientationVelocityTime;
+  
 	double m_currentOrientation;
 	double m_previousOrientation;
 

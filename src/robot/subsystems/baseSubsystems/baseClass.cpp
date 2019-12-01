@@ -21,6 +21,10 @@ BaseType Base::getBaseType(){
   return m_baseType;
 }
 
+bool Base::getTrackingSystem(){
+  return m_trackingSystem;
+}
+
 int Base::initialize(){
   switch((int)m_baseType) {
     case HOLONOMIC:
@@ -97,5 +101,11 @@ int Base::driverControl(){
       driverTank4();
       break;
   }
+  return 0;
+}
+
+int Base::defineGUI(std::string p_returnScreen){
+  if(m_trackingSystem)
+    m_trackingWheels->defineGUI(p_returnScreen);
   return 0;
 }

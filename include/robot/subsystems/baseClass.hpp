@@ -76,11 +76,13 @@ public:
 	int setBaseType(BaseType p_baseType);
 	int setBaseMode(BaseMode p_baseMode);
 
+	bool getTrackingSystem();
+
 	int initialize();
 	int autonomous();
 	int driverControl();
 
-	int defineGUI(const std::string p_returnScreen);
+	int defineGUI(std::string p_returnScreen);
 };
 
 #endif // BASECLASS_H
