@@ -24,8 +24,8 @@ Robot::Robot():
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
 
-    m_partnerController.Axis2.setMultiplier(2);
-    m_partnerController.Axis3.setMultiplier(2);
+    m_partnerController.Axis2.setMultiplier(-2);
+    m_partnerController.Axis3.setMultiplier(-2);
 
     defineGUI();
 }
