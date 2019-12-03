@@ -30,14 +30,15 @@ private:
 
   double m_timeChange = 0;
 
-	double m_currentOrientationTime;
-	double m_previousOrientationTime;
+  double m_test = 0;
+	double m_currentOrientationTime = 0;
+	double m_previousOrientationTime = 0;
 
-	double m_currentOrientationVelocityTime;
-	double m_previousOrientationVelocityTime;
-  
-	double m_currentOrientation;
-	double m_previousOrientation;
+	double m_currentOrientationVelocityTime = 0;
+	double m_previousOrientationVelocityTime = 0;
+
+	double m_currentOrientation = 0;
+	double m_previousOrientation = 0;
 
 	Timer m_timer;
 

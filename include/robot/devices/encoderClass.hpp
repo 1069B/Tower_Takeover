@@ -14,14 +14,17 @@ private:
   int m_previousTime = 0;
   int m_previousRotation = 0;
   int m_rotation = 0;
-  int m_velocity = 0;
+  double m_rotationalVelocity = 0;
+  double m_velocity = 0;
   int m_direction = 0;
   bool m_reversed = false;
 
-  std::vector<int> m_avgVelocity;
+  std::vector<double> m_avgVelocity;
 
   static ExternalFile s_config;
   static std::vector<Encoder*> s_encoderArray;
+
+  static ExternalFile s_debug;
 
 public:
   Encoder(const std::string p_name, const int p_port, const bool p_reverse);
@@ -34,7 +37,7 @@ public:
 
   int resetRotation();
 
-  int getVelocity();
+  double getVelocity();
 
   int getDirection();
 

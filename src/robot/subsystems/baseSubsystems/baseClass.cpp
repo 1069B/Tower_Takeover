@@ -101,6 +101,9 @@ int Base::driverControl(){
       driverTank4();
       break;
   }
+
+  if(m_trackingSystem)
+    m_trackingWheels->getOrientation();
   return 0;
 }
 

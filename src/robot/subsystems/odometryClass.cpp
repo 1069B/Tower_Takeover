@@ -84,16 +84,16 @@ double Odometry::getOrientation(){
 
 double Odometry::getOrientationChange(){
   if(m_timer.preformAction()){
-    m_velocityLeft = 100;//m_leftEncoder->getVelocity();
-    m_velocityRight = 50;//m_rightEncoder->getVelocity();
+    m_velocityLeft = m_leftEncoder->getVelocity();
+    m_velocityRight = m_rightEncoder->getVelocity();
     m_radiusAvg = ((getRadiusLeft(m_velocityLeft,m_velocityRight)+m_trackingDistanceLeft)+ (getRadiusRight(m_velocityLeft,m_velocityRight)-m_trackingDistanceRight))/2;
     m_radiusLeft = m_radiusAvg - m_trackingDistanceLeft;
     m_radiusRight = m_radiusAvg + m_trackingDistanceRight;
     m_velocityAvg = (m_velocityLeft+m_velocityRight)/2;
 
-    m_currentOrientationTime = m_timer.getTime();// Problem Line
-    // m_timeChange = m_currentOrientationTime - m_previousOrientationTime;
-    // m_previousOrientationTime = m_currentOrientationTime;
+    m_currentOrientationTime = m_timer.getTime() / 1000.0;// Problem Line
+    m_timeChange = m_currentOrientationTime - m_previousOrientationTime;
+    m_previousOrientationTime = m_currentOrientationTime;
 
     if(fabs(m_radiusLeft) < 0.0001)
         m_radiusLeft = 0;
@@ -127,7 +127,7 @@ double Odometry::getOrientationChange(){
         m_orientationChange = 404;
         m_turnType = "Error";
     }
-    m_timer.addActionDelay(100);
+    m_timer.addActionDelay(250);
   }
   return m_orientationChange;
 }
@@ -182,7 +182,7 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 200, 10, redText, m_name);
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
-  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientationChange);
+  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientation);
   //l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
   // l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_xPosition);
   // l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", (std::function<int()>)std::bind(&Odometry::getXVelocity, this));
@@ -194,8 +194,8 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_radiusLeft);
   l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_radiusRight);
   l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_radiusAvg);
-  l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
-  //l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_currentOrientationTime);
+  //l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
+  l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_timeChange);
 
 
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
