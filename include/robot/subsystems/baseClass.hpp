@@ -24,6 +24,7 @@ enum BaseMode {
 
 class Base{
 private:
+	//General Varibles
 	Robot& m_robot;
 
   Motor* m_frontLeftMotor = NULL;
@@ -37,8 +38,24 @@ private:
   ExternalFile m_config;
 
   bool m_trackingSystem = false;
+	bool m_speedUpCurve = true;
 	BaseType m_baseType;
 	BaseMode m_baseMode;
+
+	int m_frontLeftVelocity = 0;
+  int m_frontRightVelocity = 0;
+  int m_backLeftVelocity = 0;
+  int m_backRightVelocity = 0;
+  int m_centerVelocity = 0;
+
+	//Holonomic Varibles
+	bool m_driftTurning = true;
+
+	//Speed-Up Varibles
+	int m_speedUpA = 201;
+	int m_speedUpB = 5;
+	double m_speedUpC = 0.05;
+	int m_speedUpH = -27;
 
 	friend class Robot;
 
@@ -66,7 +83,7 @@ private:
 	int driverTank4();
 	int autonomousTank4();
 
-
+	double speedUp(int p_controllerValue);
 public:
   Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
 

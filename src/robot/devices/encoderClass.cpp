@@ -57,7 +57,7 @@ double Encoder::getVelocity(){
     else
       l_velocity = l_velocity / 360.0 * 22.15;
 
-    std::string l_line = "Time: " + std::to_string(m_timer.getTime()) + ", RotationalVelocity: " + std::to_string(m_rotationalVelocity) ", Translational Velocity: " + std::to_string(m_velocity);
+    std::string l_line = "Time: " + std::to_string(m_timer.getTime()) + ", RotationalVelocity: " + std::to_string(m_rotationalVelocity) + ", Translational Velocity: " + std::to_string(m_velocity);
     s_config.addLine(l_line);
 
     m_previousTime = m_timer.getTime();

@@ -25,6 +25,24 @@ bool Base::getTrackingSystem(){
   return m_trackingSystem;
 }
 
+double Base::speedUp(int p_controllerValue){
+  double l_a = m_speedUpA;
+	double l_b = m_speedUpB;
+	double l_c = m_speedUpC;
+	double l_h = m_speedUpH;
+  if(p_controllerValue != 0){
+    if(p_controllerValue > 5){
+      return l_a/(1+(l_a - l_b)/l_b * pow(M_E, (-l_c*(p_controllerValue + l_h))));
+    }
+    else if(p_controllerValue < -5){
+      return l_a/(1+(l_a - l_b)/l_b * pow(M_E, (l_c*(p_controllerValue - l_h))));
+    }
+    else
+      return 0;
+  }
+  return 0 ;
+}
+
 int Base::initialize(){
   switch((int)m_baseType) {
     case HOLONOMIC:
