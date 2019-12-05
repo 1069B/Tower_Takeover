@@ -5,8 +5,8 @@
 #define METERCLASS_H
 
 class Meter: protected AbstractGUI{
-protected:
-  friend class Screen;
+public:
+  //friend class Screen;
   int m_rangeLow = 0;
   int m_rangeHigh = 100;
   int m_size = 125;

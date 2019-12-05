@@ -5,8 +5,8 @@
 #define LABELCLASS_H
 
 class Label: protected AbstractGUI{
-protected:
-	friend class Screen;
+public:
+  //friend class Screen;
 	Label(const PassInfo& p_info);// mode 0
 
   void setString();

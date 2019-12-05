@@ -36,8 +36,6 @@
 
 #include "api.h"
 
-
-
 /**
  * You should add more #includes here
  */
@@ -83,9 +81,8 @@ void opcontrol(void);
 #include <functional>
 #include <fstream>
 #include <iostream>
-#include<bits/stdc++.h> 
+#include <bits/stdc++.h> 
 #endif
-
 
 #endif  // _PROS_MAIN_H_
 

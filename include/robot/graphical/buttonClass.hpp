@@ -5,7 +5,7 @@
 #define BUTTONCLASS_H
 
 class Button: protected AbstractGUI{
-protected:
+public:
   friend class Screen;
   std::string& m_nextScreenVar;
   std::string m_linkedScreenID[6] = {"None","None","None","None","None","None"};// Corasponding screen
