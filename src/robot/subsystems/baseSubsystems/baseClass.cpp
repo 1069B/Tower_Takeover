@@ -2,7 +2,7 @@
 #include "robotClass.hpp"
 
 Base::Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem):
-m_robot(p_robot), m_config("Base_Config.txt")
+m_robot(p_robot)
 {
   if(m_config.varExist("Base_Type"))
     m_baseType = (BaseType)m_config.readInt("Base_Type");
@@ -16,6 +16,8 @@ m_robot(p_robot), m_config("Base_Config.txt")
   m_robot.m_mainController.Axis3.setMultiplier(2);
   m_robot.m_mainController.Axis4.setMultiplier(2);
 }
+
+ExternalFile Base::m_config("Base_Config.txt");
 
 BaseType Base::getBaseType(){
   return m_baseType;

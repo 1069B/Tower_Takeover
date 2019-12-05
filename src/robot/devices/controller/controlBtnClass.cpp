@@ -5,7 +5,7 @@ ControlBtn::ControlBtn(const pros::controller_id_e_t p_controller, const pros::c
   m_buttonType = p_type;
 }
 
-void ControlBtn::setCallBack(const std::function<void()> p_function, const int p_delay){
+void ControlBtn::setCallBack(const std::function<int()> p_function, const int p_delay){
   m_callBackState = true;
   m_callBack = p_function;
   m_callBackDelay = p_delay;

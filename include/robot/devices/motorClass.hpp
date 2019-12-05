@@ -5,6 +5,12 @@
 #ifndef MOTORCLASS_H
 #define MOTORCLASS_H
 
+enum manipulatorState {
+  VELOCITY_DEPENDENT = 0,
+  TIME_DEPENDENT = 1,
+  ENCODER_DEPENDENT = 2,
+};
+
 class Motor{
 private:
   std::string m_name = "Motor";
