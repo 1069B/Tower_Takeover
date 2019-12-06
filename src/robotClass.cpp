@@ -1,13 +1,5 @@
 #include "robotClass.hpp"
 
-Motor Tray_Motor("Tray", 5, pros::E_MOTOR_GEARSET_36, false);
-
-Motor Left_Intake_Motor("Left_Intake", 6, pros::E_MOTOR_GEARSET_36, true);
-
-Motor Right_Intake_Motor("Right_Intake", 7, pros::E_MOTOR_GEARSET_36, true);
-
-Motor Justin_Trudeau("ArmMotor", 8, pros::E_MOTOR_GEARSET_36, false);
-
 Robot::Robot():
   m_gui("Home"),
   m_mainController(pros::E_CONTROLLER_MASTER),
