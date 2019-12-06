@@ -50,3 +50,8 @@ int Intake::driverControl(){
   m_intakeMotor->setVelocity(m_velocity);
   return 0;
 }
+
+int Intake::disabled(){
+  m_intakeMotor->setVelocity(0);
+  return 0;
+}

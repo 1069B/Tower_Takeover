@@ -128,6 +128,32 @@ int Base::driverControl(){
   return 0;
 }
 
+int Base::disabled(){
+  switch((int)m_baseType) {
+    case HOLONOMIC:
+      disabledHolonomic();
+      break;
+
+    case HBASE:
+      disabledHBase();
+      break;
+
+    case MECANUM:
+      disabledMecanum();
+      break;
+
+    case TANK2:
+      disabledTank2();
+      break;
+
+    case TANK4:
+      disabledTank4();
+      break;
+  }
+  
+  return 0;
+}
+
 int Base::defineGUI(std::string p_returnScreen){
   if(m_trackingSystem)
     m_trackingWheels->defineGUI(p_returnScreen);

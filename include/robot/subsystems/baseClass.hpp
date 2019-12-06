@@ -66,22 +66,27 @@ private:
 	int initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverHolonomic();
 	int autonomousHolonomic();
+	int disabledHolonomic();
 
 	int initializeHBase(std::string p_backLeftMotor, std::string p_backRightMotor, std::string p_centerMotor);
 	int driverHBase();
 	int autonomousHBase();
+	int disabledHBase();
 
 	int initializeMecanum(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverMecanum();
 	int autonomousMecanum();
+	int disabledMecanum();
 
 	int initializeTank2(std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverTank2();
 	int autonomousTank2();
+	int disabledTank2();
 
 	int initializeTank4(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor);
 	int driverTank4();
 	int autonomousTank4();
+	int disabledTank4();
 
 	double speedUp(int p_controllerValue);
 public:
@@ -98,6 +103,7 @@ public:
 	int initialize();
 	int autonomous();
 	int driverControl();
+	int disabled();
 
 	int defineGUI(std::string p_returnScreen);
 };

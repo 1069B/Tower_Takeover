@@ -39,6 +39,8 @@ public:
   int autonomous();
 
   int driverControl();
+
+  int disabled();
 };
 
 #endif // LIFTCLASS_H

@@ -30,8 +30,6 @@ Robot::Robot():
     defineGUI();
 }
 
-
-
 int Robot::task(){
   m_gui.task();
   m_mainController.callBackCheck();
@@ -69,5 +67,14 @@ graphicalInterface& Robot::getGUI(){
 
 int Robot::autonmous(){
   m_base.autonomous();
+  return 0;
+}
+
+int Robot::disabled(){
+  m_base.disabled();
+  m_leftIntake.disabled();
+  m_rightIntake.disabled();
+  m_tray.disabled();
+  m_intakeArm.disabled();
   return 0;
 }

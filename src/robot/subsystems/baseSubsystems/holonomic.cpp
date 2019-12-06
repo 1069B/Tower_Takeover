@@ -87,3 +87,11 @@ int Base::driverHolonomic(){
 
   return 0;
 }
+
+int Base::disabledHolonomic(){
+  m_frontRightMotor->setVelocity(0);
+  m_frontLeftMotor->setVelocity(0);
+  m_backRightMotor->setVelocity(0);
+  m_backLeftMotor->setVelocity(0);
+  return 0;
+}

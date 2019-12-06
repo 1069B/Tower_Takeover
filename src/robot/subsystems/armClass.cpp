@@ -60,3 +60,8 @@ int Arm::driverControl(){
   m_armMotor->setVelocity(m_velocity);
   return 0;
 }
+
+int Arm::disabled(){
+  m_armMotor->setVelocity(0);
+  return 0;
+}

@@ -6,7 +6,7 @@ void initialize(){
 }
 
 void disabled() {
-
+  robot.disabled();
 }
 
 void competition_initialize() {
