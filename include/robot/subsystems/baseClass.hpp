@@ -38,7 +38,7 @@ private:
   ExternalFile m_config;
 
   bool m_trackingSystem = false;
-	bool m_speedUpCurve = true;
+	bool m_speedUpCurve = false;
 	BaseType m_baseType;
 	BaseMode m_baseMode;
 
@@ -49,7 +49,7 @@ private:
   int m_centerVelocity = 0;
 
 	//Holonomic Varibles
-	bool m_driftTurning = true;
+	bool m_driftTurning = false;
 
 	//Speed-Up Varibles
 	int m_speedUpA = 201;

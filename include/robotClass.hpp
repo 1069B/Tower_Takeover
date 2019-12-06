@@ -33,6 +33,8 @@ public:
 
   int task();
 
+  graphicalInterface& getGUI();
+
   int autonmous();
 };
 

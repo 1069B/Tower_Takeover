@@ -15,6 +15,9 @@ m_robot(p_robot), m_config("Base_Config.txt")
   m_robot.m_mainController.Axis2.setMultiplier(2);
   m_robot.m_mainController.Axis3.setMultiplier(2);
   m_robot.m_mainController.Axis4.setMultiplier(2);
+
+  m_speedUpCurve = true;
+  m_driftTurning = true;
 }
 
 BaseType Base::getBaseType(){
@@ -35,7 +38,7 @@ double Base::speedUp(int p_controllerValue){
       return l_a/(1+(l_a - l_b)/l_b * pow(M_E, (-l_c*(p_controllerValue + l_h))));
     }
     else if(p_controllerValue < -5){
-      return l_a/(1+(l_a - l_b)/l_b * pow(M_E, (l_c*(p_controllerValue - l_h))));
+      return -l_a/(1+(l_a - l_b)/l_b * pow(M_E, (l_c*(p_controllerValue - l_h))));
     }
     else
       return 0;

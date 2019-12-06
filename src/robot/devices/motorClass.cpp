@@ -28,7 +28,6 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
     m_reversed = p_reverse;
     s_config.storeBool(m_name+"_reversed", m_reversed);
   }
-
   m_internalPID = true;
 
   pros::c::motor_set_reversed(m_port, m_reversed);
@@ -146,8 +145,8 @@ void Motor::setStrings(){
 }
 
 Motor* Motor::findMotor(std::string p_name){
-  for(int x = 0; x < s_motorArray.size(); x++)
-    if(s_motorArray.at(x)->m_name == p_name)
-      return s_motorArray.at(x);
+  // for(int x = 0; x < s_motorArray.size(); x++)
+  //   if(s_motorArray.at(x)->m_name == p_name)
+  //     return s_motorArray.at(x);
   return NULL;
 }

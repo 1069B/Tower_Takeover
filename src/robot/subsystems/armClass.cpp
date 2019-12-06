@@ -36,11 +36,13 @@ int Arm::initialize(const std::string p_armMotor, const int p_port, const int p_
   m_limitLow = p_limitLow;
   m_limitHigh = p_limitHigh;
   if(Motor::findMotor(p_armMotor) == NULL)
-    m_armMotor = new Motor(p_armMotor,p_port,pros::E_MOTOR_GEARSET_36, p_reversed);
-  else
-    m_armMotor = Motor::findMotor(p_armMotor);
+    m_armMotor = new Motor(p_armMotor,p_port,pros::E_MOTOR_GEARSET_36, true);
+   else
+     m_armMotor = Motor::findMotor(p_armMotor);
 
   m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
+
+  m_armMotor->defineGUI(m_robot.getGUI(), "Home");
 
   return 0;
 }
