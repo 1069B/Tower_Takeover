@@ -89,6 +89,7 @@ private:
 	int disabledTank4();
 
 	double speedUp(int p_controllerValue);
+  
 public:
   Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
 

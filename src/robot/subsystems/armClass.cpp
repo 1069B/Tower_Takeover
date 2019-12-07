@@ -54,6 +54,7 @@ int Arm::autonomous(){
 
 int Arm::driverControl(){
   m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
+
   if(m_armMotor->getRotation() <= m_limitLow && m_velocity/abs(m_velocity) == -1)
     m_velocity = 0;
   else if(m_armMotor->getRotation() >= m_limitHigh && m_velocity/abs(m_velocity) == 1)

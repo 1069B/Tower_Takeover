@@ -25,10 +25,6 @@ int Base::initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontR
 }
 
 int Base::autonomousHolonomic(){
-  // m_frontRightMotor->setVelocity(-200);
-  // m_frontLeftMotor->setVelocity(50);
-  // m_backRightMotor->setVelocity(-100);
-  // m_backLeftMotor->setVelocity(50);
   return 0;
 }
 

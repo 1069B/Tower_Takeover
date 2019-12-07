@@ -2,6 +2,7 @@
 
 ExternalFile Encoder::s_config("Encoder_Config.txt");
 ExternalFile Encoder::s_debug("Encoder_Debug.txt");
+
 std::vector<Encoder*> Encoder::s_encoderArray;
 
 Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_reverse){
@@ -64,6 +65,7 @@ double Encoder::getVelocity(){
     m_previousRotation = getRotation();
 
     std::vector<double> l_tempVelocity;
+
     l_tempVelocity.resize(4);
     for(int x = 0; x < 3; x++){
       l_tempVelocity.at(x) = m_avgVelocity.at(x+1);
@@ -113,10 +115,10 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addLabel(m_name, 20, 80, whiteText, "Previous Time: %d", &m_previousTime);
   p_gui.addLabel(m_name, 20, 110, whiteText, "Previous Rotation: %d Deg", &m_previousRotation);
   p_gui.addLabel(m_name, 20, 140, whiteText, "Rotation: %d Deg", (std::function<int()>)std::bind(&Encoder::getRotation, this));
+
   p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %f cm/s", (std::function<double()>)std::bind(&Encoder::getVelocity, this));
   p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
   p_gui.addLabel(m_name, 220, 80, whiteText, "Velocity: %f deg/s", &m_rotationalVelocity);
-
 
   p_gui.addButton(m_name, 0, 160, 200, 150, 20);
   p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);

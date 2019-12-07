@@ -197,7 +197,6 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   //l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
   l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_timeChange);
 
-
   l_gui.addButton(m_name, 0, 300, 60, 140, 30);
   l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());
   l_gui.addButton(m_name, 1, 300, 100, 140, 30);
