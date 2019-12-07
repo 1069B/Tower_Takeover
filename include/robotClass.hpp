@@ -33,7 +33,11 @@ public:
 
   int task();
 
+  graphicalInterface& getGUI();
+
   int autonmous();
+
+  int disabled();
 };
 
 #endif // ROBOTCLASS_H

@@ -36,7 +36,7 @@ public:
 
 	int driverControl();
 
-
+  int disabled();
 };
 
 #endif // INTAKECLASS_H

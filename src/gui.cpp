@@ -7,13 +7,13 @@ int Robot::defineGUI(){
   defineStyles();
   m_mainController.defineGUI(m_gui, "Home");
   m_partnerController.defineGUI(m_gui, "Home");
-  //m_base.m_trackingWheels->defineGUI("Home"); //Issue Here!!!
+  m_base.defineGUI("Home");
 
   m_gui.addScreen("Home");
   m_gui.addButton("Home", 0, 300, 100, 150, 30);
   m_gui.addButtonAction("Home", 0, "Timer 1", "Timer1");
-  // m_gui.addButton("Home", 4, 150, 100, 150, 30);
-  // m_gui.addButtonAction("Home", 4, "Odometry", "Odometry");
+  m_gui.addButton("Home", 4, 150, 100, 150, 30);
+  m_gui.addButtonAction("Home", 4, "Odometry", "Odometry");
   m_gui.addButton("Home", 1, 150, 150, 150, 30);
   m_gui.addButtonAction("Home", 1,"Main Controller", "Main Controller");
   m_gui.addButton("Home", 2, 50, 20, 150, 30, x);

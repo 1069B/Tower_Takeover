@@ -25,3 +25,10 @@ int Base::autonomousHBase(){
 int Base::driverHBase(){
   return 0;
 }
+
+int Base::disabledHBase(){
+  m_centerMotor->setVelocity(0);
+  m_backRightMotor->setVelocity(0);
+  m_backLeftMotor->setVelocity(0);
+  return 0;
+}

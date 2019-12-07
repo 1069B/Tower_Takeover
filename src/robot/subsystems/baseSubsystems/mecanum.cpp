@@ -30,3 +30,11 @@ int Base::autonomousMecanum(){
 int Base::driverMecanum(){
   return 0;
 }
+
+int Base::disabledMecanum(){
+  m_frontRightMotor->setVelocity(0);
+  m_frontLeftMotor->setVelocity(0);
+  m_backRightMotor->setVelocity(0);
+  m_backLeftMotor->setVelocity(0);
+  return 0;
+}

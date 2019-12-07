@@ -30,3 +30,11 @@ int Base::autonomousTank4(){
 int Base::driverTank4(){
   return 0;
 }
+
+int Base::disabledTank4(){
+  m_frontRightMotor->setVelocity(0);
+  m_frontLeftMotor->setVelocity(0);
+  m_backRightMotor->setVelocity(0);
+  m_backLeftMotor->setVelocity(0);
+  return 0;
+}

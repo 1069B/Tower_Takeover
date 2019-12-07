@@ -20,3 +20,9 @@ int Base::autonomousTank2(){
 int Base::driverTank2(){
   return 0;
 }
+
+int Base::disabledTank2(){
+  m_backRightMotor->setVelocity(0);
+  m_backLeftMotor->setVelocity(0);
+  return 0;
+}

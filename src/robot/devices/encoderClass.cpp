@@ -1,6 +1,8 @@
 #include "robot/devices/encoderClass.hpp"
 
 ExternalFile Encoder::s_config("Encoder_Config.txt");
+ExternalFile Encoder::s_debug("Encoder_Debug.txt");
+
 std::vector<Encoder*> Encoder::s_encoderArray;
 
 Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_reverse){
@@ -42,21 +44,28 @@ int Encoder::resetRotation(){
   return 0;
 }
 
-int Encoder::getVelocity(){
+double Encoder::getVelocity(){
   if(m_timer.preformAction()){
     double l_distanceChange = getRotation() - m_previousRotation;
     double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
 
     double l_velocity = l_distanceChange / l_timeChange;
+
+    m_rotationalVelocity = l_velocity;
+
     if(m_reversed)
       l_velocity = l_velocity / 360.0 * 22.15;
     else
       l_velocity = l_velocity / 360.0 * 22.15;
 
+    std::string l_line = "Time: " + std::to_string(m_timer.getTime()) + ", RotationalVelocity: " + std::to_string(m_rotationalVelocity) + ", Translational Velocity: " + std::to_string(m_velocity);
+    s_config.addLine(l_line);
+
     m_previousTime = m_timer.getTime();
     m_previousRotation = getRotation();
 
-    std::vector<int> l_tempVelocity;
+    std::vector<double> l_tempVelocity;
+
     l_tempVelocity.resize(4);
     for(int x = 0; x < 3; x++){
       l_tempVelocity.at(x) = m_avgVelocity.at(x+1);
@@ -76,7 +85,7 @@ int Encoder::getVelocity(){
 }
 
 int Encoder::getDirection(){
-  return getVelocity()/abs(getVelocity());
+  return getVelocity()/fabs(getVelocity());
 }
 
 int Encoder::setPort(const int p_port){
@@ -106,9 +115,10 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addLabel(m_name, 20, 80, whiteText, "Previous Time: %d", &m_previousTime);
   p_gui.addLabel(m_name, 20, 110, whiteText, "Previous Rotation: %d Deg", &m_previousRotation);
   p_gui.addLabel(m_name, 20, 140, whiteText, "Rotation: %d Deg", (std::function<int()>)std::bind(&Encoder::getRotation, this));
-  p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %d cm/s", (std::function<int()>)std::bind(&Encoder::getVelocity, this));
-  p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
 
+  p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %f cm/s", (std::function<double()>)std::bind(&Encoder::getVelocity, this));
+  p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
+  p_gui.addLabel(m_name, 220, 80, whiteText, "Velocity: %f deg/s", &m_rotationalVelocity);
 
   p_gui.addButton(m_name, 0, 160, 200, 150, 20);
   p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);

@@ -8,15 +8,15 @@ private:
     std::fstream m_file;
     std::string m_fileAddress;
 
+public:
+    static bool SDCardIsInserted();
+
+    ExternalFile(const std::string p_address);
 
     int addLine(const std::string p_lineValue);
     int updateLine(const std::string p_varibleTitle, const std::string p_lineValue);
     int storeVar(const std::string p_varibleTitle, const std::string p_lineValue);
     std::string readLine(const std::string p_varibleTitle);
-public:
-    static bool SDCardIsInserted();
-
-    ExternalFile(const std::string p_address);
 
     bool fileExist();
     bool varExist(const std::string p_varibleTitle);
