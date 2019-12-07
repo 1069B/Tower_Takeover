@@ -1,0 +1,2 @@
+Open_Previous:Bool= 1
+Previous_Screen:String= Home

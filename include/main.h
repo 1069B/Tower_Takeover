@@ -36,6 +36,7 @@
 
 #include "api.h"
 
+
 /**
  * You should add more #includes here
  */
@@ -72,13 +73,18 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-/**
- * You can add C++-only headers here
- */
-//#include <iostream>
-#endif
+
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <vector>
 #include <iostream>
 #include <cstdarg>
 #include <functional>
+#include <fstream>
+#include <iostream>
+#include <bits/stdc++.h> 
+#endif
+
 #endif  // _PROS_MAIN_H_
+
+class graphicalInterface;
