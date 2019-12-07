@@ -36,7 +36,7 @@ int Arm::initialize(const std::string p_armMotor, const int p_port, const int p_
   m_limitLow = p_limitLow;
   m_limitHigh = p_limitHigh;
   if(Motor::findMotor(p_armMotor) == NULL)
-    m_armMotor = new Motor(p_armMotor,p_port,pros::E_MOTOR_GEARSET_36, true);
+    m_armMotor = new Motor(p_armMotor,p_port,pros::E_MOTOR_GEARSET_36, p_reversed);
    else
      m_armMotor = Motor::findMotor(p_armMotor);
 
@@ -53,6 +53,7 @@ int Arm::autonomous(){
 }
 
 int Arm::driverControl(){
+  m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
   if(m_armMotor->getRotation() <= m_limitLow && m_velocity/abs(m_velocity) == -1)
     m_velocity = 0;
   else if(m_armMotor->getRotation() >= m_limitHigh && m_velocity/abs(m_velocity) == 1)
@@ -63,5 +64,6 @@ int Arm::driverControl(){
 
 int Arm::disabled(){
   m_armMotor->setVelocity(0);
+  m_armMotor->setBrake(pros::E_MOTOR_BRAKE_COAST);
   return 0;
 }

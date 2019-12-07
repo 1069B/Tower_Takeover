@@ -13,7 +13,7 @@ int Robot::defineGUI(){
   m_gui.addButton("Home", 0, 300, 100, 150, 30);
   m_gui.addButtonAction("Home", 0, "Timer 1", "Timer1");
   m_gui.addButton("Home", 4, 150, 100, 150, 30);
-  m_gui.addButtonAction("Home", 4, "ArmMotor", "ArmMotor");
+  m_gui.addButtonAction("Home", 4, "TrayMotor", "TrayMotor");
   m_gui.addButton("Home", 1, 150, 150, 150, 30);
   m_gui.addButtonAction("Home", 1,"Main Controller", "Main Controller");
   m_gui.addButton("Home", 2, 50, 20, 150, 30, x);
