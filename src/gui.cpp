@@ -31,6 +31,11 @@ int Robot::defineGUI(){
   m_gui.addButton("No_Device", 0, 160, 200, 150, 20);
   m_gui.addButtonAction("No_Device", 0,"Go Back", "Home");
 
+  m_gui.addScreen("No_Screen_Found");
+  m_gui.addLabel("No_Screen_Found", 150, 100, whiteText, "Screen Not Found");
+  m_gui.addButton("No_Screen_Found", 0, 160, 200, 150, 20);
+  m_gui.addButtonAction("No_Screen_Found", 0,"Go Back", "Home");
+
   // m_gui.addScreen("Timer1");
   // m_gui.addLabel("Timer1", 20, 20, whiteText, "Timer1: %d millis", (std::function<int()>) std::bind(&Timer::getTime, &m_timer));
   // m_gui.addLabel("Timer1", 20, 50, whiteText, "Timer1: %d lapTime", (std::function<int()>) std::bind(&Timer::lapTime, &m_timer));

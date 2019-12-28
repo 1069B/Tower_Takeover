@@ -20,8 +20,9 @@ public:
   graphicalInterface(const std::string p_startingScreen="Home");
 
   void addScreen(const std::string p_name, int& p_var);
-  void addScreen(const std::string p_name, lv_style_t& p_backColor = defaultBackground);
-  void addScreen(const std::string p_name, int& p_var, lv_style_t& p_backColor);
+  void addScreen(const std::string p_name, lv_style_t& p_style = defaultBackground);
+  void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style = defaultBackground);
+  void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_style);
 
   void addRelationship(const std::string p_name, const std::function<bool()> p_function, const std::string p_otherScreen, const bool p_inverse = false);
 

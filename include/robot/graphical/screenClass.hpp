@@ -20,7 +20,7 @@ public:
   std::vector<Meter*> m_meterArray;
   std::vector<Line*> m_lineArray;
   std::vector<Rectangle*> m_rectArray;
-  lv_style_t* m_backGround;
+  lv_style_t* m_style;
   int& m_version;
 
   bool m_relation = false;

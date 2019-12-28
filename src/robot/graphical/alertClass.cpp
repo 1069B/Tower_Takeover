@@ -1,7 +1,6 @@
 #include "robot/graphical/alertClass.hpp"
 
-Alert::Alert(){
-}
+Alert::Alert(){}
 
 bool Alert::m_repeat = true;
 

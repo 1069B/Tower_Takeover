@@ -5,13 +5,17 @@ Screen::Screen(const PassInfo& p_info):
 m_nextScreenID(*p_info.stringPointer),
 m_version(*p_info.intPointer){
   m_pageID = p_info.name;
-  m_backGround = p_info.style1;
+  m_xOrgin = p_info.xOrgin;
+  m_yOrgin = p_info.yOrgin;
+  m_length = p_info.length;
+  m_width = p_info.width;
+  m_style = p_info.style1;
   m_version = 0;
   m_state = false;
 }
 
 void Screen::changeBackground(lv_style_t& p_backColor){
-  m_backGround = &p_backColor;
+  m_style = &p_backColor;
 }
 
 void Screen::addRelationship(const std::function<bool()> func, const bool inverse, const std::string otherScreen){
@@ -62,9 +66,9 @@ void Screen::addRectangle(const PassInfo& p_info){
 
 void Screen::draw(){
   m_obj1 = lv_cont_create(lv_scr_act(), NULL);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
-  lv_obj_set_size(m_obj1, 480, 240);
-  lv_obj_set_style(m_obj1, m_backGround);
+  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  lv_obj_set_size(m_obj1, m_length, m_width);
+  lv_obj_set_style(m_obj1, m_style);
 
   for(int y = 0; y < m_rectArray.size(); y++)
     m_rectArray.at(y)->draw();
@@ -100,19 +104,4 @@ void Screen::remove(){
     lv_obj_del(m_obj1);
     m_state = false;
   }
-
-  // for(int y = 0; y < m_btnArray.size(); y++)
-  //   m_btnArray.at(y)->remove();
-  //
-  // for(int y = 0; y < m_labelArray.size(); y++)
-  //   m_labelArray.at(y)->remove();
-  //
-  // for(int y = 0; y < m_lineArray.size(); y++)
-  //   m_lineArray.at(y)->remove();
-  //
-  // for(int y = 0; y < m_meterArray.size(); y++)
-  //   m_meterArray.at(y)->remove();
-  //
-  // for(int y = 0; y < m_rectArray.size(); y++)
-  //   m_rectArray.at(y)->remove();
 }

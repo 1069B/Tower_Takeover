@@ -17,16 +17,23 @@ graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_tim
 }
 
 void graphicalInterface::addScreen(const std::string p_name, int& p_var){
-  addScreen(p_name, p_var, defaultBackground);
+  addScreen(p_name, 0, 0, 480, 240, p_var, defaultBackground);
 }
-void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_backColor){
-  addScreen(p_name, m_noVersion, p_backColor);
+void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_style){
+  addScreen(p_name, 0, 0, 480, 240, m_noVersion, p_style);
 }
-void graphicalInterface::addScreen(const std::string p_name, int& p_var, lv_style_t&  p_backColor){
+void graphicalInterface::addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style){
+  addScreen(p_name, p_xOrgin, p_yOrgin, p_length, p_width, m_noVersion, p_style);
+}
+void graphicalInterface::addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t&  p_style){
   PassInfo info = PassInfo();
   info.name = p_name;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
   info.intPointer = &p_var;
-  info.style1 = &p_backColor;
+  info.style1 = &p_style;
   info.stringPointer = &m_nextScreenID;
 	m_screenArray.push_back(new Screen(info));
 }
@@ -176,6 +183,11 @@ void graphicalInterface::addRectangle(const std::string p_screenName, const int 
 Screen *graphicalInterface::findScreen(const std::string p_name){
   for(int x = 0; x < m_screenArray.size(); x++){
     if(m_screenArray.at(x)->m_pageID == p_name){
+      return m_screenArray.at(x);
+    }
+  }
+  for(int x = 0; x < m_screenArray.size(); x++){
+    if(m_screenArray.at(x)->m_pageID == "No_Screen_Found"){
       return m_screenArray.at(x);
     }
   }
