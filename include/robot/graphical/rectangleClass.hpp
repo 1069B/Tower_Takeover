@@ -4,10 +4,12 @@
 #ifndef RECTANGLECLASS_H
 #define RECTANGLECLASS_H
 
+class Screen;
+
 class Rectangle: protected AbstractGUI{
 public:
-  //friend class Screen;
-  Rectangle(const PassInfo& p_info);
+  Screen& m_screen;
+  Rectangle(const PassInfo& p_info, Screen& p_screen);
 
   void draw();
   void update();

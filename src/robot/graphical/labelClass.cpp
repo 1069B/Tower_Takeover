@@ -1,6 +1,7 @@
 #include "robot/graphical/labelClass.hpp"
+#include "robot/graphical/screenClass.hpp"
 
-Label::Label(const PassInfo& p_info){// mode 0
+Label::Label(const PassInfo& p_info, Screen& p_screen):m_screen(p_screen){// mode 0
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_style1 = p_info.style1;
@@ -61,8 +62,8 @@ void Label::setString(){
 }
 
 void Label::draw(){
-  m_obj1 = lv_label_create(lv_scr_act(), NULL);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  m_obj1 = lv_label_create(m_screen.m_obj1, NULL);
+  lv_obj_align(m_obj1, m_screen.m_obj1, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
   setString();
   lv_obj_set_style(m_obj1, m_style1);
   m_state = true;

@@ -1,6 +1,7 @@
 #include "robot/graphical/rectangleClass.hpp"
+#include "robot/graphical/screenClass.hpp"
 
-Rectangle::Rectangle(const PassInfo& p_info){
+Rectangle::Rectangle(const PassInfo& p_info, Screen& p_screen): m_screen(p_screen){
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
   m_yOrgin = p_info.yOrgin;
   m_length = p_info.length;
@@ -13,10 +14,10 @@ Rectangle::Rectangle(const PassInfo& p_info){
 }
 
 void Rectangle::draw(){
-  m_obj1 = lv_obj_create(lv_scr_act(), NULL);
+  m_obj1 = lv_obj_create(m_screen.m_obj1, NULL);
   lv_obj_set_size(m_obj1, m_length, m_width);
   lv_obj_set_style(m_obj1, m_style1);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  lv_obj_align(m_obj1, m_screen.m_obj1, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
   m_state = true;
 }
 

@@ -7,9 +7,13 @@
 #ifndef SCREENCLASS_H
 #define SCREENCLASS_H
 
-class Screen{
+class Screen: protected AbstractGUI{
 public:
-  //friend class graphicalInterface;
+  friend class Button;
+  friend class Label;
+  friend class Line;
+  friend class Meter;
+  friend class Rectangle;
   std::string& m_nextScreenID;
   std::vector<Button*> m_btnArray;
   std::vector<Label*> m_labelArray;

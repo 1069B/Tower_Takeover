@@ -4,10 +4,12 @@
 #ifndef LABELCLASS_H
 #define LABELCLASS_H
 
+class Screen;
+
 class Label: protected AbstractGUI{
 public:
-  //friend class Screen;
-	Label(const PassInfo& p_info);// mode 0
+  Screen& m_screen;
+	Label(const PassInfo& p_info, Screen& p_screen);// mode 0
 
   void setString();
 

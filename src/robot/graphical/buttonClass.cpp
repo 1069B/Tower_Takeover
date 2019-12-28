@@ -1,6 +1,9 @@
 #include "robot/graphical/buttonClass.hpp"
+#include "robot/graphical/screenClass.hpp"
+#include "robot/graphical/alertClass.hpp"
 
-Button::Button(const PassInfo& p_info, std::string& p_nextScreenID):m_timer(false), m_nextScreenVar(p_nextScreenID){
+Button::Button(const PassInfo& p_info, Screen& p_screen):
+m_timer(false), m_screen(p_screen),m_nextScreenVar(p_screen.m_nextScreenID){
   m_id = p_info.id; // Id for the Button
   m_xOrgin = p_info.xOrgin; //Every thing is in realtion to the upper left coner
   m_yOrgin = p_info.yOrgin;
@@ -22,9 +25,9 @@ void Button::defineAction(const PassInfo& p_info){
 }
 
 void Button::draw(const int p_btnVer) {
-  m_obj1 = lv_btn_create(lv_scr_act(), NULL);
+  m_obj1 = lv_btn_create(m_screen.m_obj1, NULL);
   m_obj2 = lv_label_create(m_obj1, NULL);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  lv_obj_align(m_obj1, m_screen.m_obj1, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
   lv_obj_set_free_num(m_obj1, m_id);   /*Set a unique number for the button*/
   lv_obj_set_size(m_obj1, m_length, m_width); //set the button size
   lv_btn_set_style(m_obj1, LV_BTN_STYLE_REL, m_style1); //set the relesed style

@@ -26,3 +26,5 @@ lv_res_t Alert::alertResponse(lv_obj_t * mbox, const char *txt){
   m_repeat = false;
   return LV_RES_OK;
 }
+
+Alert g_alert;

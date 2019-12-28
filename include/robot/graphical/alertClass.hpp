@@ -15,4 +15,6 @@ public:
   static lv_res_t alertResponse(lv_obj_t * btnm, const char *txt);
 };
 
+extern Alert g_alert;
+
 #endif // ALERTCLASS_H
