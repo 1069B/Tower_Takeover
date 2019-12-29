@@ -19,18 +19,23 @@ lv_style_t defaultBackground;
 
 lv_style_t meterStyle;
 
+lv_style_t toggleBackground;
+lv_style_t toggleInactive;
+lv_style_t toggleOn;
+lv_style_t toggleOff;
+
 lv_point_t HORZ_20[] = {{0, 20},{480, 20}};
 lv_point_t HORZ_40[] = {{0, 40},{480, 40}};
-static lv_point_t HORZ_60[] = {{0, 60},{480, 60}};
-static lv_point_t HORZ_80[] = {{0, 80},{480, 80}};
-static lv_point_t HORZ_100[] = {{0, 100},{480, 100}};
-static lv_point_t HORZ_120[] = {{0, 120},{480, 120}};
-static lv_point_t HORZ_140[] = {{0, 140},{480, 140}};
-static lv_point_t HORZ_160[] = {{0, 160},{480, 160}};
-static lv_point_t HORZ_180[] = {{0, 180},{480, 180}};
-static lv_point_t HORZ_200[] = {{0, 200},{480, 200}};
-static lv_point_t HORZ_220[] = {{0, 220},{480, 220}};
-static lv_point_t HORZ_240[] = {{0, 240},{480, 240}};
+lv_point_t HORZ_60[] = {{0, 60},{480, 60}};
+lv_point_t HORZ_80[] = {{0, 80},{480, 80}};
+lv_point_t HORZ_100[] = {{0, 100},{480, 100}};
+lv_point_t HORZ_120[] = {{0, 120},{480, 120}};
+lv_point_t HORZ_140[] = {{0, 140},{480, 140}};
+lv_point_t HORZ_160[] = {{0, 160},{480, 160}};
+lv_point_t HORZ_180[] = {{0, 180},{480, 180}};
+lv_point_t HORZ_200[] = {{0, 200},{480, 200}};
+lv_point_t HORZ_220[] = {{0, 220},{480, 220}};
+lv_point_t HORZ_240[] = {{0, 240},{480, 240}};
 
 void defineStyles(){
   //Default relesed style

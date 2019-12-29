@@ -27,6 +27,11 @@ extern lv_style_t defaultBackground;
 
 extern lv_style_t meterStyle;
 
+extern lv_style_t toggleBackground;
+extern lv_style_t toggleInactive;
+extern lv_style_t toggleOn;
+extern lv_style_t toggleOff;
+
 extern lv_point_t HORZ_20[];
 extern lv_point_t HORZ_40[];
 extern lv_point_t HORZ_60[];
@@ -39,11 +44,6 @@ extern lv_point_t HORZ_180[];
 extern lv_point_t HORZ_200[];
 extern lv_point_t HORZ_220[];
 extern lv_point_t HORZ_240[];
-
-extern lv_style_t toggleBackground;
-extern lv_style_t toggleInactive;
-extern lv_style_t toggleOn;
-extern lv_style_t toggleOff;
 
 void defineStyles(void);
 

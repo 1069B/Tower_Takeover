@@ -22,7 +22,7 @@ void Toggle::draw(){
   lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
   lv_obj_set_size(m_obj1, m_length, m_width);
   switch(m_mode){
-    case 0: setState(m_boolPointer); break;
+    case 0: setState(*m_boolPointer); break;
     case 1: setState(m_boolFunction()); break;
   }
   m_state = true;
@@ -30,7 +30,7 @@ void Toggle::draw(){
 
 void Toggle::update(){
   switch(m_mode){
-    case 0: setState(m_boolPointer); break;
+    case 0: setState(*m_boolPointer); break;
     case 1: setState(m_boolFunction()); break;
   }
 }
@@ -52,5 +52,5 @@ void Toggle::setState(const bool p_state){
   if(p_state)
     lv_sw_on(m_obj1);
   else
-    lv_sw_on(m_obj1);
+    lv_sw_off(m_obj1);
 }

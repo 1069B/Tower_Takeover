@@ -2,6 +2,7 @@
 
 int x =0;
 int a =0;
+bool c = true;
 
 int Robot::defineGUI(){
   defineStyles();
@@ -22,6 +23,7 @@ int Robot::defineGUI(){
   m_gui.addButtonCounter("Home", 3, "-1", 0, -1);
   m_gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
   m_gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
+  m_gui.addToggle("Home", 20, 80, 75, 30, &c);
 
   // m_gui.addScreen("Settings");
   // m_gui.addLabel("Settings", 20, 20, whiteText, "Comp");
