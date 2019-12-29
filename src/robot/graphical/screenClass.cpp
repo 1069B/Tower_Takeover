@@ -1,5 +1,4 @@
 #include "robot/graphical/screenClass.hpp"
-#include "robot/graphical/alertClass.hpp"
 
 Screen::Screen(const PassInfo& p_info):
 m_nextScreenID(*p_info.stringPointer),

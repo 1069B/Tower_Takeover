@@ -1,4 +1,3 @@
-#include "main.h"
 #include "robot/devices/motorClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
 #include "robot/graphical/GUIClass.hpp"
@@ -89,7 +88,7 @@ private:
 	int disabledTank4();
 
 	double speedUp(int p_controllerValue);
-  
+
 public:
   Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem);
 

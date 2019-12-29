@@ -1,8 +1,9 @@
-#include "buttonClass.hpp"
-#include "labelClass.hpp"
-#include "meterClass.hpp"
-#include "lineClass.hpp"
-#include "rectangleClass.hpp"
+#include "components/buttonClass.hpp"
+#include "components/labelClass.hpp"
+#include "components/meterClass.hpp"
+#include "components/lineClass.hpp"
+#include "components/rectangleClass.hpp"
+#include "components/alertClass.hpp"
 
 #ifndef SCREENCLASS_H
 #define SCREENCLASS_H

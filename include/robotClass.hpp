@@ -1,4 +1,3 @@
-#include "main.h"
 #include "robot/graphical/GUIClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
 #include "robot/subsystems/baseClass.hpp"

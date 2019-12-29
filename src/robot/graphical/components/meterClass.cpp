@@ -1,4 +1,3 @@
-#include "robot/graphical/meterClass.hpp"
 #include "robot/graphical/screenClass.hpp"
 
 Meter::Meter(const PassInfo& p_info, Screen& p_screen): m_screen(p_screen){

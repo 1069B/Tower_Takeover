@@ -1,4 +1,3 @@
-#include "styles.hpp"
 #include "abstractClass.hpp"
 
 #ifndef LABELCLASS_H

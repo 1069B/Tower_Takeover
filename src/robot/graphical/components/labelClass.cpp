@@ -1,4 +1,3 @@
-#include "robot/graphical/labelClass.hpp"
 #include "robot/graphical/screenClass.hpp"
 
 Label::Label(const PassInfo& p_info, Screen& p_screen):m_screen(p_screen){// mode 0

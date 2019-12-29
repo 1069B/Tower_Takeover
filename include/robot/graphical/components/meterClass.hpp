@@ -1,4 +1,3 @@
-#include "styles.hpp"
 #include "abstractClass.hpp"
 
 #ifndef METERCLASS_H

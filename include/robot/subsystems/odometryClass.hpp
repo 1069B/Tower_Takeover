@@ -1,4 +1,3 @@
-#include "main.h"
 #include "robot/devices/encoderClass.hpp"
 
 #ifndef ODOMETRYCLASS_H
@@ -18,7 +17,7 @@ private:
   double m_orientation = 0;
   double m_xPosition = 0;
   double m_yPosition = 0;
-  
+
 	double m_radiusLeft = 0;
 	double m_radiusRight = 0;
 	double m_radiusAvg = 0;

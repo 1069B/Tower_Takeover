@@ -1,4 +1,4 @@
-#include "robot/graphical/alertClass.hpp"
+#include "robot/graphical/components/alertClass.hpp"
 
 Alert::Alert(){}
 

@@ -1,4 +1,3 @@
-#include "robot/graphical/lineClass.hpp"
 #include "robot/graphical/screenClass.hpp"
 
 Line::Line(const PassInfo& p_info, Screen& p_screen): m_screen(p_screen){

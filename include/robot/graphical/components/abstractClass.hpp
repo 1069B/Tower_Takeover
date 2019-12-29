@@ -1,4 +1,4 @@
-#include "styles.hpp"
+#include "../styles.hpp"
 #include "robot/devices/externalFileClass.hpp"
 #include "robot/devices/timerClass.hpp"
 
