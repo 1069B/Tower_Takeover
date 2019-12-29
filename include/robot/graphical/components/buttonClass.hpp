@@ -3,11 +3,8 @@
 #ifndef BUTTONCLASS_H
 #define BUTTONCLASS_H
 
-class Screen;
-
-class Button: protected AbstractGUI{
+class Button{
 private:
-  friend class Screen;
   /*Required Variles for Button*/
   Screen& m_screen;
   lv_obj_t* m_button, *m_label;

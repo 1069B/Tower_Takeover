@@ -45,4 +45,6 @@ struct PassInfo{
   lv_point_t *points;
 };
 
+class Screen;
+
 #endif //ABSTRACTGUI_H

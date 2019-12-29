@@ -39,14 +39,14 @@ bool Screen::isRelation(){
 }
 
 void Screen::addButton(const PassInfo& p_info){
-  // m_btnArray.resize(m_btnArray.size()+1);
-	// m_btnArray.at(m_btnArray.size()-1) = new Button(p_info, *this);
+  m_btnArray.resize(m_btnArray.size()+1);
+	m_btnArray.at(m_btnArray.size()-1) = new Button(p_info, *this);
 }
 void Screen::addButtionAction(const PassInfo& p_info){
-  // for(int y = 0; y < m_btnArray.size(); y++){
-  //   if(m_btnArray.at(y)->getText() == p_info.text)
-  //     m_btnArray.at(y)->defineAction(p_info);
-  // }
+  for(int y = 0; y < m_btnArray.size(); y++){
+    if(m_btnArray.at(y)->getText() == p_info.text)
+      m_btnArray.at(y)->defineAction(p_info);
+  }
 }
 void Screen::addLabel(PassInfo& p_info){
   m_labelArray.resize(m_labelArray.size()+1);
@@ -77,8 +77,9 @@ void Screen::draw(){
 
   for(int y = 0; y < m_rectArray.size(); y++)
     m_rectArray.at(y)->draw();
-  // for(int y = 0; y < m_btnArray.size(); y++)
-  //   m_btnArray.at(y)->draw();
+
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->draw();
 
   for(int y = 0; y <m_labelArray.size(); y++)
     m_labelArray.at(y)->draw();
@@ -94,8 +95,8 @@ void Screen::draw(){
   m_state = true;
 }
 void Screen::update(){
-  // for(int y = 0; y < m_btnArray.size(); y++)
-  //   m_btnArray.at(y)->update();
+  for(int y = 0; y < m_btnArray.size(); y++)
+    m_btnArray.at(y)->update();
 
   for(int y = 0; y < m_labelArray.size(); y++)
     m_labelArray.at(y)->update();
