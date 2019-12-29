@@ -7,29 +7,21 @@ Rectangle::Rectangle(const PassInfo& p_info, Screen& p_screen): m_screen(p_scree
   m_width = p_info.width;
   m_mode = p_info.mode;
   if(m_mode)
-    m_lv_styleFunction = p_info.lv_styleFunction;
+    m_rectangleStyleFunction = p_info.lv_styleFunction;
   else
-    m_style1 = p_info.style1;
+    m_rectangleStyle = p_info.style1;
 }
 
 void Rectangle::draw(){
-  m_obj1 = lv_obj_create(m_screen.m_obj1, NULL);
-  lv_obj_set_size(m_obj1, m_length, m_width);
-  lv_obj_set_style(m_obj1, m_style1);
-  lv_obj_align(m_obj1, m_screen.m_obj1, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
-  m_state = true;
+  m_rectangle = lv_obj_create(m_screen.getObject(), NULL);
+  lv_obj_set_size(m_rectangle, m_length, m_width);
+  lv_obj_set_style(m_rectangle, m_rectangleStyle);
+  lv_obj_align(m_rectangle, m_screen.getObject(), LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
 }
 
 void Rectangle::update(){
-  if(m_state && m_mode){
-    m_style1 = m_lv_styleFunction();
-    lv_obj_set_style(m_obj1, m_style1);
-  }
-}
-
-void Rectangle::remove(){
-  if(m_state){
-    lv_obj_del(m_obj1);
-    m_state = false;
+  if(m_mode){
+    m_rectangleStyle = m_rectangleStyleFunction();
+    lv_obj_set_style(m_rectangle, m_rectangleStyle);
   }
 }

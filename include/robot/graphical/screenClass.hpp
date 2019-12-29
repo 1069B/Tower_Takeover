@@ -11,8 +11,6 @@
 
 class Screen: protected AbstractGUI{
 public:
-  friend class Meter;
-  friend class Rectangle;
   friend class Toggle;
   std::string& m_nextScreenID;
   std::vector<Button*> m_btnArray;
