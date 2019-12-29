@@ -11,7 +11,6 @@
 
 class Screen: protected AbstractGUI{
 public:
-  friend class Line;
   friend class Meter;
   friend class Rectangle;
   friend class Toggle;

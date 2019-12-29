@@ -5,14 +5,16 @@
 
 class Screen;
 
-class Line: protected AbstractGUI{
-public:
+class Line{
+private:
   Screen& m_screen;
-  lv_point_t* m_points;// Attempt to use xOrg yOrg etc
+  lv_obj_t* m_line;
+  lv_point_t *m_points;
+  lv_style_t *m_style;
+public:
   Line(const PassInfo& p_info, Screen& p_screen);
 
   void draw();
-  void remove();
 };
 
 #endif // LINECLASS_H
