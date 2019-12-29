@@ -4,7 +4,7 @@
 Robot robot;
 
 void initialize(){
-
+  g_alert.draw("Got to opcontrol");
 }
 
 void disabled() {
@@ -16,11 +16,10 @@ void competition_initialize() {
 }
 
 void autonomous() {
-  robot.disabled();
+  //robot.disabled();
 }
 
 void opcontrol(){
-  defineStyles();
 
   while(true){
     robot.task();

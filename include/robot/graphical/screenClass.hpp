@@ -34,6 +34,8 @@ public:
 
 	Screen(const PassInfo& p_info);
 
+  lv_obj_t* getObject();
+
   void addRelationship(const std::function<bool()> p_function, const bool p_inverse, const std::string p_otherScreen);
   std::string getRelatedScreen();
   std::function<bool()> getRelatedFunc();

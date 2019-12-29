@@ -11,7 +11,7 @@ protected:
   bool m_state = false;
   short m_xOrgin, m_yOrgin, m_length, m_width;
   int m_id, m_mode;
-  lv_style_t *m_style1, *m_style2;
+  lv_style_t *m_style1, *m_style2, *m_style3;
 
   int* m_intPointer;
 	std::function<int()> m_intFunction;

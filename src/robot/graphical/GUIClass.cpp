@@ -65,6 +65,15 @@ void graphicalInterface::addButtonVaribleCounter(const std::string p_screenName,
   info.mode = 2;
   findScreen(p_screenName)->addButtionAction(info);
 }
+void graphicalInterface::addButtonStyleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value, lv_style_t& p_style){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_value;
+  info.style1 = &p_style;
+  info.mode = 3;
+  findScreen(p_screenName)->addButtionAction(info);
+}
 
 void graphicalInterface::defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode){
   p_info.xOrgin = p_xOrgin;
