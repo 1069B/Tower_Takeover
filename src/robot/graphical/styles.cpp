@@ -21,16 +21,16 @@ lv_style_t meterStyle;
 
 lv_point_t HORZ_20[] = {{0, 20},{480, 20}};
 lv_point_t HORZ_40[] = {{0, 40},{480, 40}};
-// static lv_point_t HORZ_60[] = {{0, 60},{480, 60}};
-// static lv_point_t HORZ_80[] = {{0, 80},{480, 80}};
-// static lv_point_t HORZ_100[] = {{0, 100},{480, 100}};
-// static lv_point_t HORZ_120[] = {{0, 120},{480, 120}};
-// static lv_point_t HORZ_140[] = {{0, 140},{480, 140}};
-// static lv_point_t HORZ_160[] = {{0, 160},{480, 160}};
-// static lv_point_t HORZ_180[] = {{0, 180},{480, 180}};
-// static lv_point_t HORZ_200[] = {{0, 200},{480, 200}};
-// static lv_point_t HORZ_220[] = {{0, 220},{480, 220}};
-// static lv_point_t HORZ_240[] = {{0, 240},{480, 240}};
+static lv_point_t HORZ_60[] = {{0, 60},{480, 60}};
+static lv_point_t HORZ_80[] = {{0, 80},{480, 80}};
+static lv_point_t HORZ_100[] = {{0, 100},{480, 100}};
+static lv_point_t HORZ_120[] = {{0, 120},{480, 120}};
+static lv_point_t HORZ_140[] = {{0, 140},{480, 140}};
+static lv_point_t HORZ_160[] = {{0, 160},{480, 160}};
+static lv_point_t HORZ_180[] = {{0, 180},{480, 180}};
+static lv_point_t HORZ_200[] = {{0, 200},{480, 200}};
+static lv_point_t HORZ_220[] = {{0, 220},{480, 220}};
+static lv_point_t HORZ_240[] = {{0, 240},{480, 240}};
 
 void defineStyles(){
   //Default relesed style
@@ -110,4 +110,25 @@ void defineStyles(){
   meterStyle.body.padding.hor = 16;            /*Line length*/
   meterStyle.body.main_color = LV_COLOR_LIME;
   meterStyle.body.grad_color = LV_COLOR_RED;
+
+  /* Toggle Styles*/
+  lv_style_copy(&toggleBackground, &lv_style_pretty);
+  toggleBackground.body.radius = LV_RADIUS_CIRCLE;
+
+  lv_style_copy(&toggleInactive, &lv_style_pretty_color);
+  toggleInactive.body.radius = LV_RADIUS_CIRCLE;
+  toggleInactive.body.main_color = LV_COLOR_HEX(0x9fc8ef);
+  toggleInactive.body.grad_color = LV_COLOR_HEX(0x9fc8ef);
+  toggleInactive.body.padding.hor = 0;
+  toggleInactive.body.padding.ver = 0;
+
+  lv_style_copy(&toggleOff, &lv_style_pretty);
+  toggleOff.body.radius = LV_RADIUS_CIRCLE;
+  toggleOff.body.shadow.width = 4;
+  toggleOff.body.shadow.type = LV_SHADOW_BOTTOM;
+
+  lv_style_copy(&toggleOn, &lv_style_pretty_color);
+  toggleOn.body.radius = LV_RADIUS_CIRCLE;
+  toggleOn.body.shadow.width = 4;
+  toggleOn.body.shadow.type = LV_SHADOW_BOTTOM;
 }

@@ -13,7 +13,9 @@ public:
   void setString();
 
 	void draw();
+
 	void update();
+  
 	void remove();
 };
 #endif // LABELCLASS_H

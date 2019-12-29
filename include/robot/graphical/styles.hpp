@@ -40,6 +40,11 @@ extern lv_point_t HORZ_200[];
 extern lv_point_t HORZ_220[];
 extern lv_point_t HORZ_240[];
 
+extern lv_style_t toggleBackground;
+extern lv_style_t toggleInactive;
+extern lv_style_t toggleOn;
+extern lv_style_t toggleOff;
+
 void defineStyles(void);
 
 #endif // STYLES_H

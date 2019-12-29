@@ -2,6 +2,7 @@
 #include "components/labelClass.hpp"
 #include "components/meterClass.hpp"
 #include "components/lineClass.hpp"
+#include "components/toggleClass.hpp"
 #include "components/rectangleClass.hpp"
 #include "components/alertClass.hpp"
 
@@ -15,6 +16,7 @@ public:
   friend class Line;
   friend class Meter;
   friend class Rectangle;
+  friend class Toggle;
   std::string& m_nextScreenID;
   std::vector<Button*> m_btnArray;
   std::vector<Label*> m_labelArray;

@@ -21,8 +21,11 @@ void autonomous() {
 
 void opcontrol(){
   defineStyles();
-  while(true){
-    robot.task();
-    pros::delay(5);
-  }
+  pros::delay(5);
+/*Copy the first switch and turn it ON*/
+
+  // while(true){
+  //   robot.task();
+  //   pros::delay(5);
+  // }
 }
