@@ -28,6 +28,13 @@ void Toggle::draw(){
   m_state = true;
 }
 
+void Toggle::update(){
+  switch(m_mode){
+    case 0: setState(m_boolPointer); break;
+    case 1: setState(m_boolFunction()); break;
+  }
+}
+
 void Toggle::remove(){
   if(m_state){
     lv_obj_del(m_obj1);

@@ -58,6 +58,10 @@ void Screen::addMeter(const PassInfo& p_info){
   m_meterArray.resize(m_meterArray.size()+1);
   m_meterArray.at(m_meterArray.size()-1) = new Meter(p_info, *this);
 }
+void Screen::addToggle(const PassInfo& p_info){
+  m_toggleArray.resize(m_toggleArray.size()+1);
+  m_toggleArray.at(m_toggleArray.size()-1) = new Toggle(p_info, *this);
+}
 void Screen::addRectangle(const PassInfo& p_info){
   m_rectArray.resize(m_rectArray.size()+1);
   m_rectArray.at(m_rectArray.size()-1) = new Rectangle(p_info, *this);
@@ -82,20 +86,30 @@ void Screen::draw(){
 
   for(int y = 0; y < m_meterArray.size(); y++)
     m_meterArray.at(y)->draw();
+
+  for(int y = 0; y < m_toggleArray.size(); y++)
+    m_toggleArray.at(y)->draw();
   m_state = true;
 }
 void Screen::update(){
   for(int y = 0; y < m_btnArray.size(); y++)
     m_btnArray.at(y)->update(m_version);
+
   for(int y = 0; y < m_labelArray.size(); y++)
     m_labelArray.at(y)->update();
 
   for(int y = 0; y < m_meterArray.size(); y++)
     m_meterArray.at(y)->update();
+
+  for(int y = 0; y < m_toggleArray.size(); y++)
+    m_toggleArray.at(y)->update();
 }
 void Screen::detect(){
   for(int y = 0; y < m_btnArray.size(); y++)
     m_btnArray.at(y)->checkState(m_version);
+
+  for(int y = 0; y < m_toggleArray.size(); y++)
+    m_toggleArray.at(y)->getState();
 }
 void Screen::remove(){
   if(m_state){

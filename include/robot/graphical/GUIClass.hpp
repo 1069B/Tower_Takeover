@@ -49,6 +49,9 @@ public:
   void addMeter(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const std::function<int()> p_function, const int p_rangeL=0, const int p_rangeH=100, const int p_size=125, const int p_angle=240, const int p_numOfDashes=22, lv_style_t& p_metStyle=meterStyle, lv_style_t& p_textStyle=whiteText);
   void addMeter(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const std::function<int()> p_function, lv_style_t& p_metStyle=meterStyle, lv_style_t& p_textStyle=whiteText);
 
+  void addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, bool* p_varible);
+  void addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, std::function<bool()> p_varible);
+
   void addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style);
   void addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, const std::function<lv_style_t*()> p_background);
 

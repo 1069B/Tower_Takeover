@@ -159,6 +159,28 @@ void graphicalInterface::addMeter(const std::string p_screenName, const int p_xO
   addMeter(p_screenName, p_xOrgin, p_yOrgin, p_function, 0, 100, 125, 240, 22, p_metStyle, p_textStyle);
 }
 
+void graphicalInterface::addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, bool* p_varible){
+  PassInfo info = PassInfo();
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.boolPointer = p_varible;
+  info.mode = 0;
+  findScreen(p_screenName)->addToggle(info);
+}
+
+void graphicalInterface::addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, std::function<bool()> p_varible){
+  PassInfo info = PassInfo();
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.boolFunction = p_varible;
+  info.mode = 1;
+  findScreen(p_screenName)->addToggle(info);
+}
+
 void graphicalInterface::addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style){
   PassInfo info = PassInfo();
   info.xOrgin = p_xOrgin;

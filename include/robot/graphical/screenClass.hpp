@@ -22,6 +22,7 @@ public:
   std::vector<Label*> m_labelArray;
   std::vector<Meter*> m_meterArray;
   std::vector<Line*> m_lineArray;
+  std::vector<Toggle*> m_toggleArray;
   std::vector<Rectangle*> m_rectArray;
   lv_style_t* m_style;
   int& m_version;
@@ -48,6 +49,8 @@ public:
   void addLine(const PassInfo& p_info);
 
   void addMeter(const PassInfo& p_info);
+
+  void addToggle(const PassInfo& p_info);
 
   void addRectangle(const PassInfo& p_info);
 
