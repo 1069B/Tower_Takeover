@@ -16,65 +16,54 @@ graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_tim
   m_currentScreen = new Screen(info);
 }
 
-void graphicalInterface::addScreen(const std::string p_name, int& p_var){
-  addScreen(p_name, 0, 0, 480, 240, p_var, defaultBackground);
-}
 void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_style){
-  addScreen(p_name, 0, 0, 480, 240, m_noVersion, p_style);
+  addScreen(p_name, 0, 0, 480, 240, p_style);
 }
 void graphicalInterface::addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style){
-  addScreen(p_name, p_xOrgin, p_yOrgin, p_length, p_width, m_noVersion, p_style);
-}
-void graphicalInterface::addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t&  p_style){
   PassInfo info = PassInfo();
   info.name = p_name;
   info.xOrgin = p_xOrgin;
   info.yOrgin = p_yOrgin;
   info.length = p_length;
   info.width = p_width;
-  info.intPointer = &p_var;
   info.style1 = &p_style;
   info.stringPointer = &m_nextScreenID;
 	m_screenArray.push_back(new Screen(info));
 }
 
-void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
+void graphicalInterface::addButton(const std::string p_screenName, const std::string p_format, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
   PassInfo info = PassInfo();
-  info.id = p_id;
-  info.xOrgin = p_xOrgin;
-  info.yOrgin = p_yOrgin;
-  info.length = p_length;
-  info.width = p_width;
-  info.intPointer = &p_var;
-  info.style1= &p_btnRel;
-  info.style2= &p_btnPress;
-  info.mode = true;//Has chaging var
-  findScreen(p_screenName)->addButton(info);
-}
-void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
-  PassInfo info = PassInfo();
-  info.id = p_id;
   info.xOrgin = p_xOrgin;
   info.yOrgin = p_yOrgin;
   info.length = p_length;
   info.width = p_width;
   info.style1= &p_btnRel;
   info.style2= &p_btnPress;
-  info.mode = false;//Has no chaging var
+  info.text = p_format;
   findScreen(p_screenName)->addButton(info);
 }
-void graphicalInterface::addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer, const int p_value, const int p_mode){
+void graphicalInterface::addButtonScreenChange(const std::string p_screenName, const std::string p_format, const std::string p_linkedID){
   PassInfo info = PassInfo();
-  info.id = p_id;
-  info.version = p_btnVer;
-  info.passValue = p_value;
-  info.mode = p_mode;
   info.text = p_format;
   info.linkedID = p_linkedID;
+  info.mode = 0;
   findScreen(p_screenName)->addButtionAction(info);
 }
-void graphicalInterface::addButtonCounter(const std::string p_screenName, const int p_id, const std::string p_format, const int p_btnVer, const int p_btnIncrement){
-  addButtonAction(p_screenName, p_id,p_format, p_screenName, p_btnVer, p_btnIncrement, 1);// 1 signals increment mode
+void graphicalInterface::addButtonVaribleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_value;
+  info.mode = 1;
+  findScreen(p_screenName)->addButtionAction(info);
+}
+void graphicalInterface::addButtonVaribleCounter(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_btnIncrement){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_btnIncrement;
+  info.mode = 2;
+  findScreen(p_screenName)->addButtionAction(info);
 }
 
 void graphicalInterface::defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode){

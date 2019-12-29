@@ -19,19 +19,17 @@ private:
 public:
   graphicalInterface(const std::string p_startingScreen="Home");
 
-  void addScreen(const std::string p_name, int& p_var);
   void addScreen(const std::string p_name, lv_style_t& p_style = defaultBackground);
   void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style = defaultBackground);
-  void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_style);
 
   void addRelationship(const std::string p_name, const std::function<bool()> p_function, const std::string p_otherScreen, const bool p_inverse = false);
 
   Screen *findScreen(const std::string p_name);
 
-  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
-  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
-	void addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer=0, const int p_value=0, const int p_mode=0);
-  void addButtonCounter(const std::string p_screenName, const int p_id, const std::string p_format, const int p_btnVer=0, const int p_btnIncrement=1);
+  void addButton(const std::string p_screenName, const std::string p_format, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
+	void addButtonScreenChange(const std::string p_screenName, const std::string p_format, const std::string p_linkedID);
+  void addButtonVaribleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value);
+  void addButtonVaribleCounter(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_btnIncrement);
 
   void defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode);
   void addLabel(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format);// mode 0

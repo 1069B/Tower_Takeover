@@ -4,7 +4,7 @@ Label::Label(const PassInfo& p_info, Screen& p_screen):m_screen(p_screen){// mod
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_style1 = p_info.style1;
-  m_format[0] = p_info.text;
+  m_format = p_info.text;
   m_mode = p_info.mode;
   switch(m_mode){
     case 0: break;
@@ -20,7 +20,7 @@ Label::Label(const PassInfo& p_info, Screen& p_screen):m_screen(p_screen){// mod
 }
 
 void Label::setString(){
-  std::string fmt = m_format[0];
+  std::string fmt = m_format;
   std::string sum = "";
   switch(m_mode){
     case 0:

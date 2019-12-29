@@ -25,7 +25,6 @@ public:
   std::vector<Toggle*> m_toggleArray;
   std::vector<Rectangle*> m_rectArray;
   lv_style_t* m_style;
-  int& m_version;
 
   bool m_relation = false;
   std::string m_relatedScreen;

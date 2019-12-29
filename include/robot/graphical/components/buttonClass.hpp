@@ -10,21 +10,24 @@ public:
   friend class Screen;
   Screen& m_screen;
   std::string& m_nextScreenVar;
-  std::string m_linkedScreenID[6] = {"None","None","None","None","None","None"};// Corasponding screen
-  bool changeVar;
-  int m_value[6] = {0,0,0,0,0,0}; //Value set to above varible
+  std::string m_linkedScreenID = "None";
+  bool m_changeVar = false;
+  bool m_incrementVar = false;
+  bool m_changeScreen = false;
+  bool m_changeBackground = false;
+  int m_value = 0;
   Timer m_timer;
 
   Button(const PassInfo& p_info, Screen& p_screen);
 
   void defineAction(const PassInfo& p_info);
 
-  void checkState(const int p_btnVer);
+  void checkState();
 
   bool returnState();
 
-  void draw(const int p_btnVer);
-  void update(const int p_btnVer);
+  void draw();
+  void update();
   void remove();
 };
 

@@ -23,7 +23,7 @@ protected:
 	std::function<std::string()> m_stringFunction;
   std::function<lv_style_t*()> m_lv_styleFunction;
 
-  std::string m_format[6] = {"Blank", "Blank", "Blank", "Blank", "Blank", "Blank"};
+  std::string m_format = "Blank";
 };
 
 struct PassInfo{

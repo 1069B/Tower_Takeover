@@ -1,15 +1,13 @@
 #include "robot/graphical/screenClass.hpp"
 
 Screen::Screen(const PassInfo& p_info):
-m_nextScreenID(*p_info.stringPointer),
-m_version(*p_info.intPointer){
+m_nextScreenID(*p_info.stringPointer){
   m_pageID = p_info.name;
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_length = p_info.length;
   m_width = p_info.width;
   m_style = p_info.style1;
-  m_version = 0;
   m_state = false;
 }
 
@@ -42,7 +40,7 @@ void Screen::addButton(const PassInfo& p_info){
 }
 void Screen::addButtionAction(const PassInfo& p_info){
   for(int y = 0; y < m_btnArray.size(); y++){
-    if(m_btnArray.at(y)->m_id == p_info.id)
+    if(m_btnArray.at(y)->m_format == p_info.text)
       m_btnArray.at(y)->defineAction(p_info);
   }
 }
@@ -76,7 +74,7 @@ void Screen::draw(){
   for(int y = 0; y < m_rectArray.size(); y++)
     m_rectArray.at(y)->draw();
   for(int y = 0; y < m_btnArray.size(); y++)
-    m_btnArray.at(y)->draw(m_version);
+    m_btnArray.at(y)->draw();
 
   for(int y = 0; y <m_labelArray.size(); y++)
     m_labelArray.at(y)->draw();
@@ -93,7 +91,7 @@ void Screen::draw(){
 }
 void Screen::update(){
   for(int y = 0; y < m_btnArray.size(); y++)
-    m_btnArray.at(y)->update(m_version);
+    m_btnArray.at(y)->update();
 
   for(int y = 0; y < m_labelArray.size(); y++)
     m_labelArray.at(y)->update();
@@ -106,7 +104,7 @@ void Screen::update(){
 }
 void Screen::detect(){
   for(int y = 0; y < m_btnArray.size(); y++)
-    m_btnArray.at(y)->checkState(m_version);
+    m_btnArray.at(y)->checkState();
 
   for(int y = 0; y < m_toggleArray.size(); y++)
     m_toggleArray.at(y)->getState();

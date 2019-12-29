@@ -57,8 +57,8 @@ int Motor::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen
   p_gui.addLabel(m_name, 260, 140, whiteText, "Internal PID: %b", &m_internalPID);
   p_gui.addLabel(m_name, 260, 170, whiteText, "Brake Mode: %s", &m_brakeString);
 
-  p_gui.addButton(m_name, 0, 160, 200, 150, 20);
-  p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
+  p_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
+  p_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
 
   p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Motor::isConnected, this), "No_Device", true);
   return 0;

@@ -49,8 +49,8 @@ int Controller::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen)
   p_gui.addLabel(m_name, 370, 85, whiteText, "Axis 3: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis3));
   p_gui.addLabel(m_name, 370, 105, whiteText, "Axis 4: %d", (std::function<int()>) std::bind(&ControlAxis::getPercent, &Axis4));
   //Bottem
-  p_gui.addButton(m_name, 0, 160, 200, 150, 20);
-  p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
+  p_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
+  p_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
 
   p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Controller::isConnected, this), "No_Device", true);
   return 0;

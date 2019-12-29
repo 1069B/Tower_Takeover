@@ -120,8 +120,8 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
   p_gui.addLabel(m_name, 220, 80, whiteText, "Velocity: %f deg/s", &m_rotationalVelocity);
 
-  p_gui.addButton(m_name, 0, 160, 200, 150, 20);
-  p_gui.addButtonAction(m_name, 0, "Go Back", p_returnScreen);
+  p_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
+  p_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
 
   //p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Encoder::isConnected, this), "No_Device", false);
   return 0;
