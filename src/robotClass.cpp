@@ -8,7 +8,7 @@ Robot::Robot():
   m_config("Robot_Config.txt"),
   m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true),
   m_tray(*this),
-  m_intakeArm(*this),
+  m_slider(*this),
   m_leftIntake(*this),
   m_rightIntake(*this)
   {
@@ -19,8 +19,8 @@ Robot::Robot():
 
     m_base.initialize();
 
-    m_tray.initialize("TrayMotor", 5, 0, 245, false);
-    m_intakeArm.initialize("ArmMotor", 8, 0, 700, true);
+    m_tray.initialize("TrayMotor", 5, 0, 320, false);
+    m_slider.initialize("SliderMotor", 8, 0, 710, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
 
@@ -46,17 +46,17 @@ int Robot::task(){
     m_tray.setVelocity(0);
 
   if(m_partnerController.ButtonR1.state() == true)
-    m_intakeArm.setVelocity(100);
+    m_slider.setVelocity(100);
   else if(m_partnerController.ButtonR2.state() == true)
-    m_intakeArm.setVelocity(-100);
+    m_slider.setVelocity(-100);
   else
-    m_intakeArm.setVelocity(0);
+    m_slider.setVelocity(0);
 
   m_base.driverControl();
   m_leftIntake.driverControl();
   m_rightIntake.driverControl();
   m_tray.driverControl();
-  m_intakeArm.driverControl();
+  m_slider.driverControl();
 
   return 0;
 }
@@ -75,6 +75,6 @@ int Robot::disabled(){
   m_leftIntake.disabled();
   m_rightIntake.disabled();
   m_tray.disabled();
-  m_intakeArm.disabled();
+  m_slider.disabled();
   return 0;
 }

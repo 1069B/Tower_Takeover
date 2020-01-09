@@ -17,7 +17,7 @@ private:
   Base m_base;
 
   Arm m_tray;
-  Arm m_intakeArm;
+  Arm m_slider;
 
   Intake m_leftIntake;
   Intake m_rightIntake;
