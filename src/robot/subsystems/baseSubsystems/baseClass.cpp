@@ -13,7 +13,7 @@ m_robot(p_robot), m_config("Base_Config.txt")
   m_trackingSystem = p_trackingSystem;
   m_robot.m_mainController.Axis1.setMultiplier(2);
   m_robot.m_mainController.Axis2.setMultiplier(2);
-  m_robot.m_mainController.Axis3.setMultiplier(2);
+  m_robot.m_mainController.Axis3.setMultiplier(-2);
   m_robot.m_mainController.Axis4.setMultiplier(2);
 
   m_speedUpCurve = true;
@@ -150,7 +150,7 @@ int Base::disabled(){
       disabledTank4();
       break;
   }
-  
+
   return 0;
 }
 

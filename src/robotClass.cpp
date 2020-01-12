@@ -39,9 +39,9 @@ int Robot::task(){
   m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(-50);
+    m_tray.setVelocity(-100);
   else if(m_partnerController.ButtonL2.state() == true)
-    m_tray.setVelocity(50);
+    m_tray.setVelocity(100);
   else
     m_tray.setVelocity(0);
 
