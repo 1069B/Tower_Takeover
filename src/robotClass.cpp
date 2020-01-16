@@ -19,8 +19,8 @@ Robot::Robot():
 
     m_base.initialize();
 
-    m_tray.initialize("TrayMotor", 5, 0, 245, false);
-    m_intakeArm.initialize("ArmMotor", 8, 0, 700, true);
+    m_tray.initialize("TrayMotor", 5, 0, 510, false);
+    m_intakeArm.initialize("ArmMotor", 8, 0, 710, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
 
