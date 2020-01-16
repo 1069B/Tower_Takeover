@@ -14,10 +14,12 @@ private:
 
   static ExternalFile m_config;
   Timer m_timer;
-  manipulatorState m_armState = VELOCITY_DEPENDENT;
+  manipulatorState m_armState = DISABLED;
   int m_velocity;
   int m_targetPosition;
+  int m_direction;
   bool m_reversed;
+  pros::motor_brake_mode_e_t m_brakeMode;
 
   int m_limitLow = 0;
   int m_limitHigh = 0;
@@ -31,15 +33,13 @@ public:
 
   int moveToPosition(const int p_velocity, const int p_position);
 
+  int setBrake(const pros::motor_brake_mode_e_t p_brakeMode);
+
   int resetEncoder();
 
   int initialize(const std::string p_armMotor, const int p_port, const int p_limitLow, const int p_limitHigh, const bool p_reversed = false);
 
-  int autonomous();
-
-  int driverControl();
-
-  int disabled();
+  int task();
 };
 
 #endif // LIFTCLASS_H

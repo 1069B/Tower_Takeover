@@ -9,6 +9,7 @@ enum manipulatorState {
   VELOCITY_DEPENDENT = 0,
   TIME_DEPENDENT = 1,
   ENCODER_DEPENDENT = 2,
+  DISABLED = 3
 };
 
 class Motor{

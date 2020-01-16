@@ -34,6 +34,8 @@ public:
 
   graphicalInterface& getGUI();
 
+  int driverControl();
+
   int autonmous();
 
   int disabled();

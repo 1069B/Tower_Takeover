@@ -8,6 +8,7 @@ Robot::Robot():
   m_config("Robot_Config.txt"),
   m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true),
   m_tray(*this),
+  m_slider(*this),
   m_leftIntake(*this),
   m_rightIntake(*this)
   {
@@ -34,22 +35,7 @@ int Robot::task(){
   m_mainController.callBackCheck();
   m_partnerController.callBackCheck();
 
-  m_leftIntake.setVelocity(m_partnerController.Axis3.getValue());
-  m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
 
-  if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(-100);
-  else if(m_partnerController.ButtonL2.state() == true)
-    m_tray.setVelocity(100);
-  else
-    m_tray.setVelocity(0);
-
-  if(m_partnerController.ButtonR1.state() == true)
-    m_slider.setVelocity(100);
-  else if(m_partnerController.ButtonR2.state() == true)
-    m_slider.setVelocity(-100);
-  else
-    m_slider.setVelocity(0);
 
   m_base.driverControl();
   m_leftIntake.driverControl();
@@ -69,11 +55,33 @@ int Robot::autonmous(){
   return 0;
 }
 
+int Robot::driverControl(){
+  m_leftIntake.setVelocity(m_partnerController.Axis3.getValue());
+  m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
+
+  if(m_partnerController.ButtonL1.state() == true)
+    m_tray.setVelocity(-100);
+  else if(m_partnerController.ButtonL2.state() == true)
+    m_tray.setVelocity(100);
+  else
+    m_tray.setVelocity(0);
+
+  if(m_partnerController.ButtonR1.state() == true)
+    m_slider.setVelocity(100);
+  else if(m_partnerController.ButtonR2.state() == true)
+    m_slider.setVelocity(-100);
+  else
+    m_slider.setVelocity(0);
+  return 0;
+}
+
 int Robot::disabled(){
   m_base.disabled();
   m_leftIntake.disabled();
   m_rightIntake.disabled();
-  m_tray.disabled();
-  m_slider.disabled();
+  m_tray.setVelocity(0);
+  m_tray.setBrake(MOTOR_BRAKE_COAST);
+  m_slider.setVelocity(0);
+  m_slider.setBrake(MOTOR_BRAKE_COAST);
   return 0;
 }
