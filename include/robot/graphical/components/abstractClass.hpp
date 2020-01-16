@@ -1,4 +1,4 @@
-#include "styles.hpp"
+#include "../styles.hpp"
 #include "robot/devices/externalFileClass.hpp"
 #include "robot/devices/timerClass.hpp"
 
@@ -11,7 +11,7 @@ protected:
   bool m_state = false;
   short m_xOrgin, m_yOrgin, m_length, m_width;
   int m_id, m_mode;
-  lv_style_t *m_style1, *m_style2;
+  lv_style_t *m_style1, *m_style2, *m_style3;
 
   int* m_intPointer;
 	std::function<int()> m_intFunction;
@@ -23,7 +23,7 @@ protected:
 	std::function<std::string()> m_stringFunction;
   std::function<lv_style_t*()> m_lv_styleFunction;
 
-  std::string m_format[6] = {"Blank", "Blank", "Blank", "Blank", "Blank", "Blank"};
+  std::string m_format = "Blank";
 };
 
 struct PassInfo{
@@ -44,5 +44,7 @@ struct PassInfo{
   lv_style_t *style1, *style2;
   lv_point_t *points;
 };
+
+class Screen;
 
 #endif //ABSTRACTGUI_H

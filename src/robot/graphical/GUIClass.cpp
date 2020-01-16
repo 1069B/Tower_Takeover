@@ -16,58 +16,63 @@ graphicalInterface::graphicalInterface(const std::string p_startingScreen):m_tim
   m_currentScreen = new Screen(info);
 }
 
-void graphicalInterface::addScreen(const std::string p_name, int& p_var){
-  addScreen(p_name, p_var, defaultBackground);
+void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_style){
+  addScreen(p_name, 0, 0, 480, 240, p_style);
 }
-void graphicalInterface::addScreen(const std::string p_name, lv_style_t& p_backColor){
-  addScreen(p_name, m_noVersion, p_backColor);
-}
-void graphicalInterface::addScreen(const std::string p_name, int& p_var, lv_style_t&  p_backColor){
+void graphicalInterface::addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style){
   PassInfo info = PassInfo();
   info.name = p_name;
-  info.intPointer = &p_var;
-  info.style1 = &p_backColor;
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.style1 = &p_style;
   info.stringPointer = &m_nextScreenID;
 	m_screenArray.push_back(new Screen(info));
 }
 
-void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
+void graphicalInterface::addButton(const std::string p_screenName, const std::string p_format, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
   PassInfo info = PassInfo();
-  info.id = p_id;
-  info.xOrgin = p_xOrgin;
-  info.yOrgin = p_yOrgin;
-  info.length = p_length;
-  info.width = p_width;
-  info.intPointer = &p_var;
-  info.style1= &p_btnRel;
-  info.style2= &p_btnPress;
-  info.mode = true;//Has chaging var
-  findScreen(p_screenName)->addButton(info);
-}
-void graphicalInterface::addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel, lv_style_t& p_btnPress){
-  PassInfo info = PassInfo();
-  info.id = p_id;
   info.xOrgin = p_xOrgin;
   info.yOrgin = p_yOrgin;
   info.length = p_length;
   info.width = p_width;
   info.style1= &p_btnRel;
   info.style2= &p_btnPress;
-  info.mode = false;//Has no chaging var
+  info.text = p_format;
   findScreen(p_screenName)->addButton(info);
 }
-void graphicalInterface::addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer, const int p_value, const int p_mode){
+void graphicalInterface::addButtonScreenChange(const std::string p_screenName, const std::string p_format, const std::string p_linkedID){
   PassInfo info = PassInfo();
-  info.id = p_id;
-  info.version = p_btnVer;
-  info.passValue = p_value;
-  info.mode = p_mode;
   info.text = p_format;
   info.linkedID = p_linkedID;
+  info.mode = 0;
   findScreen(p_screenName)->addButtionAction(info);
 }
-void graphicalInterface::addButtonCounter(const std::string p_screenName, const int p_id, const std::string p_format, const int p_btnVer, const int p_btnIncrement){
-  addButtonAction(p_screenName, p_id,p_format, p_screenName, p_btnVer, p_btnIncrement, 1);// 1 signals increment mode
+void graphicalInterface::addButtonVaribleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_value;
+  info.mode = 1;
+  findScreen(p_screenName)->addButtionAction(info);
+}
+void graphicalInterface::addButtonVaribleCounter(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_btnIncrement){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_btnIncrement;
+  info.mode = 2;
+  findScreen(p_screenName)->addButtionAction(info);
+}
+void graphicalInterface::addButtonStyleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value, lv_style_t& p_style){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intPointer = p_varible;
+  info.passValue = p_value;
+  info.style1 = &p_style;
+  info.mode = 3;
+  findScreen(p_screenName)->addButtionAction(info);
 }
 
 void graphicalInterface::defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode){
@@ -152,6 +157,28 @@ void graphicalInterface::addMeter(const std::string p_screenName, const int p_xO
   addMeter(p_screenName, p_xOrgin, p_yOrgin, p_function, 0, 100, 125, 240, 22, p_metStyle, p_textStyle);
 }
 
+void graphicalInterface::addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, bool* p_varible){
+  PassInfo info = PassInfo();
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.boolPointer = p_varible;
+  info.mode = 0;
+  findScreen(p_screenName)->addToggle(info);
+}
+
+void graphicalInterface::addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, std::function<bool()> p_varible){
+  PassInfo info = PassInfo();
+  info.xOrgin = p_xOrgin;
+  info.yOrgin = p_yOrgin;
+  info.length = p_length;
+  info.width = p_width;
+  info.boolFunction = p_varible;
+  info.mode = 1;
+  findScreen(p_screenName)->addToggle(info);
+}
+
 void graphicalInterface::addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style){
   PassInfo info = PassInfo();
   info.xOrgin = p_xOrgin;
@@ -176,6 +203,11 @@ void graphicalInterface::addRectangle(const std::string p_screenName, const int 
 Screen *graphicalInterface::findScreen(const std::string p_name){
   for(int x = 0; x < m_screenArray.size(); x++){
     if(m_screenArray.at(x)->m_pageID == p_name){
+      return m_screenArray.at(x);
+    }
+  }
+  for(int x = 0; x < m_screenArray.size(); x++){
+    if(m_screenArray.at(x)->m_pageID == "No_Screen_Found"){
       return m_screenArray.at(x);
     }
   }

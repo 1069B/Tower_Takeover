@@ -1,10 +1,10 @@
-#include "robot/graphical/labelClass.hpp"
+#include "robot/graphical/screenClass.hpp"
 
-Label::Label(const PassInfo& p_info){// mode 0
+Label::Label(const PassInfo& p_info, Screen& p_screen):m_screen(p_screen){// mode 0
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
-  m_style1 = p_info.style1;
-  m_format[0] = p_info.text;
+  m_style = p_info.style1;
+  m_text = p_info.text;
   m_mode = p_info.mode;
   switch(m_mode){
     case 0: break;
@@ -20,7 +20,7 @@ Label::Label(const PassInfo& p_info){// mode 0
 }
 
 void Label::setString(){
-  std::string fmt = m_format[0];
+  std::string fmt = m_text;
   std::string sum = "";
   switch(m_mode){
     case 0:
@@ -57,24 +57,16 @@ void Label::setString(){
       sum = fmt.substr(0, fmt.find("%s")) + m_stringFunction() + fmt.substr(fmt.find("%s")+2);
       break;
   }
-  lv_label_set_text(m_obj1, sum.c_str());
+  lv_label_set_text(m_label, sum.c_str());
 }
 
 void Label::draw(){
-  m_obj1 = lv_label_create(lv_scr_act(), NULL);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  m_label = lv_label_create(m_screen.getObject(), NULL);
+  lv_obj_align(m_label, m_screen.getObject(), LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
   setString();
-  lv_obj_set_style(m_obj1, m_style1);
-  m_state = true;
+  lv_obj_set_style(m_label, m_style);
 }
+
 void Label::update(){
-  if(m_state){
-    setString();
-  }
-}
-void Label::remove(){
-  if(m_state){
-    lv_obj_del(m_obj1);
-    m_state = false;
-  }
+  setString();
 }

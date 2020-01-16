@@ -19,18 +19,18 @@ private:
 public:
   graphicalInterface(const std::string p_startingScreen="Home");
 
-  void addScreen(const std::string p_name, int& p_var);
-  void addScreen(const std::string p_name, lv_style_t& p_backColor = defaultBackground);
-  void addScreen(const std::string p_name, int& p_var, lv_style_t& p_backColor);
+  void addScreen(const std::string p_name, lv_style_t& p_style = defaultBackground);
+  void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style = defaultBackground);
 
   void addRelationship(const std::string p_name, const std::function<bool()> p_function, const std::string p_otherScreen, const bool p_inverse = false);
 
   Screen *findScreen(const std::string p_name);
 
-  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, int& p_var, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
-  void addButton(const std::string p_screenName, const int p_id, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
-	void addButtonAction(const std::string p_screenName, const int p_id, const std::string p_format, const std::string p_linkedID, const int p_btnVer=0, const int p_value=0, const int p_mode=0);
-  void addButtonCounter(const std::string p_screenName, const int p_id, const std::string p_format, const int p_btnVer=0, const int p_btnIncrement=1);
+  void addButton(const std::string p_screenName, const std::string p_format, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_btnRel=defaultBtnRel, lv_style_t& p_btnPress=defaultBtnPress);
+	void addButtonScreenChange(const std::string p_screenName, const std::string p_format, const std::string p_linkedID);
+  void addButtonVaribleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value);
+  void addButtonVaribleCounter(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_btnIncrement);
+  void addButtonStyleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value, lv_style_t& p_style);
 
   void defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode);
   void addLabel(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format);// mode 0
@@ -47,6 +47,9 @@ public:
 
   void addMeter(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const std::function<int()> p_function, const int p_rangeL=0, const int p_rangeH=100, const int p_size=125, const int p_angle=240, const int p_numOfDashes=22, lv_style_t& p_metStyle=meterStyle, lv_style_t& p_textStyle=whiteText);
   void addMeter(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const std::function<int()> p_function, lv_style_t& p_metStyle=meterStyle, lv_style_t& p_textStyle=whiteText);
+
+  void addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, bool* p_varible);
+  void addToggle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, std::function<bool()> p_varible);
 
   void addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style);
   void addRectangle(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, const std::function<lv_style_t*()> p_background);

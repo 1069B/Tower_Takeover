@@ -1,4 +1,3 @@
-#include "main.h"
 #include "robot/graphical/GUIClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
 #include "robot/subsystems/baseClass.hpp"
@@ -18,7 +17,7 @@ private:
   Base m_base;
 
   Arm m_tray;
-  Arm m_intakeArm;
+  Arm m_slider;
 
   Intake m_leftIntake;
   Intake m_rightIntake;

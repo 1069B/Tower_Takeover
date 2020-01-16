@@ -1,23 +1,24 @@
-#include "buttonClass.hpp"
-#include "labelClass.hpp"
-#include "meterClass.hpp"
-#include "lineClass.hpp"
-#include "rectangleClass.hpp"
+#include "components/buttonClass.hpp"
+#include "components/labelClass.hpp"
+#include "components/meterClass.hpp"
+#include "components/lineClass.hpp"
+#include "components/toggleClass.hpp"
+#include "components/rectangleClass.hpp"
+#include "components/alertClass.hpp"
 
 #ifndef SCREENCLASS_H
 #define SCREENCLASS_H
 
-class Screen{
+class Screen: protected AbstractGUI{
 public:
-  //friend class graphicalInterface;
   std::string& m_nextScreenID;
   std::vector<Button*> m_btnArray;
   std::vector<Label*> m_labelArray;
   std::vector<Meter*> m_meterArray;
   std::vector<Line*> m_lineArray;
+  std::vector<Toggle*> m_toggleArray;
   std::vector<Rectangle*> m_rectArray;
-  lv_style_t* m_backGround;
-  int& m_version;
+  lv_style_t* m_style;
 
   bool m_relation = false;
   std::string m_relatedScreen;
@@ -26,6 +27,8 @@ public:
   std::string m_pageID;
 
 	Screen(const PassInfo& p_info);
+
+  lv_obj_t* getObject();
 
   void addRelationship(const std::function<bool()> p_function, const bool p_inverse, const std::string p_otherScreen);
   std::string getRelatedScreen();
@@ -41,6 +44,8 @@ public:
   void addLine(const PassInfo& p_info);
 
   void addMeter(const PassInfo& p_info);
+
+  void addToggle(const PassInfo& p_info);
 
   void addRectangle(const PassInfo& p_info);
 

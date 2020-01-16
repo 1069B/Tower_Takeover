@@ -197,14 +197,14 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   //l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
   l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_timeChange);
 
-  l_gui.addButton(m_name, 0, 300, 60, 140, 30);
-  l_gui.addButtonAction(m_name, 0, m_leftEncoder->getName(), m_leftEncoder->getName());
-  l_gui.addButton(m_name, 1, 300, 100, 140, 30);
-  l_gui.addButtonAction(m_name, 1, m_centerEncoder->getName(), m_centerEncoder->getName());
-  l_gui.addButton(m_name, 2, 300, 140, 140, 30);
-  l_gui.addButtonAction(m_name, 2, m_rightEncoder->getName(), m_rightEncoder->getName());
+  l_gui.addButton(m_name, m_leftEncoder->getName(), 300, 60, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_leftEncoder->getName(), m_leftEncoder->getName());
+  l_gui.addButton(m_name, m_centerEncoder->getName(), 300, 100, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_centerEncoder->getName(), m_centerEncoder->getName());
+  l_gui.addButton(m_name, m_rightEncoder->getName(), 300, 140, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_rightEncoder->getName(), m_rightEncoder->getName());
 
-  l_gui.addButton(m_name, 3, 160, 200, 150, 25);
-  l_gui.addButtonAction(m_name, 3, "Go Back", p_returnScreen);
+  l_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
+  l_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
   return 0;
 }
