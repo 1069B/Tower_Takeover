@@ -24,6 +24,7 @@ private:
   int m_limitLow = 0;
   int m_limitHigh = 0;
 
+  int logrithmicCurve();
 public:
   Arm(Robot& p_robot);
 

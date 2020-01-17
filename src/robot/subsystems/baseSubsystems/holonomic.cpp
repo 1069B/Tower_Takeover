@@ -30,10 +30,10 @@ int Base::autonomousHolonomic(){
 
 int Base::driverHolonomic(){
   if(m_speedUpCurve && m_driftTurning){// Speed Up and Drift Turning
-      m_frontLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue());
-      m_frontRightVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue());
-      m_backLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue());
-      m_backRightVelocity =speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue());
+      m_frontLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/2));
+      m_frontRightVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/2));
+      m_backLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/2));
+      m_backRightVelocity =speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/2));
     }
     else if(m_speedUpCurve && !m_driftTurning){// Speed Up and Point Turning
       if((m_robot.m_mainController.Axis1.getValue()) > 10 || (m_robot.m_mainController.Axis1.getValue()) < -10){// Detects Turning

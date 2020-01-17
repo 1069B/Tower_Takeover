@@ -40,9 +40,6 @@ int Robot::task(){
   m_base.driverControl();
   m_leftIntake.driverControl();
   m_rightIntake.driverControl();
-  m_tray.driverControl();
-  m_slider.driverControl();
-
   return 0;
 }
 
@@ -60,16 +57,16 @@ int Robot::driverControl(){
   m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(-100);
+    m_tray.setVelocity(75);
   else if(m_partnerController.ButtonL2.state() == true)
-    m_tray.setVelocity(100);
+    m_tray.setVelocity(-75);
   else
     m_tray.setVelocity(0);
 
   if(m_partnerController.ButtonR1.state() == true)
-    m_slider.setVelocity(100);
-  else if(m_partnerController.ButtonR2.state() == true)
     m_slider.setVelocity(-100);
+  else if(m_partnerController.ButtonR2.state() == true)
+    m_slider.setVelocity(100);
   else
     m_slider.setVelocity(0);
   return 0;

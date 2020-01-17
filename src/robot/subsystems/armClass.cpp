@@ -37,6 +37,12 @@ int Arm::resetEncoder(){
   return 0;
 }
 
+int Arm::setBrake(const pros::motor_brake_mode_e_t p_brakeMode){
+  m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
+  m_brakeMode = p_brakeMode;
+  return 0;
+}
+
 int Arm::initialize(const std::string p_armMotor, const int p_port, const int p_limitLow, const int p_limitHigh, const bool p_reversed){
   m_reversed = p_reversed;
   m_limitLow = p_limitLow;
@@ -50,12 +56,6 @@ int Arm::initialize(const std::string p_armMotor, const int p_port, const int p_
 
   m_armMotor->defineGUI(m_robot.getGUI(), "Home");
 
-  return 0;
-}
-
-int Arm::setBrake(const pros::motor_brake_mode_e_t p_brakeMode){
-  m_brakeMode = p_brakeMode;
-  m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
   return 0;
 }
 

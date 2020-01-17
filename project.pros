@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "GUI V2",
+        "project_name": "NEW Controls",
         "target": "v5",
         "templates": {
             "kernel": {
