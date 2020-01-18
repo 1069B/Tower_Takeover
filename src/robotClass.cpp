@@ -66,7 +66,7 @@ int Robot::autonmous(){
   m_base.m_backLeftMotor->setVelocity(0);
   m_slider.setVelocity(100);
   m_slider.task();
-  pros::delay(1000);
+  pros::delay(1500);
   m_slider.setVelocity(0);
   m_slider.task();
   return 0;
