@@ -129,6 +129,7 @@ int Motor::setGearing(const int p_type){
   return 0;
 }
 
+
 void Motor::setStrings(){
   if(m_motorGearSet == pros::E_MOTOR_GEARSET_36)
     m_gearSetString = "100 RPM";

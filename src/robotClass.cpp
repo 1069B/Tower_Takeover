@@ -19,7 +19,7 @@ Robot::Robot():
 
     m_base.initialize();
 
-    m_tray.initialize("TrayMotor", 5, 0, 510, false);
+    m_tray.initialize("TrayMotor", 5, 0, 675, false);
     m_slider.initialize("SliderMotor", 8, 0, 710, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 7, false);
@@ -35,7 +35,8 @@ int Robot::task(){
   m_mainController.callBackCheck();
   m_partnerController.callBackCheck();
 
-
+  m_tray.task();
+  m_slider.task();
 
   m_base.driverControl();
   m_leftIntake.driverControl();
@@ -48,7 +49,26 @@ graphicalInterface& Robot::getGUI(){
 }
 
 int Robot::autonmous(){
-  m_base.autonomous();
+  //m_base.autonomous();
+  m_base.m_frontRightMotor->setVelocity(75);
+  m_base.m_frontLeftMotor->setVelocity(75);
+  m_base.m_backRightMotor->setVelocity(75);
+  m_base.m_backLeftMotor->setVelocity(75);
+  pros::delay(750);
+  m_base.m_frontRightMotor->setVelocity(-75);
+  m_base.m_frontLeftMotor->setVelocity(-75);
+  m_base.m_backRightMotor->setVelocity(-75);
+  m_base.m_backLeftMotor->setVelocity(-75);
+  pros::delay(1000);
+  m_base.m_frontRightMotor->setVelocity(0);
+  m_base.m_frontLeftMotor->setVelocity(0);
+  m_base.m_backRightMotor->setVelocity(0);
+  m_base.m_backLeftMotor->setVelocity(0);
+  m_slider.setVelocity(100);
+  m_slider.task();
+  pros::delay(1000);
+  m_slider.setVelocity(0);
+  m_slider.task();
   return 0;
 }
 
@@ -57,9 +77,9 @@ int Robot::driverControl(){
   m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(75);
+    m_tray.setVelocity(50);
   else if(m_partnerController.ButtonL2.state() == true)
-    m_tray.setVelocity(-75);
+    m_tray.setVelocity(-50);
   else
     m_tray.setVelocity(0);
 

@@ -7,6 +7,13 @@ class Robot;
 #ifndef ARMCLASS_H
 #define ARMCLASS_H
 
+enum ArmPosition{
+  UP = 0,
+  INTRANSIT = 1,
+  DOWN = 2,
+  NOPOSITION = 3
+};
+
 class Arm {
 private:
   Robot& m_robot;
@@ -15,6 +22,7 @@ private:
   static ExternalFile m_config;
   Timer m_timer;
   manipulatorState m_armState = DISABLED;
+  ArmPosition m_armPosition = DOWN;
   int m_velocity;
   int m_targetPosition;
   int m_direction;
@@ -35,6 +43,10 @@ public:
   int moveToPosition(const int p_velocity, const int p_position);
 
   int setBrake(const pros::motor_brake_mode_e_t p_brakeMode);
+
+  int setUp();
+
+  int setDown();
 
   int resetEncoder();
 

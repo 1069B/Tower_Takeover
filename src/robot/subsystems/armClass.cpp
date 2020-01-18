@@ -32,6 +32,15 @@ int Arm::moveToPosition(const int p_velocity, const int p_position){
   return 0;
 }
 
+int Arm::setUp(){
+
+  return 0;
+}
+
+int Arm::setDown(){
+  return 0;
+}
+
 int Arm::resetEncoder(){
   m_armMotor->resetRotation();
   return 0;

@@ -39,6 +39,8 @@ public:
 
   void setBrake(const pros::motor_brake_mode_e_t p_power);
 
+  void setPosition();
+
   void resetRotation();
 
   bool isConnected();

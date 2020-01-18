@@ -16,13 +16,14 @@ void competition_initialize() {
 }
 
 void autonomous() {
-  robot.disabled();
+  robot.autonmous();
 }
 
 void opcontrol(){
   pros::delay(5);
   while(true){
     robot.task();
+    robot.driverControl();
     pros::delay(5);
   }
 }
