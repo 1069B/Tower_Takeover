@@ -1,1 +1,88 @@
 #include "robot/devices/taskScheduleClass.hpp"
+
+SubTask::SubTask(std::string p_name, std::function<int()> p_function, int p_callPeriod, CallType p_callType){
+    m_name = p_name;
+    m_function = p_function;
+    m_callPeriod = p_callPeriod;
+    m_callType = p_callType;
+};
+
+std::string SubTask::getName(){
+    return m_name;
+}
+
+std::function<int()> SubTask::getFunction(){
+    return m_function;
+}
+
+int SubTask::getCallPeriod(){
+    return m_callPeriod;
+}
+
+int SubTask::getCallFrequency(){
+    return m_callFrequency;
+}
+
+CallType SubTask::getCallType(){
+    return m_callType;
+}
+
+TaskScheduler::TaskScheduler(Robot &l_robot, std::string p_name):m_robot(l_robot){
+    m_name = p_name;
+}
+
+int TaskScheduler::addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, CallType p_callType){
+    m_taskArray.push_back(new SubTask(p_name, p_callBack, p_callPeriod, p_callType));
+    return 0;
+}
+
+int TaskScheduler::task(){
+    for(int x = 0; x < m_taskArray.size(); x++){
+        if(m_taskArray.at(x)->getCallType() == ALWAYS && m_taskArray.at(x)->m_timer.preformAction()){
+            std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
+            l_localFunction();
+            m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);
+            m_taskArray.at(x)->m_callFrequency = m_taskArray.at(x)->m_timer.lapTime();
+        }
+
+        switch(m_compMode) {
+            case AUTO:
+                if(m_taskArray.at(x)->getCallType() == DURING_AUTO && m_taskArray.at(x)->m_timer.preformAction()){
+                    std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
+                    l_localFunction();
+                    m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);
+                    m_taskArray.at(x)->m_callFrequency = m_taskArray.at(x)->m_timer.lapTime();
+                }
+                break;
+
+            case OPERATER:
+                if(m_taskArray.at(x)->getCallType() == DURING_OPERATER && m_taskArray.at(x)->m_timer.preformAction()){
+                    std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
+                    l_localFunction();
+                    m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);
+                    m_taskArray.at(x)->m_callFrequency = m_taskArray.at(x)->m_timer.lapTime();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    return 0;
+}
+
+int TaskScheduler::setCompMode(CompMode p_compMode){
+    m_compMode = p_compMode;
+    return 0;
+}
+
+SubTask* TaskScheduler::findTask(std::string p_name){
+  for(int x = 0; x < m_taskArray.size(); x++)
+    if(m_taskArray.at(x)->m_name == p_name)
+      return m_taskArray.at(x);
+  return NULL;
+}
+
+int TaskScheduler::defineGUI(){
+    return 0;
+}
