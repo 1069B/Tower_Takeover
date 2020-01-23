@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef BUTTONCLASS_H
 #define BUTTONCLASS_H

@@ -1,7 +1,7 @@
 #include "robot/graphical/screenClass.hpp"
 
 Button::Button(const PassInfo& p_info, Screen& p_screen):
-m_timer(false), m_screen(p_screen),m_updateScreenVarible(p_screen.m_nextScreenID){
+m_timer(false), m_screen(p_screen),m_updateScreenVarible(p_screen.getNextScreenID()){
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_length = p_info.length;

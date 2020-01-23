@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef RECTANGLECLASS_H
 #define RECTANGLECLASS_H

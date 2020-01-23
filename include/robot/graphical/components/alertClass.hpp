@@ -1,12 +1,14 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef ALERTCLASS_H
 #define ALERTCLASS_H
 
-class Alert: protected AbstractGUI{
-public:
+class Alert{
+private:
+  lv_obj_t* m_alert;
   static bool m_repeat;
 
+public:
   Alert();
 
   int draw(const std::string p_message);

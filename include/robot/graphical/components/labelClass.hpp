@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef LABELCLASS_H
 #define LABELCLASS_H

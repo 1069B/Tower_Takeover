@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef LINECLASS_H
 #define LINECLASS_H

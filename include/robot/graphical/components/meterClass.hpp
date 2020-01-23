@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef METERCLASS_H
 #define METERCLASS_H
@@ -24,7 +24,7 @@ public:
   Meter(const PassInfo& p_info, Screen& p_screen);
 
   void draw();
-  
+
   void update();
 };
 

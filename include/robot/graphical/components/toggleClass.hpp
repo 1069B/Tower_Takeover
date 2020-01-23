@@ -1,4 +1,4 @@
-#include "abstractClass.hpp"
+#include "passInfo.hpp"
 
 #ifndef TOGGLECLASS_H
 #define TOGGLECLASS_H

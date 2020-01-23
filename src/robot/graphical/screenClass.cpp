@@ -12,7 +12,7 @@ m_nextScreenID(*p_info.stringPointer){
 }
 
 lv_obj_t* Screen::getObject(){
-  return m_obj1;
+  return m_container;
 }
 
 void Screen::changeBackground(lv_style_t& p_backColor){
@@ -34,6 +34,15 @@ std::function<bool()> Screen::getRelatedFunc(){
 bool Screen::getInverse(){
   return m_inversed;
 }
+
+std::string& Screen::getNextScreenID(){
+  return m_nextScreenID;
+}
+
+std::string Screen::getPageID(){
+  return m_pageID;
+}
+
 bool Screen::isRelation(){
   return m_relation;
 }
@@ -70,10 +79,10 @@ void Screen::addRectangle(const PassInfo& p_info){
 }
 
 void Screen::draw(){
-  m_obj1 = lv_cont_create(lv_scr_act(), NULL);
-  lv_obj_align(m_obj1, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
-  lv_obj_set_size(m_obj1, m_length, m_width);
-  lv_obj_set_style(m_obj1, m_style);
+  m_container = lv_cont_create(lv_scr_act(), NULL);
+  lv_obj_align(m_container, NULL, LV_ALIGN_IN_TOP_LEFT, m_xOrgin, m_yOrgin);
+  lv_obj_set_size(m_container, m_length, m_width);
+  lv_obj_set_style(m_container, m_style);
 
   for(int y = 0; y < m_rectArray.size(); y++)
     m_rectArray.at(y)->draw();
@@ -113,8 +122,8 @@ void Screen::detect(){
 }
 void Screen::remove(){
   if(m_state){
-    lv_obj_clean(m_obj1);
-    lv_obj_del(m_obj1);
+    lv_obj_clean(m_container);
+    lv_obj_del(m_container);
     m_state = false;
   }
 }
