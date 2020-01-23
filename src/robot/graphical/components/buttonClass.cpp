@@ -33,6 +33,10 @@ void Button::defineAction(const PassInfo& p_info){
       m_changeBackgroundStyle = p_info.style1;
       m_changeBackground = true;
       break;
+    case 4:
+      m_changeTextPointer = p_info.stringPointer;
+      m_changeText = true;
+      break;
   }
 }
 
@@ -43,7 +47,10 @@ void Button::draw(){
   lv_obj_set_size(m_button, m_length, m_width); //set the button size
   lv_btn_set_style(m_button, LV_BTN_STYLE_REL, m_buttonReleased); //set the relesed style
   lv_btn_set_style(m_button, LV_BTN_STYLE_PR, m_buttonPressed); //set the pressed style
-  lv_label_set_text(m_label, m_text.c_str());
+  if(m_changeText)
+    lv_label_set_text(m_label, (*m_changeTextPointer).c_str());
+  else
+    lv_label_set_text(m_label, m_text.c_str());
 }
 
 void Button::update(){
@@ -63,6 +70,10 @@ void Button::update(){
     lv_btn_set_style(m_button, LV_BTN_STYLE_REL, m_changeBackgroundStyle);
   else
     lv_btn_set_style(m_button, LV_BTN_STYLE_REL, m_buttonReleased);
+  if(m_changeText)
+    lv_label_set_text(m_label, (*m_changeTextPointer).c_str());
+  else
+    lv_label_set_text(m_label, m_text.c_str());
 }
 
 bool Button::returnState(){

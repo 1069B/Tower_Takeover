@@ -31,6 +31,7 @@ public:
   void addButtonVaribleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value);
   void addButtonVaribleCounter(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_btnIncrement);
   void addButtonStyleChange(const std::string p_screenName, const std::string p_format, int* p_varible, const int p_value, lv_style_t& p_style);
+  void addButtonTextChange(const std::string p_screenName, const std::string p_format, std::string* p_varible);
 
   void defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode);
   void addLabel(const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format);// mode 0

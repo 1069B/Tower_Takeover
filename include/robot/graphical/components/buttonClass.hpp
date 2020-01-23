@@ -34,6 +34,10 @@ private:
   int m_changeBackgroundValue;
   lv_style_t *m_changeBackgroundStyle;
 
+  /*Required Varible for Text Change*/
+  bool m_changeText = false;
+  std::string* m_changeTextPointer;
+
 public:
   Button(const PassInfo& p_info, Screen& p_screen);
 
