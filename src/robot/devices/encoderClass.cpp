@@ -1,11 +1,11 @@
-#include "robot/devices/encoderClass.hpp"
+#include "robotClass.hpp"
 
 ExternalFile Encoder::s_config("Encoder_Config.txt");
 ExternalFile Encoder::s_debug("Encoder_Debug.txt");
 
 std::vector<Encoder*> Encoder::s_encoderArray;
 
-Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_reverse){
+Encoder::Encoder(Robot& p_robot, const std::string p_name ,const int p_port, const bool p_reverse):m_robot(p_robot){
   m_name = p_name;
   if(s_config.varExist(m_name+"_port")){
     m_port = s_config.readInt(m_name+"_port");
@@ -26,6 +26,8 @@ Encoder::Encoder(const std::string p_name ,const int p_port, const bool p_revers
   s_encoderArray.push_back(this);
 
   m_avgVelocity.resize(4);
+
+  m_robot.getTaskScheduler().addTask(m_name, std::bind(&Encoder::task, this), 25, TASK_ALWAYS);
 }
 
 int Encoder::isConnected(){
@@ -35,8 +37,11 @@ int Encoder::isConnected(){
 }
 
 int Encoder::getRotation(){
-  m_rotation = pros::c::adi_encoder_get(m_port);
   return m_rotation;
+}
+
+int Encoder::getDisplacment(){
+  return m_displacement;
 }
 
 int Encoder::resetRotation(){
@@ -45,42 +50,6 @@ int Encoder::resetRotation(){
 }
 
 double Encoder::getVelocity(){
-  if(m_timer.preformAction()){
-    double l_distanceChange = getRotation() - m_previousRotation;
-    double l_timeChange = (m_timer.getTime() - m_previousTime) / 1000.0;
-
-    double l_velocity = l_distanceChange / l_timeChange;
-
-    m_rotationalVelocity = l_velocity;
-
-    if(m_reversed)
-      l_velocity = l_velocity / 360.0 * 22.15;
-    else
-      l_velocity = l_velocity / 360.0 * 22.15;
-
-    std::string l_line = "Time: " + std::to_string(m_timer.getTime()) + ", RotationalVelocity: " + std::to_string(m_rotationalVelocity) + ", Translational Velocity: " + std::to_string(m_velocity);
-    s_config.addLine(l_line);
-
-    m_previousTime = m_timer.getTime();
-    m_previousRotation = getRotation();
-
-    std::vector<double> l_tempVelocity;
-
-    l_tempVelocity.resize(4);
-    for(int x = 0; x < 3; x++){
-      l_tempVelocity.at(x) = m_avgVelocity.at(x+1);
-    }
-    l_tempVelocity.at(3) = l_velocity;
-    m_avgVelocity = l_tempVelocity;
-    m_timer.addActionDelay(10);
-
-    double l_avg = 0;
-    for(int x = 0; x < 4; x++){
-      l_avg += m_avgVelocity.at(x);
-    }
-    m_velocity = l_avg/4;
-  }
-
   return m_velocity;
 }
 
@@ -112,18 +81,29 @@ int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScre
   p_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
   p_gui.addLabel(m_name, 20, 50, whiteText, "Zero Position: %d", &m_zeroPosition);
-  p_gui.addLabel(m_name, 20, 80, whiteText, "Previous Time: %d", &m_previousTime);
-  p_gui.addLabel(m_name, 20, 110, whiteText, "Previous Rotation: %d Deg", &m_previousRotation);
-  p_gui.addLabel(m_name, 20, 140, whiteText, "Rotation: %d Deg", (std::function<int()>)std::bind(&Encoder::getRotation, this));
-
-  p_gui.addLabel(m_name, 20, 170, whiteText, "Velocity: %f cm/s", (std::function<double()>)std::bind(&Encoder::getVelocity, this));
-  p_gui.addLabel(m_name, 200, 50, whiteText, "Connected: %d", (std::function<int()>)std::bind(&Encoder::isConnected, this));
-  p_gui.addLabel(m_name, 220, 80, whiteText, "Velocity: %f deg/s", &m_rotationalVelocity);
+  p_gui.addLabel(m_name, 20, 80, whiteText, "Rotation: %d Deg", &m_rotation);
+  p_gui.addLabel(m_name, 20, 110, whiteText, "Displacement %f cm", &m_displacement);
+  p_gui.addLabel(m_name, 20, 140, whiteText, "Velocity: %f cm/s", &m_velocity);
+  p_gui.addLabel(m_name, 20, 170, whiteText, "Calculated Displacement: %f cm", &m_calculatedDisplacement);
 
   p_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
   p_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
 
   //p_gui.addRelationship(m_name, (std::function<bool()>)std::bind(&Encoder::isConnected, this), "No_Device", false);
+  return 0;
+}
+
+int Encoder::task(){
+  int l_timerChange = m_timer.lapTime();
+  m_rotation = pros::c::adi_encoder_get(m_port);// Calculates the Rotation
+
+  m_displacement = ((double)m_rotation / 360.00) * m_wheelCircumference;
+
+  m_velocity = (m_displacement - m_previousDisplacement) / (l_timerChange / 1000.00);
+  m_previousDisplacement = m_displacement;
+
+  m_calculatedDisplacement += m_velocity * l_timerChange / 1000.00;
+
   return 0;
 }
 

@@ -4,20 +4,28 @@
 #ifndef ENCODERCLASS_H
 #define ENCODERCLASS_H
 
+class Robot;
+
 class Encoder{
 private:
   std::string m_name = "Encoder";
+  Robot& m_robot;
   short m_port;// 1,3,5,7
   Timer m_timer;
 
-  int m_zeroPosition = 0;
-  int m_previousTime = 0;
-  int m_previousRotation = 0;
   int m_rotation = 0;
-  double m_rotationalVelocity = 0;
+  double m_displacement = 0;
+  double m_previousDisplacement = 0;
+
+  int m_zeroPosition = 0;
+
+  double m_calculatedDisplacement = 0;
+
   double m_velocity = 0;
+
   int m_direction = 0;
   bool m_reversed = false;
+  double m_wheelCircumference = 22.15;
 
   std::vector<double> m_avgVelocity;
 
@@ -27,11 +35,15 @@ private:
   static ExternalFile s_debug;
 
 public:
-  Encoder(const std::string p_name, const int p_port, const bool p_reverse);
+  Encoder(Robot& p_robot, const std::string p_name, const int p_port, const bool p_reverse);
 
   int isConnected();// Still need a methoud for detecting connection
 
   int getRotation();
+
+  int getDisplacment();
+
+  int getCalculatedDisplacement();
 
   std::string getName();
 
@@ -46,6 +58,8 @@ public:
   int setReverse(const bool p_reverse);
 
   int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
+
+  int task();
 
   static Encoder* findEncoder(const std::string p_name);
 

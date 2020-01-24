@@ -27,18 +27,22 @@ CallType SubTask::getCallType(){
     return m_callType;
 }
 
-TaskScheduler::TaskScheduler(Robot &l_robot, std::string p_name):m_robot(l_robot){
+TaskScheduler::TaskScheduler(Robot &l_robot, std::string p_name)
+:m_robot(l_robot),m_config("Task_Schedular.txt")
+{
     m_name = p_name;
 }
 
 int TaskScheduler::addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, CallType p_callType){
     m_taskArray.push_back(new SubTask(p_name, p_callBack, p_callPeriod, p_callType));
+    std::string l_local = p_name + " task has been added. Called every " + std::to_string(p_callPeriod) + " milliseconds";
+    m_config.addLine(l_local);
     return 0;
 }
 
 int TaskScheduler::task(){
     for(int x = 0; x < m_taskArray.size(); x++){
-        if(m_taskArray.at(x)->getCallType() == ALWAYS && m_taskArray.at(x)->m_timer.preformAction()){
+        if(m_taskArray.at(x)->getCallType() == TASK_ALWAYS && m_taskArray.at(x)->m_timer.preformAction()){
             std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
             l_localFunction();
             m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);
@@ -46,8 +50,8 @@ int TaskScheduler::task(){
         }
 
         switch(m_compMode) {
-            case AUTO:
-                if(m_taskArray.at(x)->getCallType() == DURING_AUTO && m_taskArray.at(x)->m_timer.preformAction()){
+            case TASK_AUTO:
+                if(m_taskArray.at(x)->getCallType() == TASK_DURING_AUTO && m_taskArray.at(x)->m_timer.preformAction()){
                     std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
                     l_localFunction();
                     m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);
@@ -55,8 +59,8 @@ int TaskScheduler::task(){
                 }
                 break;
 
-            case OPERATER:
-                if(m_taskArray.at(x)->getCallType() == DURING_OPERATER && m_taskArray.at(x)->m_timer.preformAction()){
+            case TASK_OPERATER:
+                if(m_taskArray.at(x)->getCallType() == TASK_DURING_OPERATER && m_taskArray.at(x)->m_timer.preformAction()){
                     std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
                     l_localFunction();
                     m_taskArray.at(x)->m_timer.addActionDelay(m_taskArray.at(x)->m_callPeriod);

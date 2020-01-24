@@ -4,19 +4,21 @@
 Odometry::Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder):
 m_robot(p_robot){
   if(Encoder::findEncoder(p_leftEncoder) == NULL)
-    m_leftEncoder = new Encoder(p_leftEncoder, 1, false);
+    m_leftEncoder = new Encoder(m_robot, p_leftEncoder, 1, false);
   else
     m_leftEncoder = Encoder::findEncoder(p_leftEncoder);
 
   if(Encoder::findEncoder(p_rightEncoder) == NULL)
-    m_rightEncoder = new Encoder(p_rightEncoder, 3, true);
+    m_rightEncoder = new Encoder(m_robot, p_rightEncoder, 3, true);
   else
     m_rightEncoder = Encoder::findEncoder(p_rightEncoder);
 
   if(Encoder::findEncoder(p_centerEncoder) == NULL)
-    m_centerEncoder = new Encoder(p_centerEncoder, 5, true);
+    m_centerEncoder = new Encoder(m_robot, p_centerEncoder, 5, true);
   else
     m_centerEncoder = Encoder::findEncoder(p_centerEncoder);
+
+    m_robot.getTaskScheduler().addTask("Odometry", std::bind(&Odometry::task, this), 25, TASK_ALWAYS);
 }
 
 double Odometry::getRadiusLeft(const double p_leftVelocity, const double p_rightVelocity){
@@ -147,11 +149,11 @@ double Odometry::setOrientation(const double p_orientation){
 }
 
 double Odometry::getXposition(){
-  return 0;
+  return m_xPosition;
 }
 
 double Odometry::getXVelocity(){
-  return 0;
+  return m_xVelocity;
 }
 
 double Odometry::setXposition(const double p_xPosition){
@@ -160,11 +162,11 @@ double Odometry::setXposition(const double p_xPosition){
 }
 
 double Odometry::getYposistion(){
-  return 0;
+  return m_yPosition;
 }
 
 double Odometry::getYVelocity(){
-  return 0;
+  return m_yVelocity;
 }
 
 double Odometry::setYposition(const double p_yPosition){
@@ -206,5 +208,66 @@ int Odometry::defineGUI(const std::string p_returnScreen){
 
   l_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
   l_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
+  return 0;
+}
+
+RobotQuadrent Odometry::calculateQuadrent(){
+  if(m_orientation > 0 && m_orientation < 90)
+    return FIRST_QUADRENT;
+  else if(m_orientation > 90 && m_orientation < 180)
+    return SECOND_QUANDRENT;
+  else if(m_orientation > 180 && m_orientation < 270)
+    return THIRD_QUADRENT;
+  else if(m_orientation > 270 && m_orientation < 360)
+    return FOURTH_QUADRENT;
+  return ALONG_AXIS;
+}
+
+int Odometry::calculatePosition(){
+  double l_relativeXVelocity = (m_leftEncoder->getVelocity() + m_rightEncoder->getVelocity())/2.0;
+  double l_relativeYVelocity = m_centerEncoder->getVelocity();
+  double l_relativeAngle = 0;
+  m_robotQuadrient = calculateQuadrent();
+
+  switch ((int)m_robotQuadrient) {
+    case FIRST_QUADRENT:
+      l_relativeAngle = m_orientation;
+      break;
+    case SECOND_QUANDRENT:
+      l_relativeAngle = m_orientation - 90;
+      break;
+    case THIRD_QUADRENT:
+      l_relativeAngle = m_orientation - 180;
+      break;
+    case FOURTH_QUADRENT:
+      l_relativeAngle = m_orientation - 270;
+      break;
+    case ALONG_AXIS:
+      if(m_orientation == 0){
+
+      }
+      else if(m_orientation == 90){
+
+      }
+      else if(m_orientation == 180){
+
+      }
+      else if(m_orientation == 270){
+
+      }
+        
+        break;
+  }
+
+  m_xPosition = 0;
+  m_yPosition = 0;
+  m_xVelocity = 0;
+  m_yVelocity = 0;
+  return 0;
+}
+
+int Odometry::task(){
+  m_orientation = 0;
+  calculatePosition();
   return 0;
 }

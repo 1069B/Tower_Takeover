@@ -10,7 +10,8 @@ Robot::Robot():
   m_tray(*this),
   m_slider(*this),
   m_leftIntake(*this),
-  m_rightIntake(*this)
+  m_rightIntake(*this),
+  m_taskScheduler(*this, "MainTaskScheduler")
   {
     if(m_config.varExist("Comp_Mode"))
       m_compMode = m_config.readString("Comp_Mode");
@@ -31,6 +32,7 @@ Robot::Robot():
 }
 
 int Robot::task(){
+  m_taskScheduler.task();
   m_gui.task();
   m_mainController.callBackCheck();
   m_partnerController.callBackCheck();
@@ -46,6 +48,10 @@ int Robot::task(){
 
 graphicalInterface& Robot::getGUI(){
   return m_gui;
+}
+
+TaskScheduler& Robot::getTaskScheduler(){
+  return m_taskScheduler;
 }
 
 int Robot::autonmous(){

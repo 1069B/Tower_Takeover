@@ -5,6 +5,14 @@
 
 class Robot;
 
+enum RobotQuadrent{
+  FIRST_QUADRENT,
+  SECOND_QUANDRENT,
+  THIRD_QUADRENT,
+  FOURTH_QUADRENT,
+  ALONG_AXIS
+};
+
 class Odometry{
 private:
   std::string m_name = "Odometry";
@@ -17,6 +25,10 @@ private:
   double m_orientation = 0;
   double m_xPosition = 0;
   double m_yPosition = 0;
+  double m_xVelocity = 0;
+  double m_yVelocity = 0;
+
+  RobotQuadrent m_robotQuadrient = ALONG_AXIS;
 
 	double m_radiusLeft = 0;
 	double m_radiusRight = 0;
@@ -46,6 +58,9 @@ private:
 	double m_trackingDistanceLeft = 13.496;//Units in cm
 	double m_trackingDistanceRight = 12.859;//Units in cm
 
+  int calculatePosition();
+  RobotQuadrent calculateQuadrent();
+
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
 
@@ -74,5 +89,7 @@ public:
   double setYposition(const double p_yPosition);
 
   int defineGUI(const std::string p_returnScreen);
+
+  int task();
 };
 #endif // ODOMETRYCLASS_H

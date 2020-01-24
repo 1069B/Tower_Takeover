@@ -3,6 +3,7 @@
 #include "robot/subsystems/baseClass.hpp"
 #include "robot/subsystems/armClass.hpp"
 #include "robot/subsystems/intakeClass.hpp"
+#include "robot/devices/taskScheduleClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
@@ -14,6 +15,8 @@ private:
   Controller m_partnerController;
   Timer m_timer;
   ExternalFile m_config;
+  TaskScheduler m_taskScheduler;
+
   Base m_base;
 
   Arm m_tray;
@@ -39,6 +42,8 @@ public:
   int autonmous();
 
   int disabled();
+
+  TaskScheduler& getTaskScheduler();
 };
 
 #endif // ROBOTCLASS_H

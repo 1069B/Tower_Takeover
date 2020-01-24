@@ -1,4 +1,5 @@
 #include "timerClass.hpp"
+#include "externalFileClass.hpp"
 
 #ifndef TASKSCHEDCLASS_H
 #define TASKSCHEDCLASS_H
@@ -6,15 +7,15 @@
 class Robot;
 
 enum CallType{
-    DURING_AUTO = 0,
-    DURING_OPERATER = 1,
-    ALWAYS = 2
+    TASK_DURING_AUTO = 0,
+    TASK_DURING_OPERATER = 1,
+    TASK_ALWAYS = 2
 };
 
 enum CompMode{
-    AUTO = 0,
-    OPERATER = 1,
-    DISABLED = 2
+    TASK_AUTO = 0,
+    TASK_OPERATER = 1,
+    TASK_DISABLED = 2
 };
 
 struct SubTask{
@@ -46,6 +47,7 @@ private:
     std::string m_name;
     std::vector<SubTask*> m_taskArray;
     CompMode m_compMode;
+    ExternalFile m_config;
 public:
     TaskScheduler(Robot &l_robot, std::string p_name);
 
