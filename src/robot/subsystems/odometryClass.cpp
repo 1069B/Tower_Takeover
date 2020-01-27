@@ -211,58 +211,66 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   return 0;
 }
 
-RobotQuadrent Odometry::calculateQuadrent(){
-  if(m_orientation > 0 && m_orientation < 90)
-    return FIRST_QUADRENT;
-  else if(m_orientation > 90 && m_orientation < 180)
-    return SECOND_QUANDRENT;
-  else if(m_orientation > 180 && m_orientation < 270)
-    return THIRD_QUADRENT;
-  else if(m_orientation > 270 && m_orientation < 360)
-    return FOURTH_QUADRENT;
-  return ALONG_AXIS;
+double Odometry::orientationConverter(const double p_angle){
+  double l_orientation = 0;
+  if(0 <= p_angle && p_angle < 360)// Detects if Angle is withen desired bounds
+    l_orientation = p_angle;
+  else{// If not calculate angle
+    if(fabs(p_angle) / p_angle == -1)// Negative Angle
+      l_orientation = std::fmod(p_angle, 360) + 360;
+    else
+      l_orientation = std::fmod(p_angle, 360);
+  }
+  return l_orientation;
+}
+
+int Odometry::calculateDirection(const int p_value){
+  return abs(p_value)/p_value;
+}
+
+int Odometry::calculateDirection(const double p_value){
+  return fabs(p_value)/p_value;
 }
 
 int Odometry::calculatePosition(){
+  /*Getting the Velocities*/
   double l_relativeXVelocity = (m_leftEncoder->getVelocity() + m_rightEncoder->getVelocity())/2.0;
   double l_relativeYVelocity = m_centerEncoder->getVelocity();
-  double l_relativeAngle = 0;
-  m_robotQuadrient = calculateQuadrent();
+  /*Calculating the Movement Vector*/
+  double l_relativeRobotAngle = m_orientation;
 
-  switch ((int)m_robotQuadrient) {
-    case FIRST_QUADRENT:
-      l_relativeAngle = m_orientation;
-      break;
-    case SECOND_QUANDRENT:
-      l_relativeAngle = m_orientation - 90;
-      break;
-    case THIRD_QUADRENT:
-      l_relativeAngle = m_orientation - 180;
-      break;
-    case FOURTH_QUADRENT:
-      l_relativeAngle = m_orientation - 270;
-      break;
-    case ALONG_AXIS:
-      if(m_orientation == 0){
+  double l_relativeMovementVelocity = sqrt(pow(l_relativeXVelocity,2) + pow(l_relativeYVelocity,2));
 
-      }
-      else if(m_orientation == 90){
+  double l_relativeMovementAngle;
+  double l_totalAngle;
 
-      }
-      else if(m_orientation == 180){
-
-      }
-      else if(m_orientation == 270){
-
-      }
-        
-        break;
+  if(calculateDirection(l_relativeXVelocity) == 1 && calculateDirection(l_relativeYVelocity) == 1){
+    /* First Quadrent*/
+    l_relativeMovementAngle = atan(l_relativeYVelocity/l_relativeXVelocity) * (180/M_PI);// Positive (0 ~ 90)
+    l_totalAngle = orientationConverter(l_relativeMovementAngle + l_relativeRobotAngle);
+  }
+  else if(calculateDirection(l_relativeXVelocity) == -1 && calculateDirection(l_relativeYVelocity) == 1){
+    /* Second Quadrent*/
+    l_relativeMovementAngle = atan(l_relativeYVelocity/l_relativeXVelocity) * (180/M_PI);// Negative (-0 ~ -90)
+    l_totalAngle = orientationConverter(180 + l_relativeMovementAngle + l_relativeRobotAngle);
+  }
+  else if(calculateDirection(l_relativeXVelocity) == -1 && calculateDirection(l_relativeYVelocity) == -1){
+    /* Third Quadrent*/
+    l_relativeMovementAngle = atan(l_relativeYVelocity/l_relativeXVelocity) * (180/M_PI);// Positive (0 ~ 90)
+    l_totalAngle = orientationConverter(180 + l_relativeMovementAngle + l_relativeRobotAngle);
+  }
+  else if(calculateDirection(l_relativeXVelocity) == 1 && calculateDirection(l_relativeYVelocity) == -1){
+    /* Fourth Quadrent*/
+    l_relativeMovementAngle = atan(l_relativeYVelocity/l_relativeXVelocity) * (180/M_PI);// Negative
+    l_totalAngle = orientationConverter(l_relativeMovementAngle + l_relativeRobotAngle);
   }
 
-  m_xPosition = 0;
-  m_yPosition = 0;
-  m_xVelocity = 0;
-  m_yVelocity = 0;
+  /*Triging out the Vector*/
+  m_xVelocity = cos((l_totalAngle*M_PI)/180) * l_relativeMovementVelocity;
+  m_yVelocity = sin((l_totalAngle*M_PI)/180) * l_relativeMovementVelocity;
+
+  m_xPosition += m_xVelocity * m_timer.lapTime(1);
+  m_yPosition += m_yVelocity * m_timer.lapTime(1);;
   return 0;
 }
 

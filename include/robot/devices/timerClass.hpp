@@ -7,8 +7,8 @@
   private:
     int m_startTime;
     int m_currentTime;
-    int m_previousLapTime;
-    int m_nextFlag;
+    std::vector<int> m_previousLapTime;
+    std::vector<int> m_nextFlag;
 
   public:
     Timer(const bool p_mode = false);
@@ -17,11 +17,11 @@
 
     int getTime();
 
-    int lapTime();
+    int lapTime(const int p_lapVersion = 0);
 
-    bool preformAction();
+    bool preformAction(const int p_actionVersion = 0);
 
-    int addActionDelay(const int p_delay);
+    int addActionDelay(const int p_delay, const int p_actionVersion = 0);
 
     int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
   };
