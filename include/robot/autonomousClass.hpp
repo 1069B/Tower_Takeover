@@ -41,6 +41,10 @@ private:
 
   std::vector<std::string> m_skillsProgramNames;
   std::vector<AutoProgram*> m_skillsPrograms;
+
+  std::vector<std::string> m_displayProgramNames;
+
+  int updateDisplayText();
 public:
   int m_selectedProgramNumber;
   AutonomousSide m_autoSide = AUTO_NONE;

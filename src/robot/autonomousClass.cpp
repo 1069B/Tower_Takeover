@@ -39,6 +39,23 @@ int Autonomous::addProgram(AutoProgram& p_program){
   return 0;
 }
 
+int Autonomous::updateDisplayText(){
+  switch ((int)m_autoSide) {
+    case AUTO_RED:
+      for(int x = 0; x < m_redProgramNames.size(); x++){
+
+      }
+      break;
+    case AUTO_BLUE:
+
+      break;
+    case AUTO_SKILLS:
+
+      break;
+  }
+  return 0;
+}
+
 AutoProgram* Autonomous::findProgram(const std::string p_name, const AutonomousSide p_autoSide){
   switch ((int)p_autoSide) {
     case AUTO_RED:
