@@ -2,7 +2,7 @@
 #include "robotClass.hpp"
 
 Odometry::Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder):
-m_robot(p_robot){
+m_robot(p_robot), m_debug("OdometryDebuggin.txt"){
   if(Encoder::findEncoder(p_leftEncoder) == NULL)
     m_leftEncoder = new Encoder(m_robot, p_leftEncoder, 1, false);
   else
@@ -184,12 +184,12 @@ int Odometry::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 200, 10, redText, m_name);
   l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
 
-  // l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientation);
-  // l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
-  // l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %d", &m_xPosition);
-  // l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %d", &m_xVelocity);
-  // l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %d", &m_yPosition);
-  // l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %d", &m_yVelocity);
+  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientation);
+  l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
+  l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %f", &m_xPosition);
+  l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %f", &m_xVelocity);
+  l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %f", &m_yPosition);
+  l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %f", &m_yVelocity);
 
   // l_gui.addLabel(m_name, 20, 75, whiteText, "Left Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_leftEncoder));
   // l_gui.addLabel(m_name, 20, 100, whiteText, "Right Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_rightEncoder));
@@ -269,8 +269,11 @@ int Odometry::calculatePosition(){
   m_xVelocity = cos((l_totalAngle*M_PI)/180) * l_relativeMovementVelocity;
   m_yVelocity = sin((l_totalAngle*M_PI)/180) * l_relativeMovementVelocity;
 
-  m_xPosition += m_xVelocity * m_timer.lapTime(1);
-  m_yPosition += m_yVelocity * m_timer.lapTime(1);;
+  if(m_timer.getTime() > 5000){
+    m_debug.addLine("X Vel: " + std::to_string(m_xVelocity) + "X Lap Time: " + std::to_string((m_timer.lapTime(1)/1000.0)) + ", Y Vel: " + std::to_string(m_yVelocity) + "Y Time: " + std::to_string((m_timer.lapTime(2)/1000.0)));
+    m_xPosition += m_xVelocity * ((double)m_timer.lapTime(1)/1000.0);
+    m_yPosition += m_yVelocity * ((double)m_timer.lapTime(2)/1000.0);
+  }
   return 0;
 }
 

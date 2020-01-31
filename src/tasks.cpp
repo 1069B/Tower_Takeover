@@ -8,7 +8,7 @@ void initialize(){
 }
 
 void disabled() {
-  // robot.disabled();
+  robot.disabled();
 }
 
 void competition_initialize() {
@@ -23,7 +23,7 @@ void opcontrol(){
   pros::delay(5);
   while(true){
     robot.task();
-    robot.driverControl();
+    // robot.driverControl();
     pros::delay(5);
   }
 }

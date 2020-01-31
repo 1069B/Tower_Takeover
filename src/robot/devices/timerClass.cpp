@@ -1,4 +1,4 @@
-#include "robot/devices/timerClass.hpp"
+#include "robotClass.hpp"
 
 Timer::Timer(const bool p_mode){// False is system time
   if(p_mode){
@@ -30,7 +30,8 @@ int Timer::getTime(){
 int Timer::lapTime(const int p_lapVersion){
   m_currentTime = pros::millis() - m_startTime;
   if(m_previousLapTime.size() <= p_lapVersion){
-    for(int x = 0; x< ((m_previousLapTime.size()+1)-p_lapVersion); x++){
+    int l_arrayAddition = ((m_previousLapTime.size()+1)-p_lapVersion);
+    for(int x = 0; x < l_arrayAddition; x++){
       m_previousLapTime.push_back(0);
     }
   }
@@ -42,7 +43,8 @@ int Timer::lapTime(const int p_lapVersion){
 bool Timer::preformAction(const int p_actionVersion){
   m_currentTime = pros::millis() - m_startTime;
   if(m_nextFlag.size() <= p_actionVersion){
-    for(int x = 0; x< ((m_nextFlag.size()+1)-p_actionVersion); x++){
+    int l_arrayAddition = ((m_nextFlag.size()+1)-p_actionVersion);
+    for(int x = 0; x< l_arrayAddition; x++){
       m_nextFlag.push_back(INT_MAX);
     }
   }
@@ -57,7 +59,8 @@ int Timer::addActionDelay(const int p_delay, const int p_actionVersion){
   m_currentTime = pros::millis() - m_startTime;
 
   if(m_nextFlag.size() <= p_actionVersion){
-    for(int x = 0; x< ((m_nextFlag.size()+1)-p_actionVersion); x++){
+    int l_arrayAddition = ((m_nextFlag.size()+1)-p_actionVersion);
+    for(int x = 0; x< l_arrayAddition; x++){
       m_nextFlag.push_back(INT_MAX);
     }
   }
