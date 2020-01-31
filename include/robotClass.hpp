@@ -4,6 +4,7 @@
 #include "robot/subsystems/armClass.hpp"
 #include "robot/subsystems/intakeClass.hpp"
 #include "robot/devices/taskScheduleClass.hpp"
+#include "robot/autonomousClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
