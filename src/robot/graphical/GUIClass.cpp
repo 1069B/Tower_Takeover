@@ -81,6 +81,13 @@ void graphicalInterface::addButtonTextChange(const std::string p_screenName, con
   info.mode = 4;
   findScreen(p_screenName)->addButtionAction(info);
 }
+void graphicalInterface::addButtonRunFunction(const std::string p_screenName, const std::string p_format, std::function<int ()> p_function){
+  PassInfo info = PassInfo();
+  info.text = p_format;
+  info.intFunction = p_function;
+  info.mode = 5;
+  findScreen(p_screenName)->addButtionAction(info);
+}
 
 void graphicalInterface::defineLabel(PassInfo& p_info, const std::string p_screenName, const int p_xOrgin, const int p_yOrgin, lv_style_t& p_style, const std::string p_format, const int p_mode){
   p_info.xOrgin = p_xOrgin;

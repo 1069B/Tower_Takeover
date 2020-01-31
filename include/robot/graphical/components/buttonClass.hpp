@@ -12,7 +12,8 @@ private:
   lv_style_t *m_buttonReleased, *m_buttonPressed;
   std::string m_text;
   std::string& m_updateScreenVarible;
-  Timer m_timer;
+
+  static Timer s_timer;
 
   /*Required Variles for Change Screen Action*/
   bool m_changeScreen = false;
@@ -34,9 +35,13 @@ private:
   int m_changeBackgroundValue;
   lv_style_t *m_changeBackgroundStyle;
 
-  /*Required Varible for Text Change*/
+  /*Required Varibles for Text Change*/
   bool m_changeText = false;
   std::string* m_changeTextPointer;
+
+  /*Required Varibles for Run Function*/
+  bool m_preformFunction = false;
+  std::function<int()> m_runFunction;
 
 public:
   Button(const PassInfo& p_info, Screen& p_screen);

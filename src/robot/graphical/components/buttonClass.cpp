@@ -1,7 +1,7 @@
 #include "robot/graphical/screenClass.hpp"
 
 Button::Button(const PassInfo& p_info, Screen& p_screen):
-m_timer(false), m_screen(p_screen),m_updateScreenVarible(p_screen.getNextScreenID()){
+m_screen(p_screen),m_updateScreenVarible(p_screen.getNextScreenID()){
   m_xOrgin = p_info.xOrgin;
   m_yOrgin = p_info.yOrgin;
   m_length = p_info.length;
@@ -10,6 +10,8 @@ m_timer(false), m_screen(p_screen),m_updateScreenVarible(p_screen.getNextScreenI
   m_buttonPressed = p_info.style2;
   m_text = p_info.text;
 }
+
+Timer Button::s_timer(false);
 
 void Button::defineAction(const PassInfo& p_info){
   switch(p_info.mode){
@@ -37,6 +39,10 @@ void Button::defineAction(const PassInfo& p_info){
       m_changeTextPointer = p_info.stringPointer;
       m_changeText = true;
       break;
+    case 5:
+      m_runFunction = p_info.intFunction;
+      m_preformFunction = true;
+      break;
   }
 }
 
@@ -54,7 +60,7 @@ void Button::draw(){
 }
 
 void Button::update(){
-  if(m_timer.preformAction() && lv_btn_get_state(m_button) == LV_BTN_STATE_PR){
+  if(s_timer.preformAction() && lv_btn_get_state(m_button) == LV_BTN_STATE_PR){// On Press
     if(m_changeScreen)
       m_updateScreenVarible = m_linkedScreenID;
 
@@ -64,7 +70,10 @@ void Button::update(){
     if(m_incrementVar)
       *m_incrementVarPointer += m_incrementVarValue;
 
-    m_timer.addActionDelay(500);
+    if(m_preformFunction)
+      m_runFunction();
+
+    s_timer.addActionDelay(1000);
   }
   if(m_changeBackground && *m_changeBackgroundPointer == m_changeBackgroundValue)
     lv_btn_set_style(m_button, LV_BTN_STYLE_REL, m_changeBackgroundStyle);

@@ -24,6 +24,7 @@ extern lv_style_t blackText;
 extern lv_style_t whiteText;
 
 extern lv_style_t defaultBackground;
+extern lv_style_t popupBackground;
 
 extern lv_style_t meterStyle;
 

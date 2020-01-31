@@ -16,6 +16,7 @@ lv_style_t blackText;
 lv_style_t whiteText;
 
 lv_style_t defaultBackground;
+lv_style_t popupBackground;
 
 lv_style_t meterStyle;
 
@@ -108,6 +109,14 @@ void defineStyles(){
   lv_style_copy(&defaultBackground, &lv_style_plain);
   defaultBackground.body.main_color = LV_COLOR_MAKE(0, 0, 0);
   defaultBackground.body.grad_color = LV_COLOR_MAKE(0, 0, 0);
+
+  lv_style_copy(&popupBackground, &lv_style_plain);
+  popupBackground.body.main_color = LV_COLOR_MAKE(126, 126, 126);
+  popupBackground.body.grad_color = LV_COLOR_MAKE(126, 126, 126);
+  popupBackground.body.radius = 8;
+  popupBackground.body.border.color = LV_COLOR_MAROON;
+  popupBackground.body.border.width = 2;
+
 
   lv_style_copy(&meterStyle, &lv_style_pretty_color);
   meterStyle.line.width = 2;

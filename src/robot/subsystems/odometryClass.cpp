@@ -235,7 +235,7 @@ double Odometry::getOrientationChange(){
     }
     m_timer.addActionDelay(250);
   }
-  m_debug2.addLine("Vel L: " + std::to_string(m_xVelocity) + "Radius L: " + std::to_string(m_radiusLeft) + ", Vel R: " + std::to_string(m_velocityRight) + "Radius R: " + std::to_string(m_radiusRight));
+  //m_debug2.addLine("Vel L: " + std::to_string(m_xVelocity) + "Radius L: " + std::to_string(m_radiusLeft) + ", Vel R: " + std::to_string(m_velocityRight) + "Radius R: " + std::to_string(m_radiusRight));
   return m_orientationChange;
 }
 

@@ -32,6 +32,8 @@ class Autonomous{
 private:
   Robot& m_robot;
   std::string m_name = "Autonomous";
+  int m_selectedProgramNumber = INT_MAX;
+  int m_autoSide = AUTO_NONE;
 
   std::vector<std::string> m_blueProgramNames;
   std::vector<AutoProgram*> m_bluePrograms;
@@ -44,11 +46,11 @@ private:
 
   std::vector<std::string> m_displayProgramNames;
 
-  int updateDisplayText();
+  int displayRedAuto();
+  int displayBlueAuto();
+  int displaySkillsAuto();
+  
 public:
-  int m_selectedProgramNumber;
-  AutonomousSide m_autoSide = AUTO_NONE;
-
   Autonomous(Robot& p_robot);
 
   int addProgram(AutoProgram& p_program);
