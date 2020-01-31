@@ -55,7 +55,8 @@ private:
   int calculateDirection(const int p_value);
   int calculateDirection(const double p_value);
 
-  ExternalFile m_debug;
+  ExternalFile m_debug1;
+  //ExternalFile m_debug2;
 
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);

@@ -2,7 +2,7 @@
 #include "robotClass.hpp"
 
 Odometry::Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder):
-m_robot(p_robot), m_debug("OdometryDebuggin.txt"){
+m_robot(p_robot), m_debug1("OdometryDebugging_1.txt"){
   if(Encoder::findEncoder(p_leftEncoder) == NULL)
     m_leftEncoder = new Encoder(m_robot, p_leftEncoder, 1, false);
   else
@@ -84,56 +84,6 @@ double Odometry::getOrientation(){
   return m_orientation;
 }
 
-double Odometry::getOrientationChange(){
-  if(m_timer.preformAction()){
-    m_velocityLeft = m_leftEncoder->getVelocity();
-    m_velocityRight = m_rightEncoder->getVelocity();
-    m_radiusAvg = ((getRadiusLeft(m_velocityLeft,m_velocityRight)+m_trackingDistanceLeft)+ (getRadiusRight(m_velocityLeft,m_velocityRight)-m_trackingDistanceRight))/2;
-    m_radiusLeft = m_radiusAvg - m_trackingDistanceLeft;
-    m_radiusRight = m_radiusAvg + m_trackingDistanceRight;
-    m_velocityAvg = (m_velocityLeft+m_velocityRight)/2;
-
-    m_currentOrientationTime = m_timer.getTime() / 1000.0;// Problem Line
-    m_timeChange = m_currentOrientationTime - m_previousOrientationTime;
-    m_previousOrientationTime = m_currentOrientationTime;
-
-    if(fabs(m_radiusLeft) < 0.0001)
-        m_radiusLeft = 0;
-    if(fabs(m_radiusRight) < 0.0001)
-        m_radiusRight = 0;
-
-    if(m_velocityLeft == m_velocityRight){
-      m_orientationChange = 0;
-      m_radiusLeft = 0;
-      m_radiusRight = 0;
-      m_turnType = "Not Turning";
-    }
-    else if(m_radiusAvg == 0 || m_velocityAvg == 0){// Point and Extreme Opposed
-      m_orientationChange = ((180)*(fabs(m_velocityLeft)+fabs(m_velocityRight))*(m_timeChange))/((M_PI)*(fabs(m_radiusLeft)+fabs(m_radiusRight)));
-      m_orientationChange *= (m_velocityLeft/fabs(m_velocityLeft));
-      m_turnType = "Extreme Opposed";
-    }
-    else if(m_velocityLeft == 0 || m_velocityRight == 0){//Extreme Arc Turn Right
-      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
-      m_turnType = "Extreme Arc";
-    }
-    else if(m_velocityLeft/fabs(m_velocityLeft) == m_velocityRight/fabs(m_velocityRight)){// Arc
-      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
-      m_turnType = "Arc";
-    }
-    else if(m_velocityLeft/fabs(m_velocityLeft) != m_velocityRight/fabs(m_velocityRight)){// Opposed
-      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
-      m_turnType = "Opposed";
-    }
-    else{
-        m_orientationChange = 404;
-        m_turnType = "Error";
-    }
-    m_timer.addActionDelay(250);
-  }
-  return m_orientationChange;
-}
-
 double Odometry::getOrientationVelocity(){
   // m_currentOrientationVelocityTime = m_timer.getTime();
   // m_currentOrientation = getOrientation();
@@ -174,43 +124,6 @@ double Odometry::setYposition(const double p_yPosition){
   return 0;
 }
 
-int Odometry::defineGUI(const std::string p_returnScreen){
-  graphicalInterface& l_gui = m_robot.m_gui;
-  m_leftEncoder->defineGUI(l_gui, "Odometry");
-  m_centerEncoder->defineGUI(l_gui, "Odometry");
-  m_rightEncoder->defineGUI(l_gui, "Odometry");
-
-  l_gui.addScreen(m_name);
-  l_gui.addLabel(m_name, 200, 10, redText, m_name);
-  l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
-
-  l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientation);
-  l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
-  l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %f", &m_xPosition);
-  l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %f", &m_xVelocity);
-  l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %f", &m_yPosition);
-  l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %f", &m_yVelocity);
-
-  // l_gui.addLabel(m_name, 20, 75, whiteText, "Left Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_leftEncoder));
-  // l_gui.addLabel(m_name, 20, 100, whiteText, "Right Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_rightEncoder));
-  // l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_radiusLeft);
-  // l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_radiusRight);
-  // l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_radiusAvg);
-  //l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
-  //l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_timeChange);
-
-  l_gui.addButton(m_name, m_leftEncoder->getName(), 300, 60, 140, 30);
-  l_gui.addButtonScreenChange(m_name, m_leftEncoder->getName(), m_leftEncoder->getName());
-  l_gui.addButton(m_name, m_centerEncoder->getName(), 300, 100, 140, 30);
-  l_gui.addButtonScreenChange(m_name, m_centerEncoder->getName(), m_centerEncoder->getName());
-  l_gui.addButton(m_name, m_rightEncoder->getName(), 300, 140, 140, 30);
-  l_gui.addButtonScreenChange(m_name, m_rightEncoder->getName(), m_rightEncoder->getName());
-
-  l_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
-  l_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
-  return 0;
-}
-
 double Odometry::orientationConverter(const double p_angle){
   double l_orientation = 0;
   if(0 <= p_angle && p_angle < 360)// Detects if Angle is withen desired bounds
@@ -227,7 +140,6 @@ double Odometry::orientationConverter(const double p_angle){
 int Odometry::calculateDirection(const int p_value){
   return abs(p_value)/p_value;
 }
-
 int Odometry::calculateDirection(const double p_value){
   return fabs(p_value)/p_value;
 }
@@ -270,15 +182,103 @@ int Odometry::calculatePosition(){
   m_yVelocity = sin((l_totalAngle*M_PI)/180) * l_relativeMovementVelocity;
 
   if(m_timer.getTime() > 5000){
-    m_debug.addLine("X Vel: " + std::to_string(m_xVelocity) + "X Lap Time: " + std::to_string((m_timer.lapTime(1)/1000.0)) + ", Y Vel: " + std::to_string(m_yVelocity) + "Y Time: " + std::to_string((m_timer.lapTime(2)/1000.0)));
+    //m_debug1.addLine("X Vel: " + std::to_string(m_xVelocity) + "X Lap Time: " + std::to_string((m_timer.lapTime(5)/1000.0)) + ", Y Vel: " + std::to_string(m_yVelocity) + "Y Time: " + std::to_string((m_timer.lapTime(6)/1000.0)));
     m_xPosition += m_xVelocity * ((double)m_timer.lapTime(1)/1000.0);
     m_yPosition += m_yVelocity * ((double)m_timer.lapTime(2)/1000.0);
   }
   return 0;
 }
 
+double Odometry::getOrientationChange(){
+  if(m_timer.preformAction()){
+    m_velocityLeft = m_leftEncoder->getVelocity();
+    m_velocityRight = m_rightEncoder->getVelocity();
+    m_radiusAvg = ((getRadiusLeft(m_velocityLeft,m_velocityRight)+m_trackingDistanceLeft)+ (getRadiusRight(m_velocityLeft,m_velocityRight)-m_trackingDistanceRight))/2;
+    m_radiusLeft = m_radiusAvg - m_trackingDistanceLeft;
+    m_radiusRight = m_radiusAvg + m_trackingDistanceRight;
+    m_velocityAvg = (m_velocityLeft+m_velocityRight)/2;
+
+
+    m_timeChange = m_timer.lapTime(3);
+
+    if(fabs(m_radiusLeft) < 0.0001)
+        m_radiusLeft = 0;
+    if(fabs(m_radiusRight) < 0.0001)
+        m_radiusRight = 0;
+
+    if(m_velocityLeft == m_velocityRight){
+      m_orientationChange = 0;
+      m_radiusLeft = 0;
+      m_radiusRight = 0;
+      m_turnType = "Not Turning";
+    }
+    else if(m_radiusAvg == 0 || m_velocityAvg == 0){// Point and Extreme Opposed
+      m_orientationChange = ((180)*(fabs(m_velocityLeft)+fabs(m_velocityRight))*(m_timeChange))/((M_PI)*(fabs(m_radiusLeft)+fabs(m_radiusRight)));
+      m_orientationChange *= (m_velocityLeft/fabs(m_velocityLeft));
+      m_turnType = "Extreme Opposed";
+    }
+    else if(m_velocityLeft == 0 || m_velocityRight == 0){//Extreme Arc Turn Right
+      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Extreme Arc";
+    }
+    else if(m_velocityLeft/fabs(m_velocityLeft) == m_velocityRight/fabs(m_velocityRight)){// Arc
+      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Arc";
+    }
+    else if(m_velocityLeft/fabs(m_velocityLeft) != m_velocityRight/fabs(m_velocityRight)){// Opposed
+      m_orientationChange = (m_velocityAvg*m_timeChange*360)/(2*M_PI*m_radiusAvg);
+      m_turnType = "Opposed";
+    }
+    else{
+        m_orientationChange = 404;
+        m_turnType = "Error";
+    }
+    m_timer.addActionDelay(250);
+  }
+  m_debug2.addLine("Vel L: " + std::to_string(m_xVelocity) + "Radius L: " + std::to_string(m_radiusLeft) + ", Vel R: " + std::to_string(m_velocityRight) + "Radius R: " + std::to_string(m_radiusRight));
+  return m_orientationChange;
+}
+
+
 int Odometry::task(){
   m_orientation = 0;
   calculatePosition();
+  return 0;
+}
+
+int Odometry::defineGUI(const std::string p_returnScreen){
+  graphicalInterface& l_gui = m_robot.m_gui;
+  m_leftEncoder->defineGUI(l_gui, "Odometry");
+  m_centerEncoder->defineGUI(l_gui, "Odometry");
+  m_rightEncoder->defineGUI(l_gui, "Odometry");
+
+  l_gui.addScreen(m_name);
+  l_gui.addLabel(m_name, 200, 10, redText, m_name);
+  l_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);
+
+  // l_gui.addLabel(m_name, 20, 50, whiteText, "Orientation: %f Deg", &m_orientation);
+  // l_gui.addLabel(m_name, 20, 75, whiteText, "Orientation Velocity: %d", (std::function<int()>)std::bind(&Odometry::getOrientationVelocity, this));
+  // l_gui.addLabel(m_name, 20, 100, whiteText, "Current XPosition: %f", &m_xPosition);
+  // l_gui.addLabel(m_name, 20, 125, whiteText, "Velocity of XPosition: %f", &m_xVelocity);
+  // l_gui.addLabel(m_name, 20, 150, whiteText, "Current YPosition: %f", &m_yPosition);
+  // l_gui.addLabel(m_name, 20, 175, whiteText, "Velocity of YPosition: %f", &m_yVelocity);
+
+  l_gui.addLabel(m_name, 20, 75, whiteText, "Left Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_leftEncoder));
+  l_gui.addLabel(m_name, 20, 100, whiteText, "Right Velocity: %d", (std::function<int()>)std::bind(&Encoder::getVelocity, m_rightEncoder));
+  l_gui.addLabel(m_name, 20, 125, whiteText, "Left Radius: %f", &m_radiusLeft);
+  l_gui.addLabel(m_name, 20, 150, whiteText, "Right Radius: %f", &m_radiusRight);
+  l_gui.addLabel(m_name, 20, 175, whiteText, "Average Radius: %f", &m_radiusAvg);
+  l_gui.addLabel(m_name, 20, 200, whiteText, "Time: %d", (std::function<int()>)std::bind(&Timer::getTime, m_timer));
+  l_gui.addLabel(m_name, 20, 200, whiteText, "T %f", &m_timeChange);
+
+  l_gui.addButton(m_name, m_leftEncoder->getName(), 300, 60, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_leftEncoder->getName(), m_leftEncoder->getName());
+  l_gui.addButton(m_name, m_centerEncoder->getName(), 300, 100, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_centerEncoder->getName(), m_centerEncoder->getName());
+  l_gui.addButton(m_name, m_rightEncoder->getName(), 300, 140, 140, 30);
+  l_gui.addButtonScreenChange(m_name, m_rightEncoder->getName(), m_rightEncoder->getName());
+
+  l_gui.addButton(m_name, "Go Back", 160, 200, 150, 20);
+  l_gui.addButtonScreenChange(m_name, "Go Back", p_returnScreen);
   return 0;
 }
