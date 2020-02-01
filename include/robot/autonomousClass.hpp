@@ -12,6 +12,34 @@ enum AutonomousSide{
   AUTO_NONE = 3
 };
 
+struct autoBaseEvent{
+public:
+  int m_actionDelay = 0;
+  double m_desiredXPosition = 0;
+  double m_desiredYPosition = 0;
+  double m_desiredOrientation = 0;
+  short m_maximumVelocity = 0;
+  pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+};
+
+struct autoArmEvent{
+public:
+  int m_actionDelay = 0;
+  double m_desiredPosition = 0;
+  short m_maximumVelocity = 0;
+  pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+};
+
+struct autoIntakeEvent{
+public:
+  int m_actionDelay = 0;
+  int m_desiredDuration = 0;
+  double m_desiredPosition = 0;
+  short m_maximumVelocity = 0;
+  bool m_duration = true;
+  pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+};
+
 class AutoProgram{
 private:
   std::string m_name;
@@ -49,15 +77,17 @@ private:
   int displayRedAuto();
   int displayBlueAuto();
   int displaySkillsAuto();
-  
+
 public:
   Autonomous(Robot& p_robot);
 
   int addProgram(AutoProgram& p_program);
 
-  AutoProgram* findProgram(const std::string p_name, const AutonomousSide p_autoSide);
+  AutoProgram* findProgram(const int p_number, const AutonomousSide p_autoSide);
 
   int defineGUI(const std::string p_returnScreenID);
+
+  int autoProgramDaemon();
 
   int task();
 

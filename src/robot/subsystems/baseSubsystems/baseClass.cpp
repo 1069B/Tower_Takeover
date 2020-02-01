@@ -123,8 +123,8 @@ int Base::driverControl(){
       break;
   }
 
-  if(m_trackingSystem)
-    m_trackingWheels->getOrientation();
+  //if(m_trackingSystem)
+    //m_trackingWheels->getOrientation();
   return 0;
 }
 

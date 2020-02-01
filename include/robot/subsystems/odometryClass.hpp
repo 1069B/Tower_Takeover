@@ -24,7 +24,7 @@ private:
 	double m_radiusRight = 0;
 	double m_radiusAvg = 0;
 
-	double m_orientationChange = 0;
+	double m_orientationVelocity = 0;
 	double m_velocityLeft = 0;
 	double m_velocityRight = 0;
 	double m_velocityAvg = 0;
@@ -48,22 +48,23 @@ private:
 	double m_trackingDistanceLeft = 13.496;//Units in cm
 	double m_trackingDistanceRight = 12.859;//Units in cm
 
-  int calculatePosition();
-
   double orientationConverter(const double p_angle);
 
   int calculateDirection(const int p_value);
   int calculateDirection(const double p_value);
 
-  ExternalFile m_debug1;
-  //ExternalFile m_debug2;
+  int calculatePosition();
+  int calculateOrientation();
+
+  ExternalFile m_translationDebug;
+  ExternalFile m_OrientationDebug;
+
+
 
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);
 
   double getOrientation();
-
-  double getOrientationChange();
 
   double getOrientationVelocity();
 

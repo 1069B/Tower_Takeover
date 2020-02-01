@@ -11,7 +11,7 @@ private:
 public:
     static bool SDCardIsInserted();
 
-    ExternalFile(const std::string p_address);
+    ExternalFile(const std::string p_address, const bool p_erase = false);
 
     int addLine(const std::string p_lineValue);
     int updateLine(const std::string p_varibleTitle, const std::string p_lineValue);

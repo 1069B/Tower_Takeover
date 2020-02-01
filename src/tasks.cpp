@@ -23,7 +23,7 @@ void opcontrol(){
   pros::delay(5);
   while(true){
     robot.task();
-    // robot.driverControl();
-    pros::delay(5);
+    robot.driverControl();
+    pros::delay(2);
   }
 }

@@ -29,12 +29,10 @@ int Timer::getTime(){
 
 int Timer::lapTime(const int p_lapVersion){
   m_currentTime = pros::millis() - m_startTime;
-  if(m_previousLapTime.size() <= p_lapVersion){
-    int l_arrayAddition = ((m_previousLapTime.size()+1)-p_lapVersion);
-    for(int x = 0; x < l_arrayAddition; x++){
-      m_previousLapTime.push_back(0);
-    }
+  if(m_previousLapTime.size()-1 < p_lapVersion){
+    m_previousLapTime.resize(p_lapVersion+1, 0);
   }
+  
   int lapDuration = m_currentTime - m_previousLapTime.at(p_lapVersion);
   m_previousLapTime.at(p_lapVersion) = m_currentTime;
   return lapDuration;
@@ -42,14 +40,11 @@ int Timer::lapTime(const int p_lapVersion){
 
 bool Timer::preformAction(const int p_actionVersion){
   m_currentTime = pros::millis() - m_startTime;
-  if(m_nextFlag.size() <= p_actionVersion){
-    int l_arrayAddition = ((m_nextFlag.size()+1)-p_actionVersion);
-    for(int x = 0; x< l_arrayAddition; x++){
-      m_nextFlag.push_back(INT_MAX);
-    }
+  if(m_nextFlag.size()-1 < p_actionVersion){
+    m_nextFlag.resize(p_actionVersion+1, INT_MAX);
   }
 
-  if(m_currentTime+1 >= m_nextFlag.at(p_actionVersion))//Plus 2 for 2 millisec threshold
+  if(m_currentTime >= m_nextFlag.at(p_actionVersion))//Plus 2 for 2 millisec threshold
     return true;
   else
     return false;
@@ -57,12 +52,8 @@ bool Timer::preformAction(const int p_actionVersion){
 
 int Timer::addActionDelay(const int p_delay, const int p_actionVersion){
   m_currentTime = pros::millis() - m_startTime;
-
-  if(m_nextFlag.size() <= p_actionVersion){
-    int l_arrayAddition = ((m_nextFlag.size()+1)-p_actionVersion);
-    for(int x = 0; x< l_arrayAddition; x++){
-      m_nextFlag.push_back(INT_MAX);
-    }
+  if(m_nextFlag.size()-1 < p_actionVersion){
+    m_nextFlag.resize(p_actionVersion+1, INT_MAX);
   }
 
   m_nextFlag.at(p_actionVersion) = m_currentTime + p_delay;

@@ -13,10 +13,10 @@ bool ExternalFile::SDCardIsInserted(){
   return false;
 }
 
-ExternalFile::ExternalFile(const std::string p_address){
+ExternalFile::ExternalFile(const std::string p_address, const bool p_erase){
     m_fileAddress = "/usd/" + p_address;
     m_file.open(m_fileAddress, std::ios::in);
-    if(m_file.is_open()){
+    if(!p_erase && m_file.is_open()){
         m_file.close();
     }
     else{

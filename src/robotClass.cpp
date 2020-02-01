@@ -39,7 +39,6 @@ int Robot::task(){
 
   m_tray.task();
   m_slider.task();
-
   m_base.driverControl();
   m_leftIntake.driverControl();
   m_rightIntake.driverControl();

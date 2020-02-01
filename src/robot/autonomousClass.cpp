@@ -11,22 +11,22 @@ std::string AutoProgram::getName(){
 }
 
 Autonomous::Autonomous(Robot& p_robot):m_robot(p_robot){
-  m_blueProgramNames.resize(6);
-  m_redProgramNames.resize(6);
-  m_skillsProgramNames.resize(6);
-  m_displayProgramNames.resize(6);
-  for(int x = 0; x < 6; x++){
-    m_blueProgramNames.at(0) = "Not Defined";
-    m_redProgramNames.at(0) = "Not Defined";
-    m_skillsProgramNames.at(0) = "Not Defined";
-    m_displayProgramNames.at(0) = "Not Defined";
-  }
+  m_bluePrograms.resize(6, NULL);
+  m_blueProgramNames.resize(6, "Not Defined");
+  m_redPrograms.resize(6, NULL);
+  m_redProgramNames.resize(6, "Not Defined");
+  m_skillsPrograms.resize(6, NULL);
+  m_skillsProgramNames.resize(6, "Not Defined");
+  m_displayProgramNames.resize(6, "Not Defined");
+
+  m_robot.getTaskScheduler().addTask("Autonomous_Task", std::bind(&Autonomous::task,this), 25, TASK_ALWAYS);
+  m_robot.getTaskScheduler().addTask("Autonomous_Dameon", std::bind(&Autonomous::autoProgramDaemon,this), 25, TASK_DURING_AUTO);
 }
 
 int Autonomous::addProgram(AutoProgram& p_program){
   switch ((int)p_program.getAutoSide()) {
     case AUTO_RED:
-      m_redPrograms.push_back(&p_program);
+      m_redPrograms.at(p_program.getProgramNumber()) = &p_program;
       m_redProgramNames.at(p_program.getProgramNumber()) = p_program.getName();
       break;
     case AUTO_BLUE:
@@ -45,36 +45,30 @@ int Autonomous::displayRedAuto(){
   m_displayProgramNames = m_redProgramNames;
   return AUTO_RED;
 }
-
 int Autonomous::displayBlueAuto(){
   m_displayProgramNames = m_blueProgramNames;
   return AUTO_BLUE;
 }
-
 int Autonomous::displaySkillsAuto(){
   m_displayProgramNames = m_skillsProgramNames;
   return AUTO_SKILLS;
 }
 
-AutoProgram* Autonomous::findProgram(const std::string p_name, const AutonomousSide p_autoSide){
-  switch ((int)p_autoSide) {
-    case AUTO_RED:
-      for(int x = 0; x < m_redPrograms.size(); x++)
-        if(m_redPrograms.at(x)->getName() == p_name)
-          return m_redPrograms.at(x);
-      break;
-    case AUTO_BLUE:
-      for(int x = 0; x < m_bluePrograms.size(); x++)
-        if(m_bluePrograms.at(x)->getName() == p_name)
-          return m_bluePrograms.at(x);
-      break;
-    case AUTO_SKILLS:
-      for(int x = 0; x < m_skillsPrograms.size(); x++)
-        if(m_skillsPrograms.at(x)->getName() == p_name)
-          return m_skillsPrograms.at(x);
-      break;
+AutoProgram* Autonomous::findProgram(const int p_number, const AutonomousSide p_autoSide){
+  if(p_number >=0 && p_number <=5){
+    switch ((int)p_autoSide) {
+      case AUTO_RED:
+          return m_redPrograms.at(p_number);
+        break;
+      case AUTO_BLUE:
+          return m_bluePrograms.at(p_number);
+        break;
+      case AUTO_SKILLS:
+          return m_skillsPrograms.at(p_number);
+        break;
+    }
   }
-  return NULL;
+  return new AutoProgram("Error", AUTO_NONE, 0);
 }
 
 int Autonomous::defineGUI(const std::string p_returnScreenID){
@@ -86,19 +80,22 @@ int Autonomous::defineGUI(const std::string p_returnScreenID){
 
   l_gui.addButton("Autonomous_Side_Selector", "Red", 75, 50, 140, 30);
   l_gui.addButtonScreenChange("Autonomous_Side_Selector", "Red", "Autonomous_Program_Selector");
-  l_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Red", &m_autoSide, (std::function<int()>)std::bind(&Autonomous::displayBlueAuto, this));
+  l_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Red", &m_autoSide, AUTO_RED);
+  l_gui.addButtonRunFunction("Autonomous_Side_Selector", "Red", std::bind(&Autonomous::displayRedAuto, this));
 
   l_gui.addButton("Autonomous_Side_Selector", "Blue", 75, 100, 140, 30);
   l_gui.addButtonScreenChange("Autonomous_Side_Selector", "Blue", "Autonomous_Program_Selector");
   l_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Blue", &m_autoSide, AUTO_BLUE);
+  l_gui.addButtonRunFunction("Autonomous_Side_Selector", "Blue", std::bind(&Autonomous::displayBlueAuto, this));
 
   l_gui.addButton("Autonomous_Side_Selector", "Skills", 75, 150, 140, 30);
   l_gui.addButtonScreenChange("Autonomous_Side_Selector", "Skills", "Autonomous_Program_Selector");
   l_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Skills", &m_autoSide, AUTO_SKILLS);
+  l_gui.addButtonRunFunction("Autonomous_Side_Selector", "Skills", std::bind(&Autonomous::displaySkillsAuto, this));
 
   /* Auto Selector*/
   l_gui.addScreen("Autonomous_Program_Selector");
-  l_gui.addLabel("Autonomous_Program_Selector", 200, 10, redText, "Autonomous Selector");
+  l_gui.addLabel("Autonomous_Program_Selector", 200, 10, redText, "Select the Desired Routine");
   l_gui.addRectangle("Autonomous_Program_Selector", 0, 0, 480, 40, whiteText);
 
   l_gui.addButton("Autonomous_Program_Selector", "Button_0", 75, 50, 140, 30);
@@ -136,6 +133,10 @@ int Autonomous::defineGUI(const std::string p_returnScreenID){
   l_gui.addButtonScreenChange("Select_Confermation", "Confirm", "Home");
 
 
+  return 0;
+}
+
+int Autonomous::autoProgramDaemon(){
   return 0;
 }
 
