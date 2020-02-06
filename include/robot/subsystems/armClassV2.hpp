@@ -1,11 +1,10 @@
-#include "robot/devices/motorClass.hpp"
-#include "robot/devices/controller/controllerClass.hpp"
-#include "robot/graphical/GUIClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
 
 class Robot;
 
-#ifndef ARMCLASS_H
-#define ARMCLASS_H
+#ifndef ARMCLASSV2_H
+#define ARMCLASSV2_H
 
 class ArmV2 {
 private:
@@ -18,4 +17,4 @@ public:
   int task();
 };
 
-#endif // LIFTCLASS_H
+#endif // ARMCLASSV2_H

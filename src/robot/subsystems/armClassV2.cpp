@@ -6,8 +6,8 @@ ArmV2::ArmV2(Robot& p_robot) : m_robot(p_robot){
 }
 
 int ArmV2::task(){
-  switch (m_robot.getRobotMode()) {
-    case /* value */:
+  switch ((int)m_robot.getCompMode()) {
+    case :
   }
   return 0;
 }
