@@ -28,7 +28,7 @@ private:
   Intake m_leftIntake;
   Intake m_rightIntake;
 
-  std::string m_compMode;
+  RobotMode m_robotMode;
 
   int defineGUI();
   friend class Base;
@@ -47,6 +47,8 @@ public:
   int disabled();
 
   TaskScheduler& getTaskScheduler();
+
+  RobotMode getRobotMode();
 };
 
 #endif // ROBOTCLASS_H

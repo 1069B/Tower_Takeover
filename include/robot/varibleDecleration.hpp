@@ -4,6 +4,12 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+enum RobotMode{
+    ROBOT_AUTO = 0,
+    ROBOT_OPERATER = 1,
+    ROBOT_DISABLED = 2
+};
+
 enum CompMode{
     TASK_AUTO = 0,
     TASK_OPERATER = 1,

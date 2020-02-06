@@ -14,10 +14,10 @@ Robot::Robot():
   m_rightIntake(*this),
   m_taskScheduler(*this, "MainTaskScheduler")
   {
-    if(m_config.varExist("Comp_Mode"))
-      m_compMode = m_config.readString("Comp_Mode");
-    else
-      m_compMode = "DriverControl";
+    // if(m_config.varExist("Comp_Mode"))
+    //   m_robotMode = m_config.readString("Comp_Mode");
+    // else
+    //   m_robotMode = "DriverControl";
 
     m_base.initialize();
 
@@ -107,4 +107,8 @@ int Robot::disabled(){
   m_slider.setVelocity(0);
   m_slider.setBrake(MOTOR_BRAKE_COAST);
   return 0;
+}
+
+RobotMode Robot::getRobotMode(){
+  return m_robotMode;
 }
