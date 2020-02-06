@@ -1,17 +1,19 @@
-#include "robot/graphical/GUIClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 #include "robot/devices/controller/controllerClass.hpp"
-#include "robot/subsystems/baseClass.hpp"
+#include "robot/devices/taskScheduleClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
 #include "robot/subsystems/armClass.hpp"
 #include "robot/subsystems/intakeClass.hpp"
-#include "robot/devices/taskScheduleClass.hpp"
-#include "robot/autonomousClass.hpp"
+#include "robot/subsystems/baseClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
 
 class Robot{
 private:
-  graphicalInterface m_gui;
+  GraphicalInterface m_gui;
   Controller m_mainController;
   Controller m_partnerController;
   Timer m_timer;
@@ -36,7 +38,7 @@ public:
 
   int task();
 
-  graphicalInterface& getGUI();
+  GraphicalInterface& getGUI();
 
   int driverControl();
 

@@ -1,4 +1,6 @@
 #include "robot/subsystems/baseClass.hpp"
+#include "robot/subsystems/odometryClass.hpp"
+#include "robot/devices/motorClass.hpp"
 #include "robotClass.hpp"
 
 Base::Base(Robot& p_robot, BaseType p_baseType, BaseMode p_baseMode, bool p_trackingSystem):
@@ -98,6 +100,11 @@ int Base::autonomous(){
       break;
   }
   return 0;
+}
+
+int Base::setAutonomousParameters(const double p_desiredXPosition, const double p_desiredYPosition, const double p_desiredOrientation, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode){
+
+  return 1;
 }
 
 int Base::driverControl(){

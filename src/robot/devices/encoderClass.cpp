@@ -1,4 +1,7 @@
+#include "robot/devices/encoderClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 #include "robotClass.hpp"
+
 
 ExternalFile Encoder::s_config("Encoder_Config.txt");
 ExternalFile Encoder::s_debug("Encoder_Debug.txt");
@@ -75,7 +78,7 @@ std::string Encoder::getName(){
   return m_name;
 }
 
-int Encoder::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
+int Encoder::defineGUI(GraphicalInterface& p_gui, const std::string p_returnScreen){
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 200, 10, redText, m_name);
   p_gui.addRectangle(m_name, 0, 0, 480, 40, whiteText);

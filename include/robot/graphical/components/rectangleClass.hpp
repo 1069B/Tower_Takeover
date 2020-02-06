@@ -1,9 +1,7 @@
-#include "passInfo.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef RECTANGLECLASS_H
 #define RECTANGLECLASS_H
-
-class Screen;
 
 class Rectangle{
 private:

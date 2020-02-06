@@ -1,4 +1,5 @@
 #include "robot/subsystems/baseClass.hpp"
+#include "robot/devices/motorClass.hpp"
 #include "robotClass.hpp"
 
 int Base::initializeHolonomic(std::string p_frontLeftMotor, std::string p_frontRightMotor, std::string p_backLeftMotor, std::string p_backRightMotor){

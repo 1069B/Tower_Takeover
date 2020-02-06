@@ -1,4 +1,6 @@
 #include "robotClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
+
 
 Timer::Timer(const bool p_mode){// False is system time
   if(p_mode){
@@ -32,7 +34,7 @@ int Timer::lapTime(const int p_lapVersion){
   if(m_previousLapTime.size()-1 < p_lapVersion){
     m_previousLapTime.resize(p_lapVersion+1, 0);
   }
-  
+
   int lapDuration = m_currentTime - m_previousLapTime.at(p_lapVersion);
   m_previousLapTime.at(p_lapVersion) = m_currentTime;
   return lapDuration;
@@ -60,7 +62,7 @@ int Timer::addActionDelay(const int p_delay, const int p_actionVersion){
   return 1;
 }
 
-int Timer::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
+int Timer::defineGUI(GraphicalInterface& p_gui, std::string p_returnScreen){
 
   return 0;
 }

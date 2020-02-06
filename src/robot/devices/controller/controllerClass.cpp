@@ -1,4 +1,5 @@
 #include "robot/devices/controller/controllerClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
 
 Controller::Controller(const pros::controller_id_e_t p_type):
   ButtonL1(ControlBtn(p_type, pros::E_CONTROLLER_DIGITAL_L1)),
@@ -24,7 +25,7 @@ Controller::Controller(const pros::controller_id_e_t p_type):
   m_controllerType = p_type;
 }
 
-int Controller::defineGUI(graphicalInterface& p_gui, std::string p_returnScreen){
+int Controller::defineGUI(GraphicalInterface& p_gui, std::string p_returnScreen){
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 75, 10, redText, m_name);
   p_gui.addLabel(m_name, 300, 10, redText, "Battery: %d%", (std::function<int()>) std::bind(&Controller::getBatteryCapacity, this));

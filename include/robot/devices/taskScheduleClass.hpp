@@ -1,22 +1,9 @@
+#include "robot/varibleDecleration.hpp"
 #include "timerClass.hpp"
 #include "externalFileClass.hpp"
 
 #ifndef TASKSCHEDCLASS_H
 #define TASKSCHEDCLASS_H
-
-class Robot;
-
-enum CallType{
-    TASK_DURING_AUTO = 0,
-    TASK_DURING_OPERATER = 1,
-    TASK_ALWAYS = 2
-};
-
-enum CompMode{
-    TASK_AUTO = 0,
-    TASK_OPERATER = 1,
-    TASK_DISABLED = 2
-};
 
 struct SubTask{
 private:

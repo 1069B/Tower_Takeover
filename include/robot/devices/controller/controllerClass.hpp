@@ -1,6 +1,6 @@
-#include "controlBtnClass.hpp"
+#include "robot/varibleDecleration.hpp"
 #include "controlAxisClass.hpp"
-#include "robot/graphical/GUIClass.hpp"
+#include "controlBtnClass.hpp"
 
 #ifndef CONTROLLERCLASS_H
 #define CONTROLLERCLASS_H
@@ -47,6 +47,6 @@ public:
 
   void callBackCheck();
 
-  int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
+  int defineGUI(GraphicalInterface& p_gui, std::string p_returnScreen);
 };
 #endif // CONTROLLERCLASS_H

@@ -1,4 +1,5 @@
 #include "robot/subsystems/odometryClass.hpp"
+#include "robot/devices/encoderClass.hpp"
 #include "robotClass.hpp"
 
 Odometry::Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder):
@@ -252,7 +253,7 @@ int Odometry::task(){
 }
 
 int Odometry::defineGUI(const std::string p_returnScreen){
-  graphicalInterface& l_gui = m_robot.m_gui;
+  GraphicalInterface& l_gui = m_robot.m_gui;
   m_leftEncoder->defineGUI(l_gui, "Odometry");
   m_centerEncoder->defineGUI(l_gui, "Odometry");
   m_rightEncoder->defineGUI(l_gui, "Odometry");

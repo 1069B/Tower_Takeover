@@ -1,3 +1,5 @@
+#include "robot/graphical/components/rectangleClass.hpp"
+#include "robot/graphical/components/passInfo.hpp"
 #include "robot/graphical/screenClass.hpp"
 
 Rectangle::Rectangle(const PassInfo& p_info, Screen& p_screen): m_screen(p_screen){

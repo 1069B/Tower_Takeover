@@ -1,4 +1,6 @@
 #include "robot/devices/motorClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 
 ExternalFile Motor::s_config("Motor_Config.txt");
 std::vector<Motor*> Motor::s_motorArray;
@@ -39,7 +41,7 @@ Motor::Motor(const std::string p_name, const short p_input, const pros::motor_ge
   s_motorArray.push_back(this);
 }
 
-int Motor::defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen){
+int Motor::defineGUI(GraphicalInterface& p_gui, const std::string p_returnScreen){
   setStrings();
   p_gui.addScreen(m_name);
   p_gui.addLabel(m_name, 200, 10, redText, m_name);

@@ -1,4 +1,36 @@
+#include "robot/autonomousClass.hpp"
 #include "robotClass.hpp"
+
+AutoBaseEvent::AutoBaseEvent(Base &p_base, const int p_delay, const double p_desiredXPosition, const double p_desiredYPosition, const double p_desiredOrientation, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode):m_base(p_base) {
+  m_actionDelay = p_delay;
+  m_desiredXPosition = p_desiredXPosition;
+  m_desiredYPosition = p_desiredYPosition;
+  m_desiredYPosition = p_desiredYPosition;
+  m_maximumVelocity = p_maximumVelocity;
+  m_endBrakeMode = p_endBrakeMode;
+}
+
+AutoArmEvent::AutoArmEvent(Arm &p_arm, const int p_delay, const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode):m_arm(p_arm){
+  m_actionDelay = p_delay;
+  m_desiredPosition = p_desiredPosition;
+  m_maximumVelocity = p_maximumVelocity;
+  m_endBrakeMode = p_endBrakeMode;
+}
+
+AutoIntakeEvent::AutoIntakeEvent(Intake &p_intake, const int p_delay, const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode):m_intake(p_intake){
+  m_actionDelay = p_delay;
+  m_desiredPosition = p_desiredPosition;
+  m_maximumVelocity = p_maximumVelocity;
+  m_endBrakeMode = p_endBrakeMode;
+  m_duration = false;
+}
+AutoIntakeEvent::AutoIntakeEvent(Intake &p_intake, const int p_delay, const int p_desiredDuration, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode):m_intake(p_intake){
+  m_actionDelay = p_delay;
+  m_desiredDuration = p_desiredDuration;
+  m_maximumVelocity = p_maximumVelocity;
+  m_endBrakeMode = p_endBrakeMode;
+  m_duration = true;
+}
 
 AutoProgram::AutoProgram(const std::string p_name, const AutonomousSide p_autoSide, const int p_programNumber){
   m_name = p_name;
@@ -10,6 +42,21 @@ std::string AutoProgram::getName(){
   return m_name;
 }
 
+int AutoProgram::addBaseEvent(AutoBaseEvent& p_event){
+  m_baseEvents.push_back(p_event);
+  return 0;
+}
+
+int AutoProgram::addArmEvent(AutoArmEvent& p_event){
+  m_armEvents.push_back(p_event);
+  return 0;
+}
+
+int AutoProgram::addIntakeEvent(AutoIntakeEvent& p_event){
+  m_intakeEvents.push_back(p_event);
+  return 0;
+}
+
 Autonomous::Autonomous(Robot& p_robot):m_robot(p_robot){
   m_bluePrograms.resize(6, NULL);
   m_blueProgramNames.resize(6, "Not Defined");
@@ -19,7 +66,7 @@ Autonomous::Autonomous(Robot& p_robot):m_robot(p_robot){
   m_skillsProgramNames.resize(6, "Not Defined");
   m_displayProgramNames.resize(6, "Not Defined");
 
-  m_robot.getTaskScheduler().addTask("Autonomous_Task", std::bind(&Autonomous::task,this), 25, TASK_ALWAYS);
+  //m_robot.getTaskScheduler().addTask("Autonomous_Task", std::bind(&Autonomous::task,this), 25, TASK_ALWAYS);
   m_robot.getTaskScheduler().addTask("Autonomous_Dameon", std::bind(&Autonomous::autoProgramDaemon,this), 25, TASK_DURING_AUTO);
 }
 
@@ -54,6 +101,21 @@ int Autonomous::displaySkillsAuto(){
   return AUTO_SKILLS;
 }
 
+int Autonomous::confirmAuto(){
+  switch ((int)m_autoSide) {
+    case AUTO_RED:
+      m_selectedProgram = findProgram(m_selectedProgramNumber, AUTO_RED);
+      break;
+    case AUTO_BLUE:
+      m_selectedProgram = findProgram(m_selectedProgramNumber, AUTO_BLUE);
+      break;
+    case AUTO_SKILLS:
+      m_selectedProgram = findProgram(m_selectedProgramNumber, AUTO_SKILLS);
+      break;
+  }
+  return 0;
+}
+
 AutoProgram* Autonomous::findProgram(const int p_number, const AutonomousSide p_autoSide){
   if(p_number >=0 && p_number <=5){
     switch ((int)p_autoSide) {
@@ -72,7 +134,7 @@ AutoProgram* Autonomous::findProgram(const int p_number, const AutonomousSide p_
 }
 
 int Autonomous::defineGUI(const std::string p_returnScreenID){
-  graphicalInterface& l_gui = m_robot.getGUI();
+  GraphicalInterface& l_gui = m_robot.getGUI();
 
   l_gui.addScreen("Autonomous_Side_Selector");
   l_gui.addLabel("Autonomous_Side_Selector", 200, 10, redText, "Which Side Are You On?");
@@ -131,15 +193,57 @@ int Autonomous::defineGUI(const std::string p_returnScreenID){
   l_gui.addScreen("Select_Confermation", 40, 20, 400, 200, popupBackground);
   l_gui.addButton("Select_Confermation", "Confirm", 20, 50, 140, 30);
   l_gui.addButtonScreenChange("Select_Confermation", "Confirm", "Home");
+  l_gui.addButtonRunFunction("Select_Confermation", "Confirm", std::bind(&Autonomous::confirmAuto, this));
 
+  return 0;
+}
 
+int Autonomous::startProgram(){
+  if(m_selectedProgram != NULL){
+    if(m_selectedProgram->m_programStart){
+      m_selectedProgram->m_programStart = true;
+    }
+  }
   return 0;
 }
 
 int Autonomous::autoProgramDaemon(){
-  return 0;
-}
+  if(m_selectedProgram != NULL){
+    if(m_selectedProgram->m_programStart){
+      m_selectedProgram->m_programStart = false;
+      m_selectedProgram->m_programRunning = true;
 
-int Autonomous::task(){
+      m_selectedProgram->m_baseIteration = 0;
+      m_selectedProgram->m_armIteration = 0;
+      m_selectedProgram->m_intakeIteration = 0;
+
+      m_selectedProgram->m_autoTimer.resetTime();
+    }
+
+    if(m_selectedProgram->m_autoTimer.preformAction(0)){
+        m_selectedProgram->m_autoTimer.addActionDelay(0);
+        if(m_selectedProgram->m_baseEvents.size() > m_selectedProgram->m_baseIteration){
+          //m_robot.basse set parameters
+          m_selectedProgram->m_baseIteration++;
+        }
+    }
+
+    if(m_selectedProgram->m_autoTimer.preformAction(1)){
+        m_selectedProgram->m_autoTimer.addActionDelay(1);
+        if(m_selectedProgram->m_armEvents.size() > m_selectedProgram->m_armIteration){
+          //m_robot.arm set parameters
+          m_selectedProgram->m_armIteration++;
+        }
+    }
+
+    if(m_selectedProgram->m_autoTimer.preformAction(2)){
+        m_selectedProgram->m_autoTimer.addActionDelay(2);
+        if(m_selectedProgram->m_intakeEvents.size() > m_selectedProgram->m_intakeIteration){
+          //m_robot.basse set parameters
+          m_selectedProgram->m_intakeIteration++;
+        }
+    }
+
+  }
   return 0;
 }

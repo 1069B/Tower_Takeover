@@ -1,4 +1,5 @@
 #include "tasks.hpp"
+#include "robotClass.hpp"
 #include "robot/graphical/components/alertClass.hpp"
 
 Robot robot;

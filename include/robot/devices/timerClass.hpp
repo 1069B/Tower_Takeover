@@ -1,4 +1,4 @@
-#include "main.h"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef TIMERCLASS_H
 #define TIMERCLASS_H
@@ -23,6 +23,6 @@
 
     int addActionDelay(const int p_delay, const int p_actionVersion = 0);
 
-    int defineGUI(graphicalInterface& p_gui, std::string p_returnScreen);
+    int defineGUI(GraphicalInterface& p_gui, std::string p_returnScreen);
   };
 #endif // TIMERCLASS_H

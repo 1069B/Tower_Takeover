@@ -1,4 +1,4 @@
-#include "main.h"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef CONTROLAXISCLASS_H
 #define CONTROLAXISCLASS_H

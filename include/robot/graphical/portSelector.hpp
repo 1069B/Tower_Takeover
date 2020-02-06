@@ -1,9 +1,7 @@
-#include "screenClass.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef PORTSELECTOR
 #define PORTSELECTOR
-
-class Robot;
 
 struct PortSelector{
 private:

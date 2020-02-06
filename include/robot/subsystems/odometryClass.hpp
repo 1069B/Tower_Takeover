@@ -1,9 +1,9 @@
-#include "robot/devices/encoderClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 
 #ifndef ODOMETRYCLASS_H
 #define ODOMETRYCLASS_H
-
-class Robot;
 
 class Odometry{
 private:
@@ -58,8 +58,6 @@ private:
 
   ExternalFile m_translationDebug;
   ExternalFile m_OrientationDebug;
-
-
 
 public:
   Odometry(Robot& p_robot, const std::string p_leftEncoder, const std::string p_rightEncoder, const std::string p_centerEncoder);

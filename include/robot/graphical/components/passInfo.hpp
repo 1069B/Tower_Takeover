@@ -1,6 +1,4 @@
-#include "../styles.hpp"
-#include "robot/devices/externalFileClass.hpp"
-#include "robot/devices/timerClass.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef PASSINFO_H
 #define PASSINFO_H
@@ -23,7 +21,5 @@ struct PassInfo{
   lv_style_t *style1, *style2;
   lv_point_t *points;
 };
-
-class Screen;
 
 #endif //PASSINFO_H

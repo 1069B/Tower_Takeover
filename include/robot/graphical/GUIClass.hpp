@@ -1,9 +1,11 @@
-#include "screenClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
+#include "robot/devices/externalFileClass.hpp"
 
 #ifndef GUICLASS_H
 #define GUICLASS_H
 
-class graphicalInterface{
+class GraphicalInterface{
 private:
   std::vector<Screen*> m_screenArray;
   int m_noVersion = 0;// For screens with only one version
@@ -17,7 +19,7 @@ private:
   void updateScreen();
 
 public:
-  graphicalInterface(const std::string p_startingScreen="Home");
+  GraphicalInterface(const std::string p_startingScreen="Home");
 
   void addScreen(const std::string p_name, lv_style_t& p_style = defaultBackground);
   void addScreen(const std::string p_name, const int p_xOrgin, const int p_yOrgin, const int p_length, const int p_width, lv_style_t& p_style = defaultBackground);

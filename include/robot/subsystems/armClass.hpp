@@ -1,18 +1,8 @@
-#include "robot/devices/motorClass.hpp"
-#include "robot/devices/controller/controllerClass.hpp"
-#include "robot/graphical/GUIClass.hpp"
-
-class Robot;
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
 
 #ifndef ARMCLASS_H
 #define ARMCLASS_H
-
-enum ArmPosition{
-  UP = 0,
-  INTRANSIT = 1,
-  DOWN = 2,
-  NOPOSITION = 3
-};
 
 class Arm {
 private:
@@ -52,7 +42,11 @@ public:
 
   int initialize(const std::string p_armMotor, const int p_port, const int p_limitLow, const int p_limitHigh, const bool p_reversed = false);
 
+  int autonomous(const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
+
   int task();
+
+  int disable();
 };
 
 #endif // LIFTCLASS_H

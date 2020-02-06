@@ -1,4 +1,6 @@
 #include "robot/subsystems/armClass.hpp"
+#include "robot/devices/motorClass.hpp"
+#include "robot/graphical/GUIClass.hpp"
 #include "robotClass.hpp"
 
 Arm::Arm(Robot& p_robot) : m_robot(p_robot){
@@ -47,7 +49,7 @@ int Arm::resetEncoder(){
 }
 
 int Arm::setBrake(const pros::motor_brake_mode_e_t p_brakeMode){
-  m_armMotor->setBrake(pros::E_MOTOR_BRAKE_HOLD);
+  m_armMotor->setBrake(p_brakeMode);
   m_brakeMode = p_brakeMode;
   return 0;
 }
@@ -65,6 +67,10 @@ int Arm::initialize(const std::string p_armMotor, const int p_port, const int p_
 
   m_armMotor->defineGUI(m_robot.getGUI(), "Home");
 
+  return 0;
+}
+
+int Arm::autonomous(const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode){
   return 0;
 }
 
@@ -107,5 +113,10 @@ int Arm::task(){
       m_armMotor -> setVelocity(0);
       break;
   }
+  return 0;
+}
+
+int Arm::disable(){
+  m_armState = DISABLED;
   return 0;
 }

@@ -1,4 +1,7 @@
+#include "robot/graphical/components/buttonClass.hpp"
+#include "robot/graphical/components/passInfo.hpp"
 #include "robot/graphical/screenClass.hpp"
+#include "robot/devices/timerClass.hpp"
 
 Button::Button(const PassInfo& p_info, Screen& p_screen):
 m_screen(p_screen),m_updateScreenVarible(p_screen.getNextScreenID()){

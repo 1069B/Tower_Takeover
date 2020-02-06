@@ -1,4 +1,5 @@
-#include "portSelector.hpp"
+#include "robot/graphical/portSelector.hpp"
+#include "robot/graphical/GUIClass.hpp"
 #include "robotClass.hpp"
 
 PortSelector::PortSelector(Robot& p_robot, std::string p_name, std::string p_returnID, int& p_port):
@@ -6,7 +7,7 @@ m_robot(p_robot){
   m_name = p_name + "PortSelector";
   m_returnID = p_returnID;
 
-  graphicalInterface& l_gui = m_robot.getGUI();
+  GraphicalInterface& l_gui = m_robot.getGUI();
 
   l_gui.addScreen(m_name, 20, 20, 440, 200);// Add Default
   int l_id = 1;

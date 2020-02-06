@@ -1,4 +1,5 @@
 #include "robotClass.hpp"
+#include "robot/devices/motorClass.hpp"
 
 Robot::Robot():
   m_gui("Home"),
@@ -40,12 +41,12 @@ int Robot::task(){
   m_tray.task();
   m_slider.task();
   m_base.driverControl();
-  m_leftIntake.driverControl();
-  m_rightIntake.driverControl();
+  //m_leftIntake.driverControl();
+  //m_rightIntake.driverControl();
   return 0;
 }
 
-graphicalInterface& Robot::getGUI(){
+GraphicalInterface& Robot::getGUI(){
   return m_gui;
 }
 
@@ -99,8 +100,8 @@ int Robot::driverControl(){
 
 int Robot::disabled(){
   m_base.disabled();
-  m_leftIntake.disabled();
-  m_rightIntake.disabled();
+  // m_leftIntake.disabled();
+  // m_rightIntake.disabled();
   m_tray.setVelocity(0);
   m_tray.setBrake(MOTOR_BRAKE_COAST);
   m_slider.setVelocity(0);

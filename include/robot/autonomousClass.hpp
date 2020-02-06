@@ -1,18 +1,10 @@
-#include "robot/graphical/GUIClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/timerClass.hpp"
 
 #ifndef AUTONOMOUSCLASS_H
 #define AUTONOMOUSCLASS_H
 
-class Robot;
-
-enum AutonomousSide{
-  AUTO_BLUE = 0,
-  AUTO_RED = 1,
-  AUTO_SKILLS = 2,
-  AUTO_NONE = 3
-};
-
-struct autoBaseEvent{
+struct AutoBaseEvent{
 public:
   int m_actionDelay = 0;
   double m_desiredXPosition = 0;
@@ -20,17 +12,23 @@ public:
   double m_desiredOrientation = 0;
   short m_maximumVelocity = 0;
   pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+  Base &m_base;
+
+  AutoBaseEvent(Base &p_base, const int p_delay, const double p_desiredXPosition, const double p_desiredYPosition, const double p_desiredOrientation, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
 };
 
-struct autoArmEvent{
+struct AutoArmEvent{
 public:
   int m_actionDelay = 0;
   double m_desiredPosition = 0;
   short m_maximumVelocity = 0;
   pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+  Arm &m_arm;
+
+  AutoArmEvent(Arm &p_arm, const int p_delay, const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
 };
 
-struct autoIntakeEvent{
+struct AutoIntakeEvent{
 public:
   int m_actionDelay = 0;
   int m_desiredDuration = 0;
@@ -38,15 +36,31 @@ public:
   short m_maximumVelocity = 0;
   bool m_duration = true;
   pros::motor_brake_mode_e m_endBrakeMode = pros::E_MOTOR_BRAKE_COAST;
+  Intake &m_intake;
+
+  AutoIntakeEvent(Intake &p_intake, const int p_delay, const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
+  AutoIntakeEvent(Intake &p_intake, const int p_delay, const int m_desiredDuration, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
 };
 
 class AutoProgram{
-private:
+public:
   std::string m_name;
   AutonomousSide m_autoSide;
   int m_programNumber;
 
-public:
+  Timer m_autoTimer;
+  bool m_programStart = false;
+  bool m_programRunning = false;
+
+  std::vector<AutoBaseEvent> m_baseEvents;
+  int m_baseIteration = 0;
+
+  std::vector<AutoArmEvent> m_armEvents;
+  int m_armIteration = 0;
+
+  std::vector<AutoIntakeEvent> m_intakeEvents;
+  int m_intakeIteration = 0;
+
   AutoProgram(const std::string p_name, const AutonomousSide p_autoSide, const int p_programNumber);
 
   std::string getName();
@@ -54,6 +68,12 @@ public:
   AutonomousSide getAutoSide();
 
   int getProgramNumber();
+
+  int addBaseEvent(AutoBaseEvent& p_event);
+
+  int addArmEvent(AutoArmEvent& p_event);
+
+  int addIntakeEvent(AutoIntakeEvent& p_event);
 };
 
 class Autonomous{
@@ -62,6 +82,7 @@ private:
   std::string m_name = "Autonomous";
   int m_selectedProgramNumber = INT_MAX;
   int m_autoSide = AUTO_NONE;
+  AutoProgram *m_selectedProgram = NULL;
 
   std::vector<std::string> m_blueProgramNames;
   std::vector<AutoProgram*> m_bluePrograms;
@@ -78,6 +99,8 @@ private:
   int displayBlueAuto();
   int displaySkillsAuto();
 
+  int confirmAuto();
+
 public:
   Autonomous(Robot& p_robot);
 
@@ -89,7 +112,7 @@ public:
 
   int autoProgramDaemon();
 
-  int task();
+  int startProgram();
 
 };
 

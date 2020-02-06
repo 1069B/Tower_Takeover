@@ -1,10 +1,4 @@
-#include "components/buttonClass.hpp"
-#include "components/labelClass.hpp"
-#include "components/meterClass.hpp"
-#include "components/lineClass.hpp"
-#include "components/toggleClass.hpp"
-#include "components/rectangleClass.hpp"
-#include "components/alertClass.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef SCREENCLASS_H
 #define SCREENCLASS_H

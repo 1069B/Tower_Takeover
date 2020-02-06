@@ -1,4 +1,5 @@
 #include "robot/subsystems/baseClass.hpp"
+#include "robot/devices/motorClass.hpp"
 
 int Base::initializeHBase(std::string p_backLeftMotor, std::string p_backRightMotor, std::string p_centerMotor){
   if(Motor::findMotor(p_centerMotor) == NULL)

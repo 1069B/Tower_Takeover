@@ -1,4 +1,4 @@
-#include "main.h"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef CONTROLBTNCLASS_H
 #define CONTROLBTNCLASS_H

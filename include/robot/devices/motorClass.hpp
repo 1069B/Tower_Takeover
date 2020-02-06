@@ -1,16 +1,7 @@
-#include "main.h"
-#include "robot/graphical/GUIClass.hpp"
-#include "robot/devices/externalFileClass.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef MOTORCLASS_H
 #define MOTORCLASS_H
-
-enum manipulatorState {
-  VELOCITY_DEPENDENT = 0,
-  TIME_DEPENDENT = 1,
-  ENCODER_DEPENDENT = 2,
-  DISABLED = 3
-};
 
 class Motor{
 private:
@@ -59,7 +50,7 @@ public:
 
   int setGearing(const int p_type);
 
-  int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
+  int defineGUI(GraphicalInterface& p_gui, const std::string p_returnScreen);
 
   static Motor* findMotor(const std::string p_name);
 };

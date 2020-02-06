@@ -1,10 +1,8 @@
-#include "robot/devices/timerClass.hpp"
-#include "robot/graphical/GUIClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "timerClass.hpp"
 
 #ifndef ENCODERCLASS_H
 #define ENCODERCLASS_H
-
-class Robot;
 
 class Encoder{
 private:
@@ -57,7 +55,7 @@ public:
 
   int setReverse(const bool p_reverse);
 
-  int defineGUI(graphicalInterface& p_gui, const std::string p_returnScreen);
+  int defineGUI(GraphicalInterface& p_gui, const std::string p_returnScreen);
 
   int task();
 

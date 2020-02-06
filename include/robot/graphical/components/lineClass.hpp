@@ -1,9 +1,7 @@
-#include "passInfo.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef LINECLASS_H
 #define LINECLASS_H
-
-class Screen;
 
 class Line{
 private:

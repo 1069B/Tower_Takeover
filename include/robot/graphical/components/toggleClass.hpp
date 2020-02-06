@@ -1,9 +1,7 @@
-#include "passInfo.hpp"
+#include "robot/varibleDecleration.hpp"
 
 #ifndef TOGGLECLASS_H
 #define TOGGLECLASS_H
-
-class Screen;
 
 class Toggle{
 private:
@@ -15,7 +13,6 @@ private:
 	std::function<bool()> m_boolFunction;
 
 public:
-
 	Toggle(const PassInfo& p_info, Screen& p_screen);// mode 0
 
 	void draw();

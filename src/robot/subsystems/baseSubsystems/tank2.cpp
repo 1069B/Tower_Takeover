@@ -1,4 +1,5 @@
 #include "robot/subsystems/baseClass.hpp"
+#include "robot/devices/motorClass.hpp"
 
 int Base::initializeTank2(std::string p_backLeftMotor, std::string p_backRightMotor){
   if(Motor::findMotor(p_backLeftMotor) == NULL)

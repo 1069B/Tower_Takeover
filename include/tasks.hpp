@@ -1,5 +1,4 @@
 #ifndef TASKS_H
 #define TASKS_H
-#include "main.h"
-#include "robotClass.hpp"
+#include "robot/varibleDecleration.hpp"
 #endif // TASKS_H

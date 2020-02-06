@@ -1,25 +1,8 @@
-#include "robot/devices/motorClass.hpp"
-#include "robot/devices/controller/controllerClass.hpp"
-#include "robot/graphical/GUIClass.hpp"
-#include "robot/subsystems/odometryClass.hpp"
+#include "robot/varibleDecleration.hpp"
+#include "robot/devices/externalFileClass.hpp"
 
 #ifndef BASECLASS_H
 #define BASECLASS_H
-
-class Robot;
-
-enum BaseType {
-	HOLONOMIC = 0,
-	HBASE = 1,
-	MECANUM = 2,
-	TANK2 = 3,
-	TANK4 = 4
-};
-
-enum BaseMode {
-	NO_CORECTIONS = 0,
-	ACTIVE_CORRECTIONS = 1,
-};
 
 class Base{
 private:
@@ -104,6 +87,8 @@ public:
 	int autonomous();
 	int driverControl();
 	int disabled();
+
+	int setAutonomousParameters(const double p_desiredXPosition, const double p_desiredYPosition, const double p_desiredOrientation, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
 
 	int defineGUI(std::string p_returnScreen);
 };

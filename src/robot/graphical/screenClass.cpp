@@ -1,4 +1,12 @@
+#include "robot/graphical/components/passInfo.hpp"
 #include "robot/graphical/screenClass.hpp"
+#include "robot/graphical/components/buttonClass.hpp"
+#include "robot/graphical/components/lineClass.hpp"
+#include "robot/graphical/components/labelClass.hpp"
+#include "robot/graphical/components/meterClass.hpp"
+#include "robot/graphical/components/toggleClass.hpp"
+#include "robot/graphical/components/rectangleClass.hpp"
+
 
 Screen::Screen(const PassInfo& p_info):
 m_nextScreenID(*p_info.stringPointer){
