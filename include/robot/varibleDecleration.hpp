@@ -10,30 +10,23 @@ enum RobotMode{
     ROBOT_DISABLED = 2
 };
 
-enum CompMode{
+enum TaskMode{
     TASK_AUTO = 0,
     TASK_OPERATER = 1,
     TASK_DISABLED = 2
 };
 
-enum CallType{
+enum TaskType{
     TASK_DURING_AUTO = 0,
     TASK_DURING_OPERATER = 1,
     TASK_ALWAYS = 2
 };
 
-enum manipulatorState {
-  VELOCITY_DEPENDENT = 0,
-  TIME_DEPENDENT = 1,
-  ENCODER_DEPENDENT = 2,
-  DISABLED = 3
-};
-
-enum ArmPosition{
-  UP = 0,
-  INTRANSIT = 1,
-  DOWN = 2,
-  NOPOSITION = 3
+enum ManipulatorMode {
+  MANIPULATOR_VELOCITY_DEPENDENT = 0,
+  MANIPULATOR_TIME_DEPENDENT = 1,
+  MANIPULATOR_ENCODER_DEPENDENT = 2,
+  MANIPULATOR_DISABLED = 3
 };
 
 enum BaseType {

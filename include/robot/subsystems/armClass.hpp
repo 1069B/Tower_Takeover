@@ -11,7 +11,7 @@ private:
 
   static ExternalFile m_config;
   Timer m_timer;
-  manipulatorState m_armState = DISABLED;
+  ManipulatorState m_armState = DISABLED;
   ArmPosition m_armPosition = DOWN;
   int m_velocity;
   int m_targetPosition;
