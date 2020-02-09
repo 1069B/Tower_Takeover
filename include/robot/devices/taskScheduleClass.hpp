@@ -12,10 +12,10 @@ private:
     int m_callPeriod = 50;
     int m_callFrequency = 0;
     Timer m_timer;
-    CallType m_callType;
+    TaskType m_callType;
     friend class TaskScheduler;
 public:
-    SubTask(std::string p_name, std::function<int()> p_function, int p_callPeriod, CallType p_callType);
+    SubTask(std::string p_name, std::function<int()> p_function, int p_callPeriod, TaskType p_callType);
 
     std::string getName();
 
@@ -25,7 +25,7 @@ public:
 
     int getCallFrequency();
 
-    CallType getCallType();
+    TaskType getCallType();
 };
 
 class TaskScheduler{
@@ -33,16 +33,16 @@ private:
     Robot &m_robot;
     std::string m_name;
     std::vector<SubTask*> m_taskArray;
-    CompMode m_compMode;
+    RobotMode m_compMode;
     ExternalFile m_config;
 public:
     TaskScheduler(Robot &l_robot, std::string p_name);
 
-    int addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, CallType p_callType);
+    int addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, TaskType p_callType);
 
     int task();
 
-    int setCompMode(CompMode p_compMode);
+    int setCompMode(RobotMode p_compMode);
 
     int defineGUI();
 

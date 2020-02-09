@@ -11,7 +11,7 @@ private:
   Motor* m_intakeMotor = NULL;
   static ExternalFile m_config;
   Timer m_timer;
-  manipulatorState m_intakeState = VELOCITY_DEPENDENT;
+  ManipulatorMode m_intakeState = MANIPULATOR_VELOCITY_DEPENDENT;
   pros::motor_brake_mode_e_t m_brakeMode = MOTOR_BRAKE_COAST;
   int m_velocity;
   int m_targetPosition;

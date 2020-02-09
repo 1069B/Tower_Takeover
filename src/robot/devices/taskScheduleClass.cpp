@@ -1,6 +1,6 @@
 #include "robot/devices/taskScheduleClass.hpp"
 
-SubTask::SubTask(std::string p_name, std::function<int()> p_function, int p_callPeriod, CallType p_callType){
+SubTask::SubTask(std::string p_name, std::function<int()> p_function, int p_callPeriod, TaskType p_callType){
     m_name = p_name;
     m_function = p_function;
     m_callPeriod = p_callPeriod;
@@ -23,7 +23,7 @@ int SubTask::getCallFrequency(){
     return m_callFrequency;
 }
 
-CallType SubTask::getCallType(){
+TaskType SubTask::getCallType(){
     return m_callType;
 }
 
@@ -33,7 +33,7 @@ TaskScheduler::TaskScheduler(Robot &l_robot, std::string p_name)
     m_name = p_name;
 }
 
-int TaskScheduler::addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, CallType p_callType){
+int TaskScheduler::addTask(std::string p_name, std::function<int()> p_callBack, int p_callPeriod, TaskType p_callType){
     m_taskArray.push_back(new SubTask(p_name, p_callBack, p_callPeriod, p_callType));
     std::string l_local = p_name + " task has been added. Called every " + std::to_string(p_callPeriod) + " milliseconds";
     m_config.addLine(l_local);
@@ -49,7 +49,7 @@ int TaskScheduler::task(){
             m_taskArray.at(x)->m_callFrequency = m_taskArray.at(x)->m_timer.lapTime();
         }
 
-        switch(m_compMode) {
+        switch((int)m_compMode) {
             case TASK_AUTO:
                 if(m_taskArray.at(x)->getCallType() == TASK_DURING_AUTO && m_taskArray.at(x)->m_timer.preformAction()){
                     std::function<int()> l_localFunction = m_taskArray.at(x)->getFunction();
@@ -75,7 +75,7 @@ int TaskScheduler::task(){
     return 0;
 }
 
-int TaskScheduler::setCompMode(CompMode p_compMode){
+int TaskScheduler::setCompMode(RobotMode p_compMode){
     m_compMode = p_compMode;
     return 0;
 }
