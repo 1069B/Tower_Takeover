@@ -11,15 +11,30 @@ private:
   Robot& m_robot;
   Motor* m_armMotor;
 
+  int m_startPosition = 0;
   int m_currentPosition = 0;
-  int m_currentVelocity = 0;
+  int m_endPosition = 0;
 
-  int m_desiredPosition = 0;
+  int m_movementDisplacement = 0;
+  int m_movementDirection = 0;
+  int m_movementMaximumVelocity = 0;
+
   int m_desiredVelcoity = 0;
 
   int m_limitLow = 0;
   int m_limitHigh = 0;
+  int m_totalPossibleDisplacement = 0;
+
   int m_velcoityMaximum = 200;
+  double m_velocityMaximumCoefficent = 1;
+
+  double m_speedUpPercent = .25;
+  double m_speedUpSlope=0;
+  double m_speedUpDisplacement = 0;
+
+  double m_speedDownPercent = .25;
+  double m_speedDownSlope=0;
+  double m_speedDownDisplacement = 0;
 
   int m_preset1 = 0;
   int m_preset2 = 0;
