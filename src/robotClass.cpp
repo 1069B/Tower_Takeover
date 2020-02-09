@@ -24,7 +24,7 @@ Robot::Robot():
     m_tray.initialize("TrayMotor", 5, 0, 675, false);
     m_slider.initialize("SliderMotor", 8, 0, 710, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
-    m_rightIntake.initialize("Right_Intake", 7, false);
+    m_rightIntake.initialize("Right_Intake", 9, false);
 
     m_partnerController.Axis2.setMultiplier(2);
     m_partnerController.Axis3.setMultiplier(2);
@@ -41,8 +41,8 @@ int Robot::task(){
   m_tray.task();
   m_slider.task();
   m_base.driverControl();
-  //m_leftIntake.driverControl();
-  //m_rightIntake.driverControl();
+  m_leftIntake.task();
+  m_rightIntake.task();
   return 0;
 }
 
@@ -70,10 +70,10 @@ int Robot::autonmous(){
   m_base.m_frontLeftMotor->setVelocity(0);
   m_base.m_backRightMotor->setVelocity(0);
   m_base.m_backLeftMotor->setVelocity(0);
-  m_slider.setVelocity(100);
+  m_slider.goToVelocity(100);
   m_slider.task();
   pros::delay(1500);
-  m_slider.setVelocity(0);
+  m_slider.goToVelocity(0);
   m_slider.task();
   return 0;
 }
@@ -83,18 +83,22 @@ int Robot::driverControl(){
   m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
-    m_tray.setVelocity(50);
+    m_tray.goToVelocity(50);
   else if(m_partnerController.ButtonL2.state() == true)
-    m_tray.setVelocity(-50);
+    m_tray.goToVelocity(-50);
   else
-    m_tray.setVelocity(0);
+    //m_tray.goToVelocity(0);
 
   if(m_partnerController.ButtonR1.state() == true)
-    m_slider.setVelocity(-100);
+    m_slider.goToVelocity(-100);
   else if(m_partnerController.ButtonR2.state() == true)
-    m_slider.setVelocity(100);
+    m_slider.goToVelocity(100);
   else
-    m_slider.setVelocity(0);
+    m_slider.goToVelocity(0);
+
+  if(m_partnerController.ButtonUp.state() == true){
+    m_tray.goToLimitHigh();
+  }
   return 0;
 }
 
@@ -102,9 +106,9 @@ int Robot::disabled(){
   m_base.disabled();
   // m_leftIntake.disabled();
   // m_rightIntake.disabled();
-  m_tray.setVelocity(0);
+  m_tray.goToVelocity(0);
   m_tray.setBrake(MOTOR_BRAKE_COAST);
-  m_slider.setVelocity(0);
+  m_slider.goToVelocity(0);
   m_slider.setBrake(MOTOR_BRAKE_COAST);
   return 0;
 }

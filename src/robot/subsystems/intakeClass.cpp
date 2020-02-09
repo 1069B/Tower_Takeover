@@ -1,5 +1,6 @@
 #include "robot/subsystems/intakeClass.hpp"
 #include "robot/devices/motorClass.hpp"
+#include "robot/graphical/components/alertClass.hpp"
 #include "robotClass.hpp"
 
 Intake::Intake(Robot& p_robot): m_robot(p_robot){
@@ -10,13 +11,13 @@ ExternalFile Intake::m_config("Intake_Config.txt");
 
 int Intake::setVelocity(const int p_velocity){
   m_velocity = p_velocity;
-  m_intakeState = VELOCITY_DEPENDENT;
+  m_intakeState = MANIPULATOR_VELOCITY_DEPENDENT;
   return 0;
 }
 
 int Intake::setMovementDuration(const int p_velocity, const int p_duration){
   m_velocity = p_velocity;
-  m_intakeState = TIME_DEPENDENT;
+  m_intakeState = MANIPULATOR_TIME_DEPENDENT;
   m_timer.addActionDelay(p_duration);
   return 0;
 }
@@ -30,7 +31,7 @@ int Intake::moveToPosition(const int p_velocity, const int p_position){
     m_direction = -1;
   else
     m_direction = 0;
-  m_intakeState = ENCODER_DEPENDENT;
+  m_intakeState = MANIPULATOR_ENCODER_DEPENDENT;
   return 0;
 }
 
@@ -63,36 +64,36 @@ int Intake::autonomous(const int m_desiredDuration, const short p_maximumVelocit
 
 int Intake::task(){
   switch ((int)m_intakeState) {
-    case (int)VELOCITY_DEPENDENT:
+    case (int)MANIPULATOR_VELOCITY_DEPENDENT:
       m_intakeMotor->setVelocity(m_velocity);
       break;
 
-    case (int)TIME_DEPENDENT:
+    case (int)MANIPULATOR_TIME_DEPENDENT:
       m_intakeMotor -> setVelocity(m_velocity);
       if(m_timer.preformAction()){
-        m_intakeState = DISABLED;
+        m_intakeState = MANIPULATOR_DISABLED;
       }
       break;
 
-    case (int)ENCODER_DEPENDENT:
+    case (int)MANIPULATOR_ENCODER_DEPENDENT:
       switch (m_direction) {
         case 1:// Forwards
           m_intakeMotor->setVelocity(m_velocity);
           if(m_intakeMotor -> getRotation() >= m_targetPosition)
-            m_intakeState = DISABLED;
+            m_intakeState = MANIPULATOR_DISABLED;
           break;
         case 0:// NULL
-          m_intakeState = DISABLED;
+          m_intakeState = MANIPULATOR_DISABLED;
           break;
         case -1:// Backwards
           m_intakeMotor->setVelocity(-m_velocity);
           if(m_intakeMotor -> getRotation() <= m_targetPosition)
-            m_intakeState = DISABLED;
+            m_intakeState = MANIPULATOR_DISABLED;
           break;
       }
       break;
 
-    case (int)DISABLED:
+    case (int)MANIPULATOR_DISABLED:
       m_intakeMotor -> setVelocity(0);
       break;
   }
@@ -100,6 +101,6 @@ int Intake::task(){
 }
 
 int Intake::disable(){
-  m_intakeState = DISABLED;
+  m_intakeState = MANIPULATOR_DISABLED;
   return 0;
 }
