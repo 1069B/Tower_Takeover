@@ -49,6 +49,12 @@ enum AutonomousSide{
   AUTO_NONE = 3
 };
 
+enum Direction{
+  DIRECTION_FORWARD = 1,
+  DIRECTION_STATIONARY = 0,
+  DIRECTION_BACKWARDS = -1
+};
+
 class ControlAxis;
 class ControlBtn;
 class Controller;

@@ -11,10 +11,8 @@ int Robot::defineGUI(){
   m_base.defineGUI("Home");
 
   m_gui.addScreen("Home");
-  m_gui.addButton("Home", "Odometry", 150, 100, 150, 30);
-  m_gui.addButtonScreenChange("Home", "Odometry", "Odometry");
-  m_gui.addButton("Home", "Main Controller", 150, 150, 150, 30);
-  m_gui.addButtonScreenChange("Home", "Main Controller", "Main Controller");
+  m_gui.addButton("Home", "Subsystems", 150, 150, 150, 30);
+  m_gui.addButtonScreenChange("Home", "Subsystems", "Subsystems");
   m_gui.addButton("Home", "+1", 20, 20, 150, 30);
   m_gui.addButtonVaribleCounter("Home", "+1", &x, 1);
   m_gui.addButton("Home", "-1", 300, 20, 150, 30);
@@ -22,6 +20,18 @@ int Robot::defineGUI(){
   m_gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
   m_gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
   m_gui.addToggle("Home", 20, 80, 75, 30, &c);
+
+  m_gui.addScreen("Subsystems");
+  m_gui.addButton("Subsystems", "Odometry", 40, 40, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Odometry", "Odometry");
+  m_gui.addButton("Subsystems", "Tray", 40, 80, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Tray", "Tray");
+  m_gui.addButton("Subsystems", "Slider", 40, 120, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Slider", "Slider");
+
+  m_gui.addButton("Subsystems", "Go Back", 200, 200, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Go Back", "Home");
+
 
   // m_gui.addScreen("Settings");
   // m_gui.addLabel("Settings", 20, 20, whiteText, "Comp");

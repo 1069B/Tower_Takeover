@@ -44,6 +44,8 @@ public:
 
   int getTempature();
 
+  std::string getName();
+
   int setPort(const int p_port);
 
   int setReverse(const bool p_reverse);

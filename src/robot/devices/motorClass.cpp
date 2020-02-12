@@ -131,6 +131,10 @@ int Motor::setGearing(const int p_type){
   return 0;
 }
 
+std::string Motor::getName(){
+  return m_name;
+}
+
 
 void Motor::setStrings(){
   if(m_motorGearSet == pros::E_MOTOR_GEARSET_36)
