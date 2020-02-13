@@ -40,6 +40,7 @@ private:
   pros::motor_brake_mode_e m_brakeMode = pros::E_MOTOR_BRAKE_HOLD;
   std::string m_brakeString = "Coast";
   ManipulatorMode m_mode = MANIPULATOR_DISABLED;
+  std::string m_modeString = "Disabled";
 
   Timer m_timer;
 

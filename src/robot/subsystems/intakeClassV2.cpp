@@ -126,15 +126,21 @@ int IntakeV2::task(){
   switch ((int)m_mode) {
     case MANIPULATOR_VELOCITY_DEPENDENT:
       m_intakeMotor->setVelocity(m_desiredVelocity);
+      m_mode = MANIPULATOR_VELOCITY_DEPENDENT;
+      m_modeString = "Velocity Dependent";
       break;
 
     case MANIPULATOR_TIME_DEPENDENT:
       if(m_timer.preformAction()){
         m_intakeMotor->setVelocity(0);
         m_movementInProgess = false;
+        m_mode = MANIPULATOR_DISABLED;
+        m_modeString = "Disabled";
       }
       else{
         m_intakeMotor->setVelocity(m_desiredVelocity);
+        m_mode = MANIPULATOR_TIME_DEPENDENT;
+        m_modeString = "Time Based";
       }
       break;
 
@@ -147,14 +153,20 @@ int IntakeV2::task(){
 
     case MANIPULATOR_TOGGLE_FORWARD:
       m_intakeMotor->setVelocity(m_maximumVelocity * DIRECTION_FORWARD);
+      m_mode = MANIPULATOR_TOGGLE_FORWARD;
+      m_modeString = "Toggle Forwards";
       break;
 
     case MANIPULATOR_TOGGLE_BACKWARD:
       m_intakeMotor->setVelocity(m_maximumVelocity * DIRECTION_BACKWARDS);
+      m_mode = MANIPULATOR_TOGGLE_BACKWARD;
+      m_modeString = "Toggle Backwards";
       break;
 
     case MANIPULATOR_DISABLED:
       m_intakeMotor->setVelocity(0);
+      m_mode = MANIPULATOR_DISABLED;
+      m_modeString = "Disabled";
       break;
   }
   return 0;
@@ -170,7 +182,7 @@ int IntakeV2::defineGUI(const std::string p_returnScreen){
 
   l_gui.addLabel(m_name, 20, 50, whiteText, "Current Position: %d Deg   ", &m_currentPosition);
   l_gui.addLabel(m_name, 20, 80, whiteText, "Desired Velocity: %d RPM   ", &m_desiredVelocity);
-  //l_gui.addLabel(m_name, 20, 110, whiteText, "Arm Mode: %s", &m_modeString);
+  l_gui.addLabel(m_name, 20, 110, whiteText, "Intake Mode: %s", &m_modeString);
   l_gui.addLabel(m_name, 20, 140, whiteText, "Brake Mode: %s", &m_brakeString);
   //l_gui.addLabel(m_name, 20, 170, whiteText, "Reversed: %b", &m_reversed);
 
