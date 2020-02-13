@@ -22,7 +22,7 @@ Robot::Robot():
     m_base.initialize();
 
     m_tray.initialize("TrayMotor", 5, 0, 675, false);
-    m_slider.initialize("SliderMotor", 8, 0, 680, true);
+    m_slider.initialize("SliderMotor", 8, -25, 680, true);
     m_leftIntake.initialize("Left_Intake", 6, true);
     m_rightIntake.initialize("Right_Intake", 9, false);
 
@@ -31,12 +31,12 @@ Robot::Robot():
 
     m_tray.setLimitHighPreset(.25, .75, 20, 35);
     m_tray.setPreset1(650, .20, .80, 20, 35);
-    m_tray.setLimitLowPreset(.25, .25, 20, 75);
+    m_tray.setLimitLowPreset(.25, .25, 20, 35);
 
     m_slider.setLimitHighPreset(.25, .25, 25, 75);
     m_slider.setPreset1(400, .25, .25, 25, 75);// High Pick Uo
     m_slider.setPreset2(600, .25, .25, 25, 75);// Low Pickup
-    m_slider.setPreset3(50, .25, .25, 25, 75);//Scoreing
+    m_slider.setPreset3(100, .25, .25, 25, 40);//Scoreing
     m_slider.setLimitLowPreset(.25, .25, 25, 75);
 
     defineGUI();
@@ -101,7 +101,7 @@ int Robot::driverControl(){
 
   if(m_partnerController.ButtonUp.state() == true){
     m_tray.goToLimitHigh();
-    m_slider.goToPreset3();
+    m_slider.goToLimitLow();
   }
   else if(m_partnerController.ButtonDown.state() == true){
     m_tray.goToLimitLow();

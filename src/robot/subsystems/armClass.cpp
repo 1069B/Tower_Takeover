@@ -201,6 +201,7 @@ int Arm::task(){
     m_armMotor->setVelocity(0);
     m_armMotor->setBrake(m_brakeMode);
     m_modeString = "Disabled";
+    m_mode = MANIPULATOR_DISABLED;
   }
   else if(m_robot.getRobotMode() == ROBOT_OPERATER || m_robot.getRobotMode() == ROBOT_AUTO){
     if(m_mode == MANIPULATOR_VELOCITY_DEPENDENT){
@@ -212,6 +213,7 @@ int Arm::task(){
       m_armMotor->setBrake(m_brakeMode);
       m_movementString = "User Based";
       m_modeString = "Velocity Dependent";
+      m_mode = MANIPULATOR_VELOCITY_DEPENDENT;
     }
     else if(m_mode == MANIPULATOR_ENCODER_DEPENDENT){
       if(abs(m_currentPosition-m_startPosition) < fabs(m_speedUpDisplacement)){// Withen Speed Up
@@ -235,9 +237,11 @@ int Arm::task(){
         m_armMotor->setVelocity(0);
         m_movementInProgess = false;
         m_movementString = "User Based";
+        m_mode = MANIPULATOR_DISABLED;
       }
       m_armMotor->setBrake(m_brakeMode);
       m_modeString = "Encoder Dependent";
+      m_mode = MANIPULATOR_ENCODER_DEPENDENT;
     }
   }
 
