@@ -6,7 +6,7 @@
 
 class BaseV2{
 private:
-	
+
 public:
 };
 
