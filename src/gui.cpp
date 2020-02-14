@@ -23,12 +23,22 @@ int Robot::defineGUI(){
   m_gui.addToggle("Home", 20, 80, 75, 30, &c);
 
   m_gui.addScreen("Subsystems");
-  m_gui.addButton("Subsystems", "Odometry", 40, 40, 150, 30);
+  m_gui.addButton("Subsystems", "Odometry", 20, 40, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Odometry", "Odometry");
-  m_gui.addButton("Subsystems", "Tray", 40, 80, 150, 30);
+  m_gui.addButton("Subsystems", "Tray", 20, 80, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Tray", "Tray");
-  m_gui.addButton("Subsystems", "Slider", 40, 120, 150, 30);
+  m_gui.addButton("Subsystems", "Slider", 20, 120, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Slider", "Slider");
+
+  m_gui.addButton("Subsystems", "Left Intake", 180, 40, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Left Intake", "Left_Intake");
+  m_gui.addButton("Subsystems", "Right Intake", 180, 80, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Right Intake", "Right_Intake");
+
+  m_gui.addButton("Subsystems", "Cotrol_Main", 330, 40, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Cotrol_Main", "Main Controller");
+  m_gui.addButton("Subsystems", "Cotrol_Partner", 330, 80, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Cotrol_Partner", "Partner Controller");
 
   m_gui.addButton("Subsystems", "Go Back", 200, 200, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Go Back", "Home");

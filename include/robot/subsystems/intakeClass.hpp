@@ -28,6 +28,7 @@ private:
 
   int m_desiredVelocity = 0;
   Direction m_desiredDirection = DIRECTION_STATIONARY;
+  std::string m_desiredDirectionString = "STATIONARY";
   int m_maximumVelocity = 100;
 
   int m_movementDisplacement = 0;

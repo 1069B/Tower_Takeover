@@ -1,5 +1,6 @@
 #include "robotClass.hpp"
 #include "robot/devices/motorClass.hpp"
+#include "robot/graphical/components/alertClass.hpp"
 
 Robot::Robot():
   m_gui("Home"),
@@ -23,8 +24,8 @@ Robot::Robot():
 
     m_tray.initialize("TrayMotor", 5, 0, 675, false);
     m_slider.initialize("SliderMotor", 8, -25, 680, true);
-    m_leftIntake.initialize("Left_Intake", 6, true);
-    m_rightIntake.initialize("Right_Intake", 9, false);
+    m_leftIntake.initialize("Left_Intake_Motor", 6, false);
+    m_rightIntake.initialize("Right_Intake_Motor", 9, true);
 
     m_partnerController.Axis2.setMultiplier(2);
     m_partnerController.Axis3.setMultiplier(2);
@@ -97,6 +98,7 @@ int Robot::autonmous(){
 
 int Robot::driverControl(){
   m_robotMode = ROBOT_OPERATER;
+  g_alert.draw("Left Intake Speed: " + std::to_string(m_partnerController.Axis3.getValue()));
   m_leftIntake.goToVelocity(m_partnerController.Axis3.getValue());
   m_rightIntake.goToVelocity(m_partnerController.Axis2.getValue());
 

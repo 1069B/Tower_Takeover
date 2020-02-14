@@ -44,24 +44,27 @@ int Intake::setBrakeMode(const pros::motor_brake_mode_e p_brakeMode){
 }
 
 int Intake::goToVelocity(const int p_velocity){
+  g_alert.draw("Left Intake Speed': " + std::to_string(p_velocity));
   if(!m_movementInProgess){
     if(m_mode == MANIPULATOR_TOGGLE_FORWARD || m_mode == MANIPULATOR_TOGGLE_FORWARD){
       if(abs(p_velocity) < 5)
         return 0;
     }
 
-    if(m_maximumVelocity < p_velocity)
-      m_desiredVelocity = abs(m_maximumVelocity);
-    else
-      m_desiredVelocity = abs(p_velocity);
-
-    if(m_desiredVelocity == 0)
+    if(p_velocity == 0){
       m_desiredDirection = DIRECTION_STATIONARY;
-    else{
-      if(m_desiredVelocity/abs(m_desiredVelocity) == 1)
-        m_desiredDirection = DIRECTION_FORWARD;
-      else if(m_desiredVelocity/abs(m_desiredVelocity) == -1)
-        m_desiredDirection = DIRECTION_BACKWARDS;
+      m_desiredDirectionString = "STATIONARY";
+      m_desiredVelocity = abs(p_velocity);
+    }
+    else if(p_velocity/abs(p_velocity) == 1){
+      m_desiredDirection = DIRECTION_FORWARD;
+      m_desiredDirectionString = "FORWARD";
+      m_desiredVelocity = abs(p_velocity);
+    }
+    else if(p_velocity/abs(p_velocity) == -1){
+      m_desiredDirection = DIRECTION_BACKWARDS;
+      m_desiredDirectionString = "BACKWARDS";
+      m_desiredVelocity = abs(p_velocity);
     }
     m_mode = MANIPULATOR_VELOCITY_DEPENDENT;
   }
@@ -125,7 +128,7 @@ int Intake::toggleBackward(){
 int Intake::task(){
   switch ((int)m_mode) {
     case MANIPULATOR_VELOCITY_DEPENDENT:
-      m_intakeMotor->setVelocity(m_desiredVelocity);
+      m_intakeMotor->setVelocity(m_desiredVelocity * m_desiredDirection);
       m_mode = MANIPULATOR_VELOCITY_DEPENDENT;
       m_modeString = "Velocity Dependent";
       break;
@@ -184,7 +187,7 @@ int Intake::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name, 20, 80, whiteText, "Desired Velocity: %d RPM   ", &m_desiredVelocity);
   l_gui.addLabel(m_name, 20, 110, whiteText, "Intake Mode: %s", &m_modeString);
   l_gui.addLabel(m_name, 20, 140, whiteText, "Brake Mode: %s", &m_brakeString);
-  //l_gui.addLabel(m_name, 20, 170, whiteText, "Reversed: %b", &m_reversed);
+  l_gui.addLabel(m_name, 20, 170, whiteText, "Direction: %s \t", &m_desiredDirectionString);
 
   l_gui.addButton(m_name, m_name+" Motor", 250, 150, 150, 30);
   l_gui.addButtonScreenChange(m_name, m_name+" Motor", m_intakeMotor->getName());
@@ -205,7 +208,7 @@ int Intake::defineGUI(const std::string p_returnScreen){
   l_gui.addLabel(m_name+"`", 20, 75, whiteText, "Start Pos: %d Deg\t", &m_startPosition);
   l_gui.addLabel(m_name+"`", 20, 100, whiteText, "Current Pos: %d Deg\t", &m_currentPosition);
   l_gui.addLabel(m_name+"`", 20, 125, whiteText, "End Pos: %d Deg\t", &m_endPosition);
-  //l_gui.addLabel(m_name+"`", 20, 150, whiteText, "Direction: %d \t", &m_movementDirection);
+  l_gui.addLabel(m_name+"`", 20, 150, whiteText, "Direction: %s \t", &m_desiredDirectionString);
   l_gui.addLabel(m_name+"`", 20, 175, whiteText, "Desired Vel: %d \t", &m_desiredVelocity);
 
   l_gui.addLabel(m_name+"`", 220, 50, whiteText, "Displacement: %d \t", &m_movementDisplacement);
