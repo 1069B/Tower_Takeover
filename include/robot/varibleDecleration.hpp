@@ -39,6 +39,12 @@ enum BaseType {
 	TANK4 = 4
 };
 
+enum BaseState{
+  BASE_STATIONARY = 0,
+  BASE_DRIVER_DEPENDENT = 1,
+  BASE_ODOMETRY_DEPENDENT = 2
+};
+
 enum BaseMode {
 	NO_CORECTIONS = 0,
 	ACTIVE_CORRECTIONS = 1,
