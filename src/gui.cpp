@@ -19,6 +19,7 @@ int Robot::defineGUI(){
   m_gui.addButtonVaribleCounter("Home", "-1", &x, -1);
   m_gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
   m_gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
+  m_gui.addLabel("Home", 80, 80, whiteText, "Robot Mode: %s", &m_robotModeString);
   m_gui.addToggle("Home", 20, 80, 75, 30, &c);
 
   m_gui.addScreen("Subsystems");

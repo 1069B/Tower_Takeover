@@ -53,6 +53,13 @@ int Robot::task(){
   m_base.driverControl();
   m_leftIntake.task();
   m_rightIntake.task();
+
+  if(m_robotMode == ROBOT_AUTO)
+    m_robotModeString = "Autonomous";
+  else if(m_robotMode == ROBOT_OPERATER)
+    m_robotModeString = "Driver";
+  else if(m_robotMode == ROBOT_DISABLED)
+    m_robotModeString = "Disabled";
   return 0;
 }
 
@@ -89,6 +96,7 @@ int Robot::autonmous(){
 }
 
 int Robot::driverControl(){
+  m_robotMode = ROBOT_OPERATER;
   m_leftIntake.goToVelocity(m_partnerController.Axis3.getValue());
   m_rightIntake.goToVelocity(m_partnerController.Axis2.getValue());
 
@@ -133,6 +141,7 @@ int Robot::driverControl(){
 }
 
 int Robot::disabled(){
+  m_robotMode = ROBOT_DISABLED;
   m_base.disabled();
   // m_leftIntake.disabled();
   // m_rightIntake.disabled();

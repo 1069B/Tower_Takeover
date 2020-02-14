@@ -29,6 +29,7 @@ private:
   Intake m_rightIntake;
 
   RobotMode m_robotMode;
+  std::string m_robotModeString = "Disabled";
 
   int defineGUI();
   friend class Base;

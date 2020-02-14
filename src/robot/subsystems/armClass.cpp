@@ -110,6 +110,7 @@ int Arm::setMaximumVelcoity(const int p_velocityMax){
 int Arm::goToVelocity(const int p_velocity){
   if(!m_movementInProgess){
     m_mode = MANIPULATOR_VELOCITY_DEPENDENT;
+    m_modeString = "Velocity";
     int l_direction = 0;
     if(p_velocity !=0)
       l_direction = (double)abs(p_velocity)/(double)p_velocity;
@@ -124,6 +125,7 @@ int Arm::goToVelocity(const int p_velocity){
 
 int Arm::goToPosition(const int p_position, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity){
   m_mode = MANIPULATOR_ENCODER_DEPENDENT;
+  m_modeString = "Encoder";
   m_speedUpPercent = p_speedUpPercent;
   m_speedDownPercent = p_speedDownPercent;
   m_velcoityMaximum = p_maximumVelocity;
@@ -196,7 +198,6 @@ int Arm::goToPreset4(){
 
 int Arm::task(){
   m_currentPosition = m_armMotor->getRotation();
-
   if(m_robot.getRobotMode() == ROBOT_DISABLED){
     m_armMotor->setVelocity(0);
     m_armMotor->setBrake(m_brakeMode);
