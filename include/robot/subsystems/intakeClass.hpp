@@ -2,43 +2,70 @@
 #include "robot/devices/timerClass.hpp"
 #include "robot/devices/externalFileClass.hpp"
 
-#ifndef INTAKECLASS_H
-#define INTAKECLASS_H
+#ifndef INTAKECLASSV2_H
+#define INTAKECLASSV2_H
+
+struct IntakePreset{
+public:
+  int m_position = 0;
+  double m_speedUpPercent = 0;
+  double m_speedDownPercent = 0;
+  int m_maximumVelocity = 0;
+  int m_initialVelocity = 5;
+  int m_duration = 0;
+  ManipulatorMode m_mode = MANIPULATOR_DISABLED;
+};
 
 class Intake{
 private:
   Robot& m_robot;
   Motor* m_intakeMotor = NULL;
-  static ExternalFile m_config;
+  std::string m_name = "Intake";
+
+  int m_startPosition = 0;
+  int m_currentPosition = 0;
+  int m_endPosition = 0;
+
+  int m_desiredVelocity = 0;
+  Direction m_desiredDirection = DIRECTION_STATIONARY;
+  int m_maximumVelocity = 100;
+
+  int m_movementDisplacement = 0;
+  int m_movementVelocity = 0;
+  int m_movementDuration = 0;
+  Direction m_movementDirection = DIRECTION_STATIONARY;
+  bool m_movementInProgess = false;
+  std::string m_movementString = "User Based";
+
+  pros::motor_brake_mode_e m_brakeMode = pros::E_MOTOR_BRAKE_HOLD;
+  std::string m_brakeString = "Coast";
+  ManipulatorMode m_mode = MANIPULATOR_DISABLED;
+  std::string m_modeString = "Disabled";
+
   Timer m_timer;
-  ManipulatorMode m_intakeState = MANIPULATOR_VELOCITY_DEPENDENT;
-  pros::motor_brake_mode_e_t m_brakeMode = MOTOR_BRAKE_COAST;
-  int m_velocity;
-  int m_targetPosition;
-  bool m_reversed;
-  int m_direction = 0;
 
 public:
-  Intake(Robot& p_robot);
+  Intake(Robot& p_robot, const std::string p_name);
 
-  int setVelocity(const int p_velocity = 0);
+  /*Setter Functions*/
+  int initialize(const std::string p_intakeMotor, const int p_port, const int p_maximumVelcouty, const bool p_reversed = false);
 
-  int setMovementDuration(const int p_velocity, const int p_duration);
+  int setBrakeMode(const pros::motor_brake_mode_e p_brakeMode);
 
-  int moveToPosition(const int p_velocity, const int p_position);
+  /*Action Functions*/
+  int goToVelocity(const int p_velocity);//Implied Direction Through Sign of Velocity
+  int goToVelocity(const int p_velocity, const Direction p_direction);//Defined Direction ~ Velocity is taken as the amsolute.
 
-  int setBrake(const pros::motor_brake_mode_e_t p_brakeMode);
+  int goToDuration(const int p_duration, const int p_velocity, const Direction p_direction);
 
-  int resetEncoder();
+  int goToPosition(const int p_position, const int p_velocity, const Direction p_direction);// Mode 1
 
-  int initialize(const std::string p_intakeMotor, const int p_port, const bool p_reversed = false);
-
-	int autonomous(const double p_desiredPosition, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
-  int autonomous(const int m_desiredDuration, const short p_maximumVelocity, const pros::motor_brake_mode_e p_endBrakeMode);
-
+  int toggleForward();
+  int toggleBackward();
+  /* Main Tasks */
   int task();
 
-  int disable();
+  int defineGUI(const std::string p_returnScreen);
 };
 
-#endif // INTAKECLASS_H
+#endif // INTAKECLASSV2_H

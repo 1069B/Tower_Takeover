@@ -10,8 +10,8 @@ Robot::Robot():
   m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true),
   m_tray(*this, "Tray"),
   m_slider(*this, "Slider"),
-  m_leftIntake(*this),
-  m_rightIntake(*this),
+  m_leftIntake(*this, "Left_Intake"),
+  m_rightIntake(*this, "Right_Intake"),
   m_taskScheduler(*this, "MainTaskScheduler")
   {
     // if(m_config.varExist("Comp_Mode"))
@@ -89,8 +89,8 @@ int Robot::autonmous(){
 }
 
 int Robot::driverControl(){
-  m_leftIntake.setVelocity(m_partnerController.Axis3.getValue());
-  m_rightIntake.setVelocity(m_partnerController.Axis2.getValue());
+  m_leftIntake.goToVelocity(m_partnerController.Axis3.getValue());
+  m_rightIntake.goToVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
     m_tray.goToVelocity(30);
