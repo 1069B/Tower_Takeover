@@ -18,10 +18,4 @@ m_robot(p_robot){
       l_id++;
     }
   }
-
-
-
-
-
-
 }
