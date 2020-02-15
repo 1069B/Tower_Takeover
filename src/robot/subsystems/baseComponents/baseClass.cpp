@@ -6,6 +6,7 @@ m_robot(p_robot),
 m_odometry(*(new Odometry(p_robot, "LeftTrackingWheel", "RightTrackingWheel", "CenterTrackingWheel"))),
 m_config("base_config.txt"){
   m_maximumVelocity = p_maximumVelocity;
+  m_odometry.defineGUI("Subsystems");
 }
 
 int Base::setMaximumVelocity(const int p_maximumVelocity){

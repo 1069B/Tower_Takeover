@@ -7,8 +7,8 @@ Holonomic::Holonomic(Robot &p_robot, const int p_maximumVelocity):
 Base(p_robot, p_maximumVelocity),
 m_frontLeftMotor(*Motor::findMotor("FrontLeftMotor", 1, pros::E_MOTOR_GEARSET_18, false)),
 m_frontRightMotor(*Motor::findMotor("FrontRightMotor", 2, pros::E_MOTOR_GEARSET_18, true)),
-m_backLeftMotor(*Motor::findMotor("BackLeftMotor", 3, pros::E_MOTOR_GEARSET_18, false)),
-m_backRightMotor(*Motor::findMotor("BackRightMotor", 4, pros::E_MOTOR_GEARSET_18, true))
+m_backLeftMotor(*Motor::findMotor("BackLeftMotor", 19, pros::E_MOTOR_GEARSET_18, false)),
+m_backRightMotor(*Motor::findMotor("BackRightMotor", 20, pros::E_MOTOR_GEARSET_18, true))
 {
 
 }
@@ -37,10 +37,10 @@ int Holonomic::task(){
   }
   else if(m_robot.getRobotMode() == ROBOT_OPERATER || m_robot.getRobotMode() == ROBOT_AUTO){
     if(m_baseState == BASE_VECTOR_DEPENDENT){
-      m_desiredFrontLeftVelocity = cos(m_motionTranslationAngle/180.0*M_PI) * m_motionTranslationVelocity;
-      m_desiredFrontRightVelocity = sin(m_motionTranslationAngle/180.0*M_PI) * m_motionTranslationVelocity;
-      m_desiredBackLeftVelocity = sin(m_motionTranslationAngle/180.0*M_PI) * m_motionTranslationVelocity;
-      m_desiredBackRightVelocity = cos(m_motionTranslationAngle/180.0*M_PI) * m_motionTranslationVelocity;
+      m_desiredFrontLeftVelocity = cos((m_motionTranslationAngle/180.0*M_PI) + (M_PI/4.0)) * m_motionTranslationVelocity;
+      m_desiredFrontRightVelocity = sin((m_motionTranslationAngle/180.0*M_PI) + (M_PI/4.0)) * m_motionTranslationVelocity;
+      m_desiredBackLeftVelocity = sin((m_motionTranslationAngle/180.0*M_PI) + (M_PI/4.0)) * m_motionTranslationVelocity;
+      m_desiredBackRightVelocity = cos((m_motionTranslationAngle/180.0*M_PI) + (M_PI/4.0)) * m_motionTranslationVelocity;
 
       m_desiredFrontLeftVelocity -= m_motionOrientationVelocity;
       m_desiredFrontRightVelocity += m_motionOrientationVelocity;
@@ -48,8 +48,8 @@ int Holonomic::task(){
       m_desiredBackRightVelocity += m_motionOrientationVelocity;
 
       m_frontLeftMotor.setVelocity(m_desiredFrontLeftVelocity);
-      m_frontRightMotor.setVelocity(m_desiredFrontRightVelocity);
       m_backLeftMotor.setVelocity(m_desiredBackLeftVelocity);
+      m_frontRightMotor.setVelocity(m_desiredFrontRightVelocity);
       m_backRightMotor.setVelocity(m_desiredBackRightVelocity);
     }
 
@@ -101,10 +101,40 @@ int Holonomic::task(){
         m_desiredBackRightVelocity = 0;
       }
 
+      m_backLeftMotor.setVelocity(m_desiredBackLeftVelocity);
       m_frontLeftMotor.setVelocity(m_desiredFrontLeftVelocity);
       m_frontRightMotor.setVelocity(m_desiredFrontRightVelocity);
-      m_backLeftMotor.setVelocity(m_desiredBackLeftVelocity);
       m_backRightMotor.setVelocity(m_desiredBackRightVelocity);
+    }
+
+    if(m_baseState == BASE_AUTONOMOUS_MOVEMENT){
+    //   if(abs(m_currentPosition-m_startPosition) < fabs(m_speedUpDisplacement)){// Withen Speed Up
+    //     m_desiredVelcoity = (m_movementMaximumVelocity + 1)/(1 + pow(M_E,(m_speedUpSlope*fabs(m_currentPosition-((double)m_speedUpDisplacement/2.0)))));
+    //     if(m_desiredVelcoity < m_movementIntialVelocity)
+    //       m_desiredVelcoity = m_movementIntialVelocity;
+    //     m_armMotor->setVelocity(m_desiredVelcoity * m_movementDirection);
+    //     m_movementString = "Speed Up";
+    //   }
+    //   else if(abs(m_endPosition-m_currentPosition) < fabs(m_speedDownDisplacement)){// Withen Slow Down
+    //     m_desiredVelcoity = (m_movementMaximumVelocity + 1)/(1 + pow(M_E,(m_speedDownSlope*fabs((m_endPosition-m_currentPosition)-((double)m_speedUpDisplacement/2.0)))));
+    //     m_armMotor->setVelocity(m_desiredVelcoity * m_movementDirection);
+    //     m_movementString = "Speed Down";
+    //   }
+    //   else{// Coast
+    //     m_armMotor->setVelocity(m_movementMaximumVelocity * m_movementDirection);
+    //     m_movementString = "Coast";
+    //   }
+    //
+    //   if((m_movementDirection == 1 && m_endPosition-m_currentPosition <= 0) || (m_movementDirection == -1 && m_endPosition-m_currentPosition >= 0)){
+    //     m_armMotor->setVelocity(0);
+    //     m_movementInProgess = false;
+    //     m_movementString = "User Based";
+    //     m_mode = MANIPULATOR_DISABLED;
+    //   }
+    //   m_armMotor->setBrake(m_brakeMode);
+    //   m_modeString = "Encoder Dependent";
+    //   m_mode = MANIPULATOR_ENCODER_DEPENDENT;
+    // }
     }
   }
   return 0;

@@ -73,27 +73,151 @@ TaskScheduler& Robot::getTaskScheduler(){
 
 int Robot::autonmous(){
   m_robotMode = ROBOT_AUTO;
-  m_base.goToVector(200, 90, 0);
-  //m_base.autonomous();
-  // m_base.m_frontRightMotor->setVelocity(75);
-  // m_base.m_frontLeftMotor->setVelocity(75);
-  // m_base.m_backRightMotor->setVelocity(75);
-  // m_base.m_backLeftMotor->setVelocity(75);
-  // pros::delay(750);
-  // m_base.m_frontRightMotor->setVelocity(-75);
-  // m_base.m_frontLeftMotor->setVelocity(-75);
-  // m_base.m_backRightMotor->setVelocity(-75);
-  // m_base.m_backLeftMotor->setVelocity(-75);
-  // pros::delay(1000);
-  // m_base.m_frontRightMotor->setVelocity(0);
-  // m_base.m_frontLeftMotor->setVelocity(0);
-  // m_base.m_backRightMotor->setVelocity(0);
-  // m_base.m_backLeftMotor->setVelocity(0);
-  // m_slider.goToVelocity(100);
-  // m_slider.task();
-  // pros::delay(1500);
-  // m_slider.goToVelocity(0);
-  // m_slider.task();
+  // Against Wall
+  m_base.goToVector(25, 90, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Cube in Blue Small
+  m_base.goToVector(75, 0, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Back towards large
+  m_base.goToVector(125, 171, 0);
+  robot.task();
+  pros::delay(3700);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Shift right
+  m_base.goToVector(75, 270, 0);
+  robot.task();
+  pros::delay(2000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Cube in Angle for 2 greens
+  m_base.goToVector(0, 0, -50);
+  robot.task();
+  pros::delay(750);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Cube in Back two greens
+  m_base.goToVector(75, 180, 0);
+  robot.task();
+  pros::delay(3000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Cube in Turn
+  m_base.goToVector(0, 0, 25);
+  robot.task();
+  pros::delay(1500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Robot against Wall
+  m_base.goToVector(75, 90, 0);
+  robot.task();
+  pros::delay(500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Cube in Large Blue Area
+  m_base.goToVector(75, 180, 0);
+  robot.task();
+  pros::delay(1500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Robot forward
+  m_base.goToVector(75, 0, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+  // Robot align with wall
+  m_base.goToVector(75, 90, 0);
+  robot.task();
+  pros::delay(500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+// Robot Rotate
+  m_base.goToVector(0, 0, -25);
+  robot.task();
+  pros::delay(750);
+// Robot drifting towards back wall
+  m_base.goToVector(125, 270, 0);
+  robot.task();
+  pros::delay(4000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+// Robot against back wall
+  m_base.goToVector(50, 180, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+// Translate along back wall
+  m_base.goToVector(125, 275, 0);
+  robot.task();
+  pros::delay(2500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+// Back out of red large scoring zone
+  m_base.goToVector(75, 90, 0);
+  robot.task();
+  pros::delay(500);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(150, 345, 0);
+  robot.task();
+  pros::delay(8000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(125, 180, 0);
+  robot.task();
+  pros::delay(1000);
+
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  //
+  // m_base.goToVector(0, 270, 100);
+  // m_timer.addActionDelay(1000);
+  // robot.task();
+
+
   return 0;
 }
 
