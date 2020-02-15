@@ -14,8 +14,7 @@
 class Robot{
 private:
   GraphicalInterface m_gui;
-  Controller m_mainController;
-  Controller m_partnerController;
+
   Timer m_timer;
   ExternalFile m_config;
   TaskScheduler m_taskScheduler;
@@ -35,6 +34,9 @@ private:
   friend class Base;
   friend class Odometry;
 public:
+  Controller m_mainController;
+  Controller m_partnerController;
+
   Robot();
 
   int task();

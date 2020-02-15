@@ -55,5 +55,7 @@ public:
   int defineGUI(GraphicalInterface& p_gui, const std::string p_returnScreen);
 
   static Motor* findMotor(const std::string p_name);
+
+  static Motor* findMotor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse = true);
 };
 #endif // MOTORCLASS_H

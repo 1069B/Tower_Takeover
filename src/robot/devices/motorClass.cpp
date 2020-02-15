@@ -158,3 +158,10 @@ Motor* Motor::findMotor(std::string p_name){
       return s_motorArray.at(x);
   return NULL;
 }
+
+Motor* Motor::findMotor(const std::string p_name, const short p_input, const pros::motor_gearset_e_t p_type, const bool p_reverse){
+  for(int x = 0; x < s_motorArray.size(); x++)
+    if(s_motorArray.at(x)->m_name == p_name)
+      return s_motorArray.at(x);
+  return new Motor(p_name, p_input, p_type, p_reverse);
+}
