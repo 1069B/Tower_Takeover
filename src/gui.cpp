@@ -34,6 +34,8 @@ int Robot::defineGUI(){
   m_gui.addButtonScreenChange("Subsystems", "Left Intake", "Left_Intake");
   m_gui.addButton("Subsystems", "Right Intake", 180, 80, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Right Intake", "Right_Intake");
+  m_gui.addButton("Subsystems", "Base", 180, 80, 150, 30);
+  m_gui.addButtonScreenChange("Subsystems", "Base", "Holonomic");
 
   m_gui.addButton("Subsystems", "Cotrol_Main", 330, 40, 150, 30);
   m_gui.addButtonScreenChange("Subsystems", "Cotrol_Main", "Main Controller");

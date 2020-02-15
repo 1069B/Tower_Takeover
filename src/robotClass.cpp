@@ -1,6 +1,7 @@
 #include "robotClass.hpp"
 #include "robot/devices/motorClass.hpp"
 #include "robot/graphical/components/alertClass.hpp"
+#include "robot/subsystems/baseComponents/holonomicClass.hpp"
 
 Robot::Robot():
   m_gui("Home"),
@@ -8,7 +9,7 @@ Robot::Robot():
   m_partnerController(pros::E_CONTROLLER_PARTNER),
   m_timer(),
   m_config("Robot_Config.txt"),
-  m_base(*this, HOLONOMIC, ACTIVE_CORRECTIONS, true),
+  m_base(*this, 200),
   m_tray(*this, "Tray"),
   m_slider(*this, "Slider"),
   m_leftIntake(*this, "Left_Intake"),
@@ -19,8 +20,6 @@ Robot::Robot():
     //   m_robotMode = m_config.readString("Comp_Mode");
     // else
     //   m_robotMode = "DriverControl";
-
-    m_base.initialize();
 
     m_tray.initialize("TrayMotor", 5, 0, 675, false);
     m_slider.initialize("SliderMotor", 8, -25, 680, true);
@@ -51,7 +50,7 @@ int Robot::task(){
 
   m_tray.task();
   m_slider.task();
-  m_base.driverControl();
+  m_base.task();
   m_leftIntake.task();
   m_rightIntake.task();
 
@@ -73,33 +72,35 @@ TaskScheduler& Robot::getTaskScheduler(){
 }
 
 int Robot::autonmous(){
+  m_robotMode = ROBOT_AUTO;
+  m_base.goToVector(200, 90, 0);
   //m_base.autonomous();
-  m_base.m_frontRightMotor->setVelocity(75);
-  m_base.m_frontLeftMotor->setVelocity(75);
-  m_base.m_backRightMotor->setVelocity(75);
-  m_base.m_backLeftMotor->setVelocity(75);
-  pros::delay(750);
-  m_base.m_frontRightMotor->setVelocity(-75);
-  m_base.m_frontLeftMotor->setVelocity(-75);
-  m_base.m_backRightMotor->setVelocity(-75);
-  m_base.m_backLeftMotor->setVelocity(-75);
-  pros::delay(1000);
-  m_base.m_frontRightMotor->setVelocity(0);
-  m_base.m_frontLeftMotor->setVelocity(0);
-  m_base.m_backRightMotor->setVelocity(0);
-  m_base.m_backLeftMotor->setVelocity(0);
-  m_slider.goToVelocity(100);
-  m_slider.task();
-  pros::delay(1500);
-  m_slider.goToVelocity(0);
-  m_slider.task();
+  // m_base.m_frontRightMotor->setVelocity(75);
+  // m_base.m_frontLeftMotor->setVelocity(75);
+  // m_base.m_backRightMotor->setVelocity(75);
+  // m_base.m_backLeftMotor->setVelocity(75);
+  // pros::delay(750);
+  // m_base.m_frontRightMotor->setVelocity(-75);
+  // m_base.m_frontLeftMotor->setVelocity(-75);
+  // m_base.m_backRightMotor->setVelocity(-75);
+  // m_base.m_backLeftMotor->setVelocity(-75);
+  // pros::delay(1000);
+  // m_base.m_frontRightMotor->setVelocity(0);
+  // m_base.m_frontLeftMotor->setVelocity(0);
+  // m_base.m_backRightMotor->setVelocity(0);
+  // m_base.m_backLeftMotor->setVelocity(0);
+  // m_slider.goToVelocity(100);
+  // m_slider.task();
+  // pros::delay(1500);
+  // m_slider.goToVelocity(0);
+  // m_slider.task();
   return 0;
 }
 
 int Robot::driverControl(){
   m_robotMode = ROBOT_OPERATER;
-  g_alert.draw("Left Intake Speed: " + std::to_string(m_partnerController.Axis3.getValue()));
-  m_leftIntake.goToVelocity(m_partnerController.Axis3.getValue());
+  //g_alert.draw("Left Intake Speed: " + std::to_string(m_partnerController.Axis3.getValue()));
+  m_leftIntake.goToVelocity(-m_partnerController.Axis3.getValue());
   m_rightIntake.goToVelocity(m_partnerController.Axis2.getValue());
 
   if(m_partnerController.ButtonL1.state() == true)
@@ -139,12 +140,14 @@ int Robot::driverControl(){
   else if(m_partnerController.ButtonB.state() == true){
     m_slider.goToLimitLow();
   }
+
+  m_base.driverControl();
   return 0;
 }
 
 int Robot::disabled(){
   m_robotMode = ROBOT_DISABLED;
-  m_base.disabled();
+  //m_base.disabled();
   // m_leftIntake.disabled();
   // m_rightIntake.disabled();
   m_tray.goToVelocity(0);

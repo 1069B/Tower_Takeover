@@ -1,11 +1,11 @@
 #include "robot/varibleDecleration.hpp"
 #include "robot/devices/externalFileClass.hpp"
-#include "baseClassV2.hpp"
+#include "baseClass.hpp"
 
 #ifndef TANKCLASS_H
 #define TANKCLASS_H
 
-class Tank:BaseV2{
+class Tank:Base{
 private:
 
 public:

@@ -92,6 +92,7 @@ struct PortSelector;
 
 class Arm;
 class Base;
+class Holonomic;
 class Intake;
 class Odometry;
 

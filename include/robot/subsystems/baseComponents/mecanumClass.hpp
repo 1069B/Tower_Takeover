@@ -1,11 +1,11 @@
 #include "robot/varibleDecleration.hpp"
 #include "robot/devices/externalFileClass.hpp"
-#include "baseClassV2.hpp"
+#include "baseClass.hpp"
 
 #ifndef MECANUMCLASS_H
 #define MECANUMCLASS_H
 
-class Mecanum:BaseV2{
+class Mecanum:Base{
 private:
 
 public:

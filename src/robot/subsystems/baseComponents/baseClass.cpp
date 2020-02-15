@@ -1,24 +1,29 @@
-#include "robot/subsystems/baseComponents/baseClassV2.hpp"
+#include "robot/subsystems/baseComponents/baseClass.hpp"
 #include "robot/subsystems/odometryClass.hpp"
 
-BaseV2::BaseV2(Robot &p_robot, const int p_maximumVelocity):
+Base::Base(Robot &p_robot, const int p_maximumVelocity):
 m_robot(p_robot),
 m_odometry(*(new Odometry(p_robot, "LeftTrackingWheel", "RightTrackingWheel", "CenterTrackingWheel"))),
 m_config("base_config.txt"){
   m_maximumVelocity = p_maximumVelocity;
 }
 
-int BaseV2::setMaximumVelocity(const int p_maximumVelocity){
+int Base::setMaximumVelocity(const int p_maximumVelocity){
   m_maximumVelocity = p_maximumVelocity;
   return 0;
 }
 
-double BaseV2::setBrakeMode(const pros::motor_brake_mode_e p_brakeMode){
+double Base::setBrakeMode(const pros::motor_brake_mode_e p_brakeMode){
   m_brakeMode = p_brakeMode;
   return 0;
 }
 
-int BaseV2::goToPosition(const double p_xPosition, const double p_yPosition, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity){
+int Base::driverControl(){
+  m_baseState = BASE_DRIVER_DEPENDENT;
+  return 0;
+}
+
+int Base::goToPosition(const double p_xPosition, const double p_yPosition, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity){
   m_movementInProgress = true;
   m_finalXPosition = p_xPosition;
   m_finalXPosition = p_yPosition;
@@ -30,7 +35,7 @@ int BaseV2::goToPosition(const double p_xPosition, const double p_yPosition, con
   return 0;
 }
 
-int BaseV2::goToOrientation(const double p_orientation, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity){
+int Base::goToOrientation(const double p_orientation, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity){
   m_movementInProgress = true;
   m_finalOrientation = p_orientation;
   m_movementSpeedUpPercent = p_speedUpPercent;
@@ -40,7 +45,7 @@ int BaseV2::goToOrientation(const double p_orientation, const double p_speedUpPe
   return 0;
 }
 
-int BaseV2::goToVector(const double p_translationalVelocity, const double p_translationalAngle, const double p_angularVelocity){
+int Base::goToVector(const double p_translationalVelocity, const double p_translationalAngle, const double p_angularVelocity){
   m_motionTranslationVelocity = p_translationalVelocity;
   m_motionTranslationAngle = p_translationalAngle;// Relative to Robot NOT FIELD
   m_motionOrientationVelocity = p_angularVelocity;
@@ -48,7 +53,7 @@ int BaseV2::goToVector(const double p_translationalVelocity, const double p_tran
   return 0;
 }
 
-int BaseV2::superTask(){
+int Base::superTask(){
   m_odometry.task();
 
   switch ((int)m_baseState) {

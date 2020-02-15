@@ -44,7 +44,7 @@ int Intake::setBrakeMode(const pros::motor_brake_mode_e p_brakeMode){
 }
 
 int Intake::goToVelocity(const int p_velocity){
-  g_alert.draw("Left Intake Speed': " + std::to_string(p_velocity));
+  //g_alert.draw("Left Intake Speed': " + std::to_string(p_velocity));
   if(!m_movementInProgess){
     if(m_mode == MANIPULATOR_TOGGLE_FORWARD || m_mode == MANIPULATOR_TOGGLE_FORWARD){
       if(abs(p_velocity) < 5)

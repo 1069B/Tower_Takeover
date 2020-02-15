@@ -4,8 +4,8 @@
 #ifndef BASECLASSV2_H
 #define BASECLASSV2_H
 
-class BaseV2{
-protected:
+class Base{
+public:
   /*Basic Varibles*/
   std::string m_name = "Base";
   Robot &m_robot;
@@ -45,11 +45,13 @@ protected:
 
   ExternalFile m_config;
 
-  BaseV2(Robot &p_robot, const int p_maximumVelocity);
+  Base(Robot &p_robot, const int p_maximumVelocity);
 
   int setMaximumVelocity(const int p_maximumVelocity);
 
   double setBrakeMode(const pros::motor_brake_mode_e p_brakeMode);
+
+  int driverControl();
 
   int goToPosition(const double p_xPosition, const double p_yPosition, const double p_speedUpPercent, const double p_speedDownPercent, const int p_intialVelocity, const int p_maximumVelocity);
 

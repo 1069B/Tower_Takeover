@@ -6,7 +6,8 @@
 #include "robot/graphical/GUIClass.hpp"
 #include "robot/subsystems/armClass.hpp"
 #include "robot/subsystems/intakeClass.hpp"
-#include "robot/subsystems/baseClass.hpp"
+#include "robot/subsystems/baseComponents/baseClass.hpp"
+#include "robot/subsystems/baseComponents/holonomicClass.hpp"
 
 #ifndef ROBOTCLASS_H
 #define ROBOTCLASS_H
@@ -19,7 +20,7 @@ private:
   ExternalFile m_config;
   TaskScheduler m_taskScheduler;
 
-  Base m_base;
+  Holonomic m_base;
 
   Arm m_tray;
   Arm m_slider;

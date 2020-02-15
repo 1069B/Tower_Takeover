@@ -10,6 +10,10 @@ void initialize(){
 
 void disabled() {
   robot.disabled();
+  while(true){
+    robot.task();
+    pros::delay(2);
+  }
 }
 
 void competition_initialize() {
@@ -18,6 +22,10 @@ void competition_initialize() {
 
 void autonomous() {
   robot.autonmous();
+  while(true){
+    robot.task();
+    pros::delay(2);
+  }
 }
 
 void opcontrol(){

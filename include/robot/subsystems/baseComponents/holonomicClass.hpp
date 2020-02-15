@@ -1,11 +1,11 @@
 #include "robot/varibleDecleration.hpp"
 #include "robot/devices/externalFileClass.hpp"
-#include "baseClassV2.hpp"
+#include "baseClass.hpp"
 
 #ifndef HOLONOMICCLASS_H
 #define HOLONOMICCLASS_H
 
-class Holonomic:BaseV2{
+class Holonomic: public Base{
 private:
   Motor& m_frontLeftMotor;
   Motor& m_frontRightMotor;
@@ -17,8 +17,8 @@ private:
   int m_desiredBackLeftVelocity = 0;
   int m_desiredBackRightVelocity = 0;
 
-  bool m_speedUpCurve = false;
-	bool m_driftTurning = false;
+  bool m_speedUpCurve = true;
+	bool m_driftTurning = true;
 
   int m_speedUpCoeffiecientA = 201;
 	int m_speedUpCoeffiecientB = 5;
