@@ -34,6 +34,8 @@ private:
   int defineGUI();
   friend class Base;
   friend class Odometry;
+
+  int m_programNumber = 0;
 public:
   Controller m_mainController;
   Controller m_partnerController;
@@ -53,6 +55,13 @@ public:
   TaskScheduler& getTaskScheduler();
 
   RobotMode getRobotMode();
+
+  int autoRed();
+  int autoBlue();
+  int autoSkills();
+
+  int baseStop();
+  int baseTo(int speed, int orientation, int turning, int duration);
 };
 
 #endif // ROBOTCLASS_H

@@ -17,7 +17,11 @@ void disabled() {
 }
 
 void competition_initialize() {
-
+  robot.disabled();
+  while(true){
+    robot.task();
+    pros::delay(2);
+  }
 }
 
 void autonomous() {

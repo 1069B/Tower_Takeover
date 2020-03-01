@@ -11,16 +11,13 @@ int Robot::defineGUI(){
   m_base.defineGUI("Home");
 
   m_gui.addScreen("Home");
-  m_gui.addButton("Home", "Subsystems", 150, 150, 150, 30);
+  m_gui.addButton("Home", "Subsystems", 150, 110, 150, 30);
   m_gui.addButtonScreenChange("Home", "Subsystems", "Subsystems");
-  m_gui.addButton("Home", "+1", 20, 20, 150, 30);
-  m_gui.addButtonVaribleCounter("Home", "+1", &x, 1);
-  m_gui.addButton("Home", "-1", 300, 20, 150, 30);
-  m_gui.addButtonVaribleCounter("Home", "-1", &x, -1);
+  m_gui.addButton("Home", "Auto Selector", 150, 150, 150, 30);
+  m_gui.addButtonScreenChange("Home", "Auto Selector", "Autonomous_Side_Selector");
   m_gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
   m_gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
   m_gui.addLabel("Home", 80, 80, whiteText, "Robot Mode: %s", &m_robotModeString);
-  m_gui.addToggle("Home", 20, 80, 75, 30, &c);
 
   m_gui.addScreen("Subsystems");
   m_gui.addButton("Subsystems", "Odometry", 20, 40, 150, 30);
@@ -68,5 +65,22 @@ int Robot::defineGUI(){
 
   //m_gui.addButton("Timer1", 0, 160, 200, 150, 20);
   //m_gui.addButtonAction("Timer1", 0,"Go Back", "Home");
+
+  m_gui.addScreen("Autonomous_Side_Selector");
+  m_gui.addLabel("Autonomous_Side_Selector", 200, 10, redText, "Which Side Are You On?");
+  m_gui.addRectangle("Autonomous_Side_Selector", 0, 0, 480, 40, whiteText);
+
+  m_gui.addButton("Autonomous_Side_Selector", "Red", 75, 50, 140, 30);
+  m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Red", "Home");
+  m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Red", &m_programNumber, AUTO_RED);
+
+  m_gui.addButton("Autonomous_Side_Selector", "Blue", 75, 100, 140, 30);
+  m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Blue", "Home");
+  m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Blue", &m_programNumber, AUTO_BLUE);
+
+  m_gui.addButton("Autonomous_Side_Selector", "Skills", 75, 150, 140, 30);
+  m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Skills", "Home");
+  m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Skills", &m_programNumber, AUTO_SKILLS);
+
   return 0;
 }
