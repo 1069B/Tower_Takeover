@@ -57,48 +57,30 @@ int Robot::autoSkills(){
   baseStop();
 
   // Cube in Large Blue Area
-  baseTo(75, 180, 0, 1500);
+  baseTo(75, 180, 0, 1600);
   baseStop();
 
   // Robot forward
-  m_base.goToVector(75, 0, 0);
-  robot.task();
-  pros::delay(1000);
-
+  baseTo(75, 0, 0, 1200);
   baseStop();
-  pros::delay(1000);
+
   // Robot align with wall
-  m_base.goToVector(75, 90, 0);
-  robot.task();
-  pros::delay(500);
-
+  baseTo(75, 90, 0, 500);
   baseStop();
-  pros::delay(1000);
+
 // Robot Rotate
-  m_base.goToVector(0, 0, -25);
-  robot.task();
-  pros::delay(750);
+  baseTo(0, 0, -25, 1500);
+  baseStop();
+
 // Robot drifting towards back wall
-  m_base.goToVector(125, 270, 0);
-  robot.task();
-  pros::delay(4000);
+  baseTo(125, 270, 8, 4000);
 
+  // Translate along back wall
+  baseTo(125, 275, 0, 3000);
   baseStop();
-  pros::delay(1000);
-// Robot against back wall
-  m_base.goToVector(50, 180, 0);
-  robot.task();
-  pros::delay(1000);
 
-  baseStop();
-  pros::delay(1000);
-// Translate along back wall
-  m_base.goToVector(125, 275, 0);
-  robot.task();
-  pros::delay(2500);
+    return 0;
 
-  baseStop();
-  pros::delay(1000);
 // Back out of red large scoring zone
   m_base.goToVector(75, 90, 0);
   robot.task();
