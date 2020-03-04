@@ -12,6 +12,9 @@ int Robot::baseTo(int speed, int orientation, int turning, int duration){
   m_base.goToVector(speed, orientation, turning);
   robot.task();
   pros::delay(duration);
+  m_base.goToVector(0, 0, 0);
+  robot.task();
+  pros::delay(500);
   return 0;
 }
 
@@ -24,87 +27,18 @@ int Robot::autoBlue(){
 }
 
 int Robot::autoSkills(){
-  // Against Wall
-  baseTo(25, 90, 0, 1000);
-  baseStop();
+  baseTo(75, 0, 0, 1000); // Cube in Red Small
+  baseTo(100, 177, 0, 4500); // Back robot up along wall 1
+  baseTo(100, 90, 0, 1500); // Drift away from wall 1 to get second cube
+  baseTo(0, 0, 40, 1000); // Angle Robot back towards large red
+  baseTo(110, 180, -7, 3100); // Move robot back towards scoring zone
+  baseTo(150, 180, 0, 250);// Nudge 2 cubes into large red zone
+  baseTo(65, 0, 0, 750);// Forwards away from zone
+  baseTo(150, 104, 0, 3000);// Drift towards wall 3 step 1
+  baseTo(150, 82, 0, 3000);// Drift towards wall 3 step 2
+  baseTo(125, 180, 0, 200); // Back robot up along wall 1
 
-  // Cube in Blue Small
-  baseTo(75, 0, 0, 1000);
-  baseStop();
 
-  // Back towards large
-  baseTo(125, 174, 0, 3500);
-  baseStop();
-
-  // Shift right
-  baseTo(75, 270, 0, 2000);
-  baseStop();
-
-  // Cube in Angle for 2 greens
-  baseTo(0, 0, -50, 750);
-  baseStop();
-
-  // Cube in Back two greens
-  baseTo(75, 180, 0, 3000);
-  baseStop();
-
-  // Cube in Turn
-  baseTo(0, 0, 25, 1500);
-  baseStop();
-
-  // Robot against Wall
-  baseTo(75, 90, 0, 600);
-  baseStop();
-
-  // Cube in Large Blue Area
-  baseTo(75, 180, 0, 1600);
-  baseStop();
-
-  // Robot forward
-  baseTo(75, 0, 0, 1200);
-  baseStop();
-
-  // Robot align with wall
-  baseTo(75, 90, 0, 500);
-  baseStop();
-
-// Robot Rotate
-  baseTo(0, 0, -25, 1500);
-  baseStop();
-
-// Robot drifting towards back wall
-  baseTo(125, 270, 8, 2000);
-  baseStop();
-  // Translate along back wall
-  // baseTo(125, 275, 10, 3000);
-  // baseStop();
-
-    return 0;
-
-// Back out of red large scoring zone
-  m_base.goToVector(75, 90, 0);
-  robot.task();
-  pros::delay(500);
-
-  baseStop();
-  pros::delay(1000);
-
-  m_base.goToVector(150, 345, 0);
-  robot.task();
-  pros::delay(8000);
-
-  baseStop();
-  pros::delay(1000);
-
-  m_base.goToVector(125, 180, 0);
-  robot.task();
-  pros::delay(1000);
-
-  baseStop();
-  //
-  // m_base.goToVector(0, 270, 100);
-  // m_timer.addActionDelay(1000);
-  // robot.task();
 
 
   return 0;
