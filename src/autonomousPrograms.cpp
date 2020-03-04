@@ -73,11 +73,11 @@ int Robot::autoSkills(){
   baseStop();
 
 // Robot drifting towards back wall
-  baseTo(125, 270, 8, 4000);
-
-  // Translate along back wall
-  baseTo(125, 275, 0, 3000);
+  baseTo(125, 270, 8, 2000);
   baseStop();
+  // Translate along back wall
+  // baseTo(125, 275, 10, 3000);
+  // baseStop();
 
     return 0;
 
