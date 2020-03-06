@@ -11,12 +11,10 @@ int Robot::defineGUI(){
   m_base.defineGUI("Home");
 
   m_gui.addScreen("Home");
-  m_gui.addButton("Home", "Subsystems", 150, 110, 150, 30);
+  m_gui.addButton("Home", "Subsystems", 50, 100, 150, 30);
   m_gui.addButtonScreenChange("Home", "Subsystems", "Subsystems");
-  m_gui.addButton("Home", "Auto Selector", 150, 150, 150, 30);
+  m_gui.addButton("Home", "Auto Selector", 200, 100, 150, 30);
   m_gui.addButtonScreenChange("Home", "Auto Selector", "Autonomous_Side_Selector");
-  m_gui.addLabel("Home", 20, 200, whiteText, "SD Card is Connected: %b", (std::function<bool()>) &ExternalFile::SDCardIsInserted);
-  m_gui.addLabel("Home", 200, 20, whiteText, "X: %d", &x);
   m_gui.addLabel("Home", 80, 80, whiteText, "Robot Mode: %s", &m_robotModeString);
 
   m_gui.addScreen("Subsystems");

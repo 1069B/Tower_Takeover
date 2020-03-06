@@ -33,13 +33,18 @@ int Robot::autoSkills(){
   baseTo(0, 0, 40, 1000); // Angle Robot back towards large red
   baseTo(110, 180, -7, 3100); // Move robot back towards scoring zone
   baseTo(150, 180, 0, 250);// Nudge 2 cubes into large red zone
-  baseTo(65, 0, 0, 750);// Forwards away from zone
-  baseTo(150, 104, 0, 3000);// Drift towards wall 3 step 1
-  baseTo(150, 82, 0, 3000);// Drift towards wall 3 step 2
-  baseTo(125, 180, 0, 200); // Back robot up along wall 1
-
-
-
+  baseTo(50, 0, 0, 750);// Forwards away from zone
+  baseTo(150, 102, 0, 3000);// Drift towards wall 3 step 1
+  baseTo(150, 85, 0, 2250);// Drift towards wall 3 step 2
+  baseTo(100, 0, 0, 750);// Shift around two cubes
+  baseTo(50, 90, 0, 2000);// Right to wall
+  baseTo(125, 180 - 5, 0, 1250);// Forwards into Blue Area
+  baseTo(150, 180, 0, 250);// Nudge 2 cubes into large red zone
+  baseTo(125, 0 + 2, 0, 3000);
+  baseTo(125, 345, 0, 2000);
+  baseTo(0, 0, 30, 1000);
+  baseTo(200, 0, 0, 2000);
+  baseTo(200, 180, 0, 1000);
 
   return 0;
 }
