@@ -53,10 +53,11 @@ enum BaseMode {
 };
 
 enum AutonomousSide{
-  AUTO_BLUE = 0,
-  AUTO_RED = 1,
-  AUTO_SKILLS = 2,
-  AUTO_NONE = 3
+  AUTO_DEFAULT = 0,
+  AUTO_BLUE = 1,
+  AUTO_RED = 2,
+  AUTO_SKILLS = 3,
+  AUTO_NONE = 4
 };
 
 enum Direction{

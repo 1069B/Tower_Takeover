@@ -23,7 +23,7 @@ Robot::Robot():
 
     m_tray.initialize("TrayMotor", 5, 0, 675, false);
     m_slider.initialize("SliderMotor", 8, -25, 680, true);
-    m_leftIntake.initialize("Left_Intake_Motor", 6, false);
+    m_leftIntake.initialize("Left_Intake_Motor", 18, false);
     m_rightIntake.initialize("Right_Intake_Motor", 9, true);
 
     m_partnerController.Axis2.setMultiplier(2);
@@ -73,7 +73,6 @@ TaskScheduler& Robot::getTaskScheduler(){
 
 int Robot::autonmous(){
   m_robotMode = ROBOT_AUTO;
-  m_programNumber = AUTO_SKILLS;
   switch(m_programNumber) {
     case AUTO_RED:
       autoRed();
@@ -85,6 +84,13 @@ int Robot::autonmous(){
 
     case AUTO_SKILLS:
       autoSkills();
+      break;
+
+    case AUTO_DEFAULT:
+      autoDefault();
+      break;
+
+    case AUTO_NONE:
       break;
   }
   return 0;

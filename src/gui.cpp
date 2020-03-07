@@ -13,9 +13,10 @@ int Robot::defineGUI(){
   m_gui.addScreen("Home");
   m_gui.addButton("Home", "Subsystems", 50, 100, 150, 30);
   m_gui.addButtonScreenChange("Home", "Subsystems", "Subsystems");
-  m_gui.addButton("Home", "Auto Selector", 200, 100, 150, 30);
+  m_gui.addButton("Home", "Auto Selector", 250, 100, 150, 30);
   m_gui.addButtonScreenChange("Home", "Auto Selector", "Autonomous_Side_Selector");
   m_gui.addLabel("Home", 80, 80, whiteText, "Robot Mode: %s", &m_robotModeString);
+  m_gui.addLabel("Home", 80, 20, whiteText, "Program Mode: %d", &m_programNumber);
 
   m_gui.addScreen("Subsystems");
   m_gui.addButton("Subsystems", "Odometry", 20, 40, 150, 30);
@@ -72,13 +73,17 @@ int Robot::defineGUI(){
   m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Red", "Home");
   m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Red", &m_programNumber, AUTO_RED);
 
-  m_gui.addButton("Autonomous_Side_Selector", "Blue", 75, 100, 140, 30);
+  m_gui.addButton("Autonomous_Side_Selector", "Blue", 75, 90, 140, 30);
   m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Blue", "Home");
   m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Blue", &m_programNumber, AUTO_BLUE);
 
-  m_gui.addButton("Autonomous_Side_Selector", "Skills", 75, 150, 140, 30);
+  m_gui.addButton("Autonomous_Side_Selector", "Skills", 75, 130, 140, 30);
   m_gui.addButtonScreenChange("Autonomous_Side_Selector", "Skills", "Home");
   m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "Skills", &m_programNumber, AUTO_SKILLS);
+
+  m_gui.addButton("Autonomous_Side_Selector", "None", 75, 170, 140, 30);
+  m_gui.addButtonScreenChange("Autonomous_Side_Selector", "None", "Home");
+  m_gui.addButtonVaribleChange("Autonomous_Side_Selector", "None", &m_programNumber, AUTO_NONE);
 
   return 0;
 }

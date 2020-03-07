@@ -55,43 +55,43 @@ int Holonomic::task(){
 
     if(m_baseState == BASE_DRIVER_DEPENDENT){
       if(m_speedUpCurve && m_driftTurning){// Speed Up and Drift Turning
-        m_desiredFrontLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/1.1));
-        m_desiredFrontRightVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/1.1));
-        m_desiredBackLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/1.1));
-        m_desiredBackRightVelocity =speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/1.1));
+        m_desiredFrontLeftVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/1.1));
+        m_desiredFrontRightVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/1.1));
+        m_desiredBackLeftVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+(m_robot.m_mainController.Axis1.getValue()/1.1));
+        m_desiredBackRightVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-(m_robot.m_mainController.Axis1.getValue()/1.1));
       }
       else if(m_speedUpCurve && !m_driftTurning){// Speed Up and Point Turning
         if((m_robot.m_mainController.Axis1.getValue()) > 10 || (m_robot.m_mainController.Axis1.getValue()) < -10){// Detects Turning
-          m_desiredFrontLeftVelocity = speedUp(-m_robot.m_mainController.Axis1.getValue());
-          m_desiredFrontRightVelocity = speedUp(m_robot.m_mainController.Axis1.getValue());
-          m_desiredBackLeftVelocity = speedUp(-m_robot.m_mainController.Axis1.getValue());
-          m_desiredBackRightVelocity = speedUp(m_robot.m_mainController.Axis1.getValue());
+          m_desiredFrontLeftVelocity = (int)speedUp(-m_robot.m_mainController.Axis1.getValue());
+          m_desiredFrontRightVelocity = (int)speedUp(m_robot.m_mainController.Axis1.getValue());
+          m_desiredBackLeftVelocity = (int)speedUp(-m_robot.m_mainController.Axis1.getValue());
+          m_desiredBackRightVelocity = (int)speedUp(m_robot.m_mainController.Axis1.getValue());
         }
         else{//Translational Movement
-          m_desiredFrontLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
-          m_desiredFrontRightVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
-          m_desiredBackLeftVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
-          m_desiredBackRightVelocity = speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
+          m_desiredFrontLeftVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
+          m_desiredFrontRightVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
+          m_desiredBackLeftVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue());
+          m_desiredBackRightVelocity = (int)speedUp(m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue());
         }
       }
       else if(!m_speedUpCurve && m_driftTurning){// No Speed Up and Drift Turning
-        m_desiredFrontLeftVelocity = m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue();
-        m_desiredFrontRightVelocity = m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue();
-        m_desiredBackLeftVelocity = m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue();
-        m_desiredBackRightVelocity = m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue();
+        m_desiredFrontLeftVelocity = (int)m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue();
+        m_desiredFrontRightVelocity = (int)m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue();
+        m_desiredBackLeftVelocity = (int)m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue()-m_robot.m_mainController.Axis1.getValue();
+        m_desiredBackRightVelocity = (int)m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue()+m_robot.m_mainController.Axis1.getValue();
       }
       else if(!m_speedUpCurve && !m_driftTurning){// No Speed Up and Point Turning
         if((m_robot.m_mainController.Axis1.getValue()) > 10 || (m_robot.m_mainController.Axis1.getValue()) < -10){// Detects Turning
-          m_desiredFrontLeftVelocity = -m_robot.m_mainController.Axis1.getValue();
-          m_desiredFrontRightVelocity = m_robot.m_mainController.Axis1.getValue();
-          m_desiredBackLeftVelocity = -m_robot.m_mainController.Axis1.getValue();
-          m_desiredBackRightVelocity = m_robot.m_mainController.Axis1.getValue();
+          m_desiredFrontLeftVelocity = (int)-m_robot.m_mainController.Axis1.getValue();
+          m_desiredFrontRightVelocity = (int)m_robot.m_mainController.Axis1.getValue();
+          m_desiredBackLeftVelocity = (int)-m_robot.m_mainController.Axis1.getValue();
+          m_desiredBackRightVelocity = (int)m_robot.m_mainController.Axis1.getValue();
         }
         else{//Translational Movement
-          m_desiredFrontLeftVelocity = m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue();
-          m_desiredFrontRightVelocity = m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue();
-          m_desiredBackLeftVelocity = m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue();
-          m_desiredBackRightVelocity = m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue();
+          m_desiredFrontLeftVelocity = (int)m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue();
+          m_desiredFrontRightVelocity = (int)m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue();
+          m_desiredBackLeftVelocity = (int)m_robot.m_mainController.Axis3.getValue()+m_robot.m_mainController.Axis4.getValue();
+          m_desiredBackRightVelocity = (int)m_robot.m_mainController.Axis3.getValue()-m_robot.m_mainController.Axis4.getValue();
         }
       }
       else{
@@ -101,10 +101,10 @@ int Holonomic::task(){
         m_desiredBackRightVelocity = 0;
       }
 
-      m_backLeftMotor.setVelocity(m_desiredBackLeftVelocity);
-      m_frontLeftMotor.setVelocity(m_desiredFrontLeftVelocity);
-      m_frontRightMotor.setVelocity(m_desiredFrontRightVelocity);
-      m_backRightMotor.setVelocity(m_desiredBackRightVelocity);
+      m_backLeftMotor.setVelocity((int)m_desiredBackLeftVelocity);
+      m_frontLeftMotor.setVelocity((int)m_desiredFrontLeftVelocity);
+      m_frontRightMotor.setVelocity((int)m_desiredFrontRightVelocity);
+      m_backRightMotor.setVelocity((int)m_desiredBackRightVelocity);
     }
 
     if(m_baseState == BASE_AUTONOMOUS_MOVEMENT){

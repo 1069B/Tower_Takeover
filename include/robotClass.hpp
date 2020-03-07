@@ -35,7 +35,7 @@ private:
   friend class Base;
   friend class Odometry;
 
-  int m_programNumber = 0;
+  int m_programNumber = AUTO_DEFAULT;
 public:
   Controller m_mainController;
   Controller m_partnerController;
@@ -59,9 +59,10 @@ public:
   int autoRed();
   int autoBlue();
   int autoSkills();
+  int autoDefault();
 
   int baseStop();
-  int baseTo(int speed, int orientation, int turning, int duration);
+  int baseTo(double speed, double orientation, double turning, int duration);
 };
 
 #endif // ROBOTCLASS_H

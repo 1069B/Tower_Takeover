@@ -12,10 +12,10 @@ private:
   Motor& m_backLeftMotor;
   Motor& m_backRightMotor;
 
-  int m_desiredFrontLeftVelocity = 0;
-  int m_desiredFrontRightVelocity = 0;
-  int m_desiredBackLeftVelocity = 0;
-  int m_desiredBackRightVelocity = 0;
+  double m_desiredFrontLeftVelocity = 0;
+  double m_desiredFrontRightVelocity = 0;
+  double m_desiredBackLeftVelocity = 0;
+  double m_desiredBackRightVelocity = 0;
 
   bool m_speedUpCurve = true;
 	bool m_driftTurning = true;
