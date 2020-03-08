@@ -51,8 +51,8 @@ int Robot::autoRed(){
 }
 
 int Robot::autoBlue(){
-  baseTo(80, 0, 0, 1000); // Cube in Red Small
-  baseTo(80, 200, 0, 1000); // Back robot up
+  baseTo(75, 0, 0, 1000); // Cube in Red Small
+  baseTo(75, 200, 0, 1000); // Back robot up
   baseTo(0, 0, -40, 2000); // Back robot up
 
   m_slider.goToVelocity(100);
@@ -78,7 +78,7 @@ int Robot::autoSkills(){
   baseTo(110, 180, -7, 3100); // Move robot back towards scoring zone
   baseTo(150, 180, 0, 250);// Nudge 2 cubes into large red zone
   baseTo(50, 0, 0, 750);// Forwards away from zone
-  baseTo(150, 102, 0, 3000);// Drift towards wall 3 step 1
+  baseTo(150, 101, 0, 3000);// Drift towards wall 3 step 1
   baseTo(150, 86, 0, 2250);// Drift towards wall 3 step 2
   baseTo(100, 0, 0, 750);// Shift around two cubes
   baseTo(50, 90, 0, 1900);// Right to wall
